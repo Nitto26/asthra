@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   ASTHRA ’26 — MATHEMATICS FESTIVAL STYLES
+   Cinematic · Editorial · Solar Eclipse Corona · Dark Velvet · Luxury Gold
+   ========================================================================== */
+
+:root {
+  --bg-deep: #030303;
+  --bg-primary: #040404;
+  --bg-surface: #0a0a0c;
+  --bg-card: rgba(14, 14, 18, 0.85);
+
+  --gold-primary: #D4AF37;
+  --gold-bright: #F5D77F;
+  --gold-light: #FFF4D0;
+  --gold-dark: #9A7B1C;
+  --gold-glow: rgba(212, 175, 55, 0.35);
+  --gold-gradient: linear-gradient(135deg, #FFF4D0 0%, #F5D77F 25%, #D4AF37 60%, #9A7B1C 100%);
+
+  --red-accent: #E52828;
+  --red-bright: #FF4D4D;
+  --red-glow: rgba(229, 40, 40, 0.4);
+
+  --text-white: #F8F7F4;
+  --text-offwhite: #E6E3DB;
+  --text-secondary: #A6A195;
+  --text-muted: #6E6A60;
+
+  --font-serif-display: 'Playfair Display', 'Cinzel', Georgia, serif;
+  --font-serif-title: 'Cinzel', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: var(--bg-primary);
+  scroll-snap-type: y proximity;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-offwhite);
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #040404;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.35);
+  color: #FFFFFF;
+}
+
+/* App Container */
+.app-container {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+}
+
+/* Full-Screen Section Architecture */
+.snap-section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 85px 1.5rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .snap-section {
+    padding: 100px 3.5rem 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .snap-section {
+    padding: 110px 5rem 3rem;
+  }
+}
+
+/* Atmospheric Noise */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 99;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Fonts */
+.font-serif-display { font-family: var(--font-serif-display); }
+.font-serif-title { font-family: var(--font-serif-title); }
+.font-sans { font-family: var(--font-sans); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Gold Text Gradient */
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.gold-text-glow {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(245, 215, 127, 0.35));
+  display: inline-block;
+}
+
+/* Buttons */
+.btn-gold-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #070707;
+  background: var(--gold-gradient);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-gold-solid:hover {
+  box-shadow: 0 6px 30px rgba(245, 215, 127, 0.55);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-gold-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: rgba(15, 15, 18, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.btn-gold-outline:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+/* Explore Indicator */
+.explore-indicator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.3s ease;
+}
+
+.explore-indicator:hover {
+  color: var(--gold-bright);
+}
+
+.explore-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: pulse-border 3s infinite ease-in-out;
+}
+
+.explore-indicator:hover .explore-circle {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(3px);
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: rgba(212, 175, 55, 0.3); transform: scale(1); }
+  50% { border-color: rgba(245, 215, 127, 0.7); transform: scale(1.05); }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

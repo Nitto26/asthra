@@ -1,0 +1,255 @@
+import React, { useState } from 'react';
+import { siteConfig } from '../data/config';
+import { sound } from '../utils/sound';
+import { Mail, Phone, MapPin, Copy, ExternalLink, Send, CheckCircle2 } from 'lucide-react';
+import confetti from 'canvas-confetti';
+
+export default function ContactSection() {
+  const [copiedField, setCopiedField] = useState(null);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  const handleCopy = (text, fieldName) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(fieldName);
+    sound.playClick();
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    sound.playSuccess();
+    setFormSubmitted(true);
+    confetti({
+      particleCount: 50,
+      spread: 60,
+      origin: { y: 0.8 },
+      colors: ['#D4AF37', '#FFF4D0', '#F5D77F', '#E52828']
+    });
+    setTimeout(() => {
+      setFormData({ name: '', email: '', message: '' });
+      setFormSubmitted(false);
+      setFormOpen(false);
+    }, 3000);
+  };
+
+  return (
+    <section
+      id="contact"
+      className="snap-section relative flex flex-col justify-between min-h-[100svh] overflow-hidden py-14 sm:py-16 md:py-20 w-full"
+      style={{
+        backgroundColor: '#050505',
+        paddingLeft: 'max(1.25rem, env(safe-area-inset-left))',
+        paddingRight: 'max(1.25rem, env(safe-area-inset-right))',
+      }}
+    >
+      {/* Background: Grand Stone Archway with Golden Archer Statue matching Reference 5 */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <img
+          src="/assets/contact-bg.webp"
+          alt="Golden Archer Cathedral Monument"
+          loading="lazy"
+          className="w-full h-full object-cover object-[78%_center] sm:object-right-center opacity-45 sm:opacity-55 filter brightness-95"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/75 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/70" />
+      </div>
+
+      <div className="relative z-20 w-full max-w-[1700px] mx-auto flex-1 flex flex-col justify-between px-2 sm:px-6 lg:px-12">
+        {/* Top Section Tag & Headline matching Reference 5 */}
+        <div className="flex flex-col items-start pt-2 sm:pt-4 max-w-2xl">
+          <div className="flex items-center gap-3">
+            <span className="text-[10.5px] sm:text-[11px] font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase">
+              CONTACT
+            </span>
+            <span className="w-10 sm:w-12 h-[1.5px] bg-[#D4AF37]/80" />
+          </div>
+
+        {/* Headline */}
+        <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-[#F8F7F4] mt-2 select-none leading-[0.98]">
+          <span>LET’S</span>
+          <br />
+          <span>BUILD A</span>
+          <br />
+          <span className="gold-text font-serif-display font-medium">BRIGHTER</span>
+          <br />
+          <span>TOMORROW</span>
+        </h2>
+
+        {/* Subline with Horizontal Accent */}
+        <div className="mt-4 flex flex-col items-start gap-1.5">
+          <p className="text-[9px] sm:text-xs font-sans font-medium tracking-[0.25em] text-[#A6A195] uppercase">
+            {siteConfig.contact.subline}
+          </p>
+          <span className="w-12 h-[1.5px] bg-[#D4AF37]/80" />
+        </div>
+      </div>
+
+      {/* Bottom Information Stack matching Reference 5 */}
+      <div className="relative z-20 my-auto sm:my-0 pt-8 pb-4 flex flex-col gap-4 max-w-lg">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] sm:text-[11px] font-sans font-semibold tracking-[0.3em] text-[#E6E3DB] uppercase">
+            OR GET IN TOUCH
+          </span>
+          <span className="w-8 h-[1px] bg-white/30" />
+        </div>
+
+        {/* EMAIL Item matching Reference 5 */}
+        <div
+          onClick={() => handleCopy(siteConfig.contact.email, 'email')}
+          className="group flex items-center gap-4 py-2 cursor-pointer text-left"
+        >
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/60 bg-[#161410] flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-[#F5D77F] transition-transform">
+            <Mail size={18} className="text-[#F5D77F]" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
+              EMAIL
+            </span>
+            <span className="font-mono text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors flex items-center gap-2">
+              {siteConfig.contact.email}
+              {copiedField === 'email' ? (
+                <span className="text-[10px] text-emerald-400 font-sans">Copied!</span>
+              ) : (
+                <Copy size={11} className="text-white/30 group-hover:text-white/60" />
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* PHONE Item matching Reference 5 */}
+        <a
+          href={`tel:${siteConfig.contact.phone.replace(/\s+/g, '')}`}
+          className="group flex items-center gap-4 py-2 text-decoration-none text-left"
+        >
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/60 bg-[#161410] flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-[#F5D77F] transition-transform">
+            <Phone size={18} className="text-[#F5D77F]" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
+              PHONE
+            </span>
+            <span className="font-mono text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors">
+              {siteConfig.contact.phoneDisplay}
+            </span>
+          </div>
+        </a>
+
+        {/* LOCATION Item matching Reference 5 */}
+        <a
+          href="https://maps.google.com/?q=College+of+Engineering+Trivandrum"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-start gap-4 py-2 text-decoration-none text-left"
+        >
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/60 bg-[#161410] flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-[#F5D77F] transition-transform mt-0.5">
+            <MapPin size={18} className="text-[#F5D77F]" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
+              LOCATION
+            </span>
+            <span className="text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors leading-relaxed">
+              College of Engineering Trivandrum<br />
+              Thiruvananthapuram, Kerala
+            </span>
+          </div>
+        </a>
+      </div>
+
+      {/* Bottom Socials & Quick Inquiry Trigger */}
+      <div className="relative z-20 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
+        <div className="flex items-center gap-4">
+          {siteConfig.contact.socials.map((soc) => (
+            <a
+              key={soc.name}
+              href={soc.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-sans font-medium tracking-wider text-[#A6A195] hover:text-[#F5D77F] transition-colors flex items-center gap-1"
+            >
+              {soc.name} <ExternalLink size={10} className="opacity-50" />
+            </a>
+          ))}
+        </div>
+
+        <button
+          onClick={() => setFormOpen(true)}
+          className="btn-gold-outline !py-1.5 !px-3.5 text-[10px]"
+        >
+          SEND MESSAGE
+        </button>
+      </div>
+
+      </div>
+
+      {/* Quick Inquiry Modal */}
+      {formOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+          onClick={() => setFormOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-md rounded-2xl border border-[#D4AF37]/50 bg-[#0C0C0E] p-6 shadow-2xl text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xs font-sans font-semibold tracking-[0.2em] text-[#F5D77F] uppercase mb-4">
+              SEND QUICK INQUIRY
+            </h3>
+
+            {formSubmitted ? (
+              <div className="py-6 flex flex-col items-center text-center gap-2 text-emerald-400">
+                <CheckCircle2 size={32} />
+                <span className="font-sans font-semibold text-sm text-[#F8F7F4]">Message Received!</span>
+                <p className="text-xs text-[#A6A195]">Our coordinators will respond shortly.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleFormSubmit} className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  required
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/10 text-xs text-[#F8F7F4] placeholder-white/30 focus:outline-none focus:border-[#D4AF37]"
+                />
+                <input
+                  type="email"
+                  required
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/10 text-xs text-[#F8F7F4] placeholder-white/30 focus:outline-none focus:border-[#D4AF37]"
+                />
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Your Message / Inquiry"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/10 text-xs text-[#F8F7F4] placeholder-white/30 focus:outline-none focus:border-[#D4AF37] resize-none"
+                />
+                <div className="flex items-center justify-end gap-2 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setFormOpen(false)}
+                    className="btn-gold-outline !py-2 !px-4 text-xs"
+                  >
+                    CANCEL
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn-gold-solid !py-2 !px-5 text-xs"
+                  >
+                    <Send size={12} /> SEND
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}

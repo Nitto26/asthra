@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Golden Gradient Definition -->
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF0B3"/>
+      <stop offset="30%" stop-color="#E5C058"/>
+      <stop offset="70%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#9A7B1C"/>
+    </linearGradient>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Archer Silhouette & Bow Geometry -->
+  <g filter="url(#goldGlow)">
+    <!-- Bow Arc -->
+    <path d="M 68 18 C 82 36 82 64 68 82" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Bowstring -->
+    <path d="M 68 18 L 48 50 L 68 82" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round" opacity="0.8" fill="none"/>
+    <!-- Arrow -->
+    <path d="M 44 50 L 82 50" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="84,50 78,46 79,50 78,54" fill="url(#goldGrad)"/>
+    <!-- Archer Silhouette (Athletic pose) -->
+    <!-- Head -->
+    <circle cx="48" cy="32" r="5" fill="url(#goldGrad)"/>
+    <!-- Helmet crest / Feather -->
+    <path d="M 46 27 C 43 21 49 19 51 22 C 50 25 48 26 46 27 Z" fill="url(#goldGrad)"/>
+    <!-- Torso / Armor -->
+    <path d="M 45 38 L 52 38 L 50 56 L 43 56 Z" fill="url(#goldGrad)"/>
+    <!-- Left Arm holding bow -->
+    <path d="M 50 40 L 64 45 L 70 48" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Right Arm pulling string -->
+    <path d="M 44 41 L 38 46 L 47 50" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Robe / Skirt / Tunic -->
+    <path d="M 42 56 L 52 56 L 56 68 L 36 68 Z" fill="url(#goldGrad)"/>
+    <!-- Left Leg lunging forward -->
+    <path d="M 52 68 L 62 76 L 64 88" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Right Leg grounded back -->
+    <path d="M 38 68 L 30 76 L 28 88" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
