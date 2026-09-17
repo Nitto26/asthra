@@ -135,7 +135,7 @@ export default function ContactSection() {
 
           {/* LOCATION Item */}
           <a
-            href="https://maps.google.com/?q=College+of+Engineering+Trivandrum"
+            href="https://maps.google.com/?q=St+Thomas+College+Autonomous+Thrissur"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-start gap-4 py-1.5 sm:py-2 text-decoration-none text-left"
@@ -148,8 +148,8 @@ export default function ContactSection() {
                 LOCATION
               </span>
               <span className="text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors leading-relaxed">
-                College of Engineering Trivandrum<br />
-                Thiruvananthapuram, Kerala
+                St. Thomas College (Autonomous)<br />
+                Thrissur, Kerala
               </span>
             </div>
           </a>

@@ -52,7 +52,7 @@ export default function AboutSection({ onScrollNext }) {
         {/* Formatted Content with Rich Contrast & Spacing */}
         <div className="space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           <p className="text-[#F8F7F4] font-medium leading-relaxed">
-            <strong className="text-[#F5D77F] font-semibold">St. Thomas College, Thrissur</strong>, is the oldest Catholic College in Kerala and is the first College to have been established by diocesan clergy in India and is older than all the Universities in Kerala. It was founded as an educational institution in 1889.
+            <strong className="text-[#F5D77F] font-semibold">St. Thomas College (Autonomous), Thrissur</strong>, is the oldest Catholic College in Kerala and is the first College to have been established by diocesan clergy in India and is older than all the Universities in Kerala. It was founded as an educational institution in 1889.
           </p>
           
           <p className="leading-relaxed text-[#DCD8CF]">

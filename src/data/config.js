@@ -1,11 +1,11 @@
 export const siteConfig = {
   festName: "ASTHRA ’26",
   subTitle: "MATHEMATICS FEST",
-  college: "College of Engineering Trivandrum",
+  college: "St. Thomas College (Autonomous) Thrissur",
   department: "Department of Mathematics",
   dates: "NOVEMBER 27, 2026",
   eventDate: "2026-11-27T00:00:00",
-  venue: "Main Auditorium & Ramanujan Complex, CET",
+  venue: "Main Auditorium & Jubilee Complex, St. Thomas College Thrissur",
   
   // Navigation items
   navLinks: [
@@ -114,7 +114,7 @@ export const siteConfig = {
       accentColor: "red",
       image: "/assets/event-4-workshop.webp",
       fallbackImage: "/assets/event-4-workshop.jpg",
-      venue: "Gauss Amphitheatre, CET",
+      venue: "Gauss Amphitheatre, STC",
       teamSize: "Individual Knockout",
       prizePool: "₹ 12,000",
       coordinators: "Adarsh V. (+91 97455 33412) & Pooja N.",
@@ -222,15 +222,15 @@ export const siteConfig = {
     headingGold: "BRIGHTER",
     headingWhiteEnd: "TOMORROW",
     subline: "REACH OUT. BE A PART OF ASTHRA ’26.",
-    email: "asthra@cet.ac.in",
+    email: "asthra@stthomas.ac.in",
     phone: "+91 98765 43210",
     phoneDisplay: "+91 98765 43210",
-    address: "Department of Mathematics, College of Engineering Trivandrum, Thiruvananthapuram, Kerala — 695016",
+    address: "Department of Mathematics, St. Thomas College (Autonomous), Thrissur, Kerala — 680001",
     socials: [
-      { name: "Instagram", url: "https://instagram.com/asthra.cet", handle: "@asthra.cet" },
+      { name: "Instagram", url: "https://instagram.com/asthra.stc", handle: "@asthra.stc" },
       { name: "WhatsApp", url: "https://chat.whatsapp.com/asthra26", handle: "ASTHRA Community" },
-      { name: "LinkedIn", url: "https://linkedin.com/company/asthra-fest", handle: "ASTHRA CET" },
-      { name: "YouTube", url: "https://youtube.com/@asthra-cet", handle: "ASTHRA Media" }
+      { name: "LinkedIn", url: "https://linkedin.com/company/asthra-stc", handle: "ASTHRA STC" },
+      { name: "YouTube", url: "https://youtube.com/@asthra-stc", handle: "ASTHRA Media" }
     ]
   }
 };

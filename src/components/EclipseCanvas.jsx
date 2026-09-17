@@ -555,17 +555,23 @@ export default function EclipseCanvas() {
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
 
-      // Dynamically scale eclipseGroup so "AS" and "'26" ALWAYS extend outside the black circle on ANY screen width
+      // Dynamically scale eclipseGroup so it is grand, prominent, and cinematic across all device widths
       let eclipseScale = 1.0;
-      if (width < 640) {
-        // Mobile (320px - 640px): scale down to ~50-60% so "AS" and "'26" are fully outside the black circle
-        eclipseScale = Math.max(0.48, Math.min(0.65, width / 750));
+      if (width < 480) {
+        // Mobile Phones (< 480px): Grand, dominant eclipse scale
+        eclipseScale = Math.max(1.0, Math.min(1.18, 420 / Math.max(width, 320)));
+      } else if (width < 768) {
+        // Phablets / Small Tablets (480px - 768px)
+        eclipseScale = 1.12;
       } else if (width < 1024) {
-        // Tablet (640px - 1024px)
-        eclipseScale = Math.max(0.68, Math.min(0.88, width / 1100));
+        // Tablets (768px - 1024px)
+        eclipseScale = 1.15;
+      } else if (width < 1440) {
+        // Standard Desktop & Laptops
+        eclipseScale = 1.08;
       } else {
-        // Desktop
-        eclipseScale = 1.0;
+        // Ultra-wide / 4K Screens
+        eclipseScale = 1.16;
       }
       eclipseGroup.scale.set(eclipseScale, eclipseScale, 1);
     };
@@ -581,12 +587,12 @@ export default function EclipseCanvas() {
 
     // Animation Loop
     let animationFrameId;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Dynamic downward circumference sweep animation (smooth, elegant orbit)
       const sweepSpeed = 0.95; // Radians per second

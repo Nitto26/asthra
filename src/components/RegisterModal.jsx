@@ -75,7 +75,7 @@ export default function RegisterModal({ isOpen, onClose }) {
           Festival Delegate Pass
         </h2>
         <p className="text-xs text-[#A6A195] font-sans mt-1">
-          Join 1,000+ mathematics enthusiasts for 3 days of competitions, workshops, and keynote reflections at CET.
+          Join 1,000+ mathematics enthusiasts for 3 days of competitions, workshops, and keynote reflections at St. Thomas College.
         </p>
 
         {submitted ? (
@@ -90,7 +90,7 @@ export default function RegisterModal({ isOpen, onClose }) {
             <div className="mt-4 p-4 rounded-xl bg-black/50 border border-[#D4AF37]/30 text-left w-full max-w-sm font-mono text-xs text-[#E6E3DB] space-y-1">
               <div><span className="text-[#A6A195]">DELEGATE ID:</span> AST-2026-{(Math.random() * 90000 + 10000).toFixed(0)}</div>
               <div><span className="text-[#A6A195]">PASS TIER:</span> {passType.toUpperCase()}</div>
-              <div><span className="text-[#A6A195]">VENUE:</span> Ramanujan Complex, CET</div>
+              <div><span className="text-[#A6A195]">VENUE:</span> Jubilee Complex, STC Thrissur</div>
             </div>
             <button
               onClick={onClose}
@@ -184,7 +184,7 @@ export default function RegisterModal({ isOpen, onClose }) {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. CET Trivandrum"
+                  placeholder="e.g. St. Thomas College Thrissur"
                   value={formData.college}
                   onChange={(e) => setFormData({ ...formData, college: e.target.value })}
                   className="w-full h-11 px-4 rounded-xl bg-black/60 border border-white/15 text-xs sm:text-sm text-white placeholder-white/35 focus:outline-none focus:border-[#D4AF37] transition-colors"

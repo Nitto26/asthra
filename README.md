@@ -1,6 +1,6 @@
 # ASTHRA ’26 — Mathematics Fest 🌌✨
 
-> **St. Thomas College, Thrissur · Department of Mathematics**  
+> **St. Thomas College (Autonomous), Thrissur · Department of Mathematics**  
 > *A Cinematic, 3D WebGL Mathematics Festival Experience*
 
 ![Asthra '26 Banner](public/assets/event-1-inauguration.webp)
@@ -9,7 +9,7 @@
 
 ## 🌟 Overview
 
-**ASTHRA ’26** is the official annual mathematics festival organized by the Department of Mathematics at St. Thomas College, Thrissur. This web application delivers a photorealistic 3D WebGL solar eclipse hero section, luxury dark-editorial design system, seamless looping background video, interactive event timelines, live social drive metrics, and instant pass generation.
+**ASTHRA ’26** is the official annual mathematics festival organized by the Department of Mathematics at St. Thomas College (Autonomous), Thrissur. This web application delivers a photorealistic 3D WebGL solar eclipse hero section, luxury dark-editorial design system, seamless looping background video, interactive event timelines, live social drive metrics, and instant pass generation.
 
 ---
 

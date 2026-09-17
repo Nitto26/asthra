@@ -225,7 +225,7 @@ export default function EventModal({ event, onClose, onOpenGeneralRegister }) {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. CET Trivandrum"
+                    placeholder="e.g. St. Thomas College Thrissur"
                     value={formData.college}
                     onChange={(e) => setFormData({ ...formData, college: e.target.value })}
                     className="w-full h-11 px-4 rounded-xl bg-black/60 border border-white/15 text-xs sm:text-sm text-white placeholder-white/35 focus:outline-none focus:border-[#D4AF37] transition-colors"

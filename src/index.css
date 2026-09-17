@@ -88,29 +88,67 @@ body {
   overflow-x: hidden;
 }
 
-/* Full-Screen Section Architecture */
+/* Full-Screen Section Architecture with Fluid Media Queries */
 .snap-section {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   min-height: 100svh;
+  min-height: 100dvh;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  padding: 85px 1.5rem 2rem;
+  padding: max(72px, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  -webkit-overflow-scrolling: touch;
 }
 
-@media (min-width: 768px) {
+/* Small to Medium Mobile (< 480px) */
+@media (max-width: 479px) {
   .snap-section {
-    padding: 100px 3.5rem 2.5rem;
+    padding-top: max(68px, env(safe-area-inset-top));
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+    padding-left: max(0.85rem, env(safe-area-inset-left));
+    padding-right: max(0.85rem, env(safe-area-inset-right));
   }
 }
 
-@media (min-width: 1200px) {
+/* Phablets & Large Phones (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
   .snap-section {
-    padding: 110px 5rem 3rem;
+    padding: 80px 1.5rem 2rem;
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .snap-section {
+    padding: 95px 2.5rem 2.25rem;
+  }
+}
+
+/* Standard Desktops & Laptops (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .snap-section {
+    padding: 105px 4rem 2.75rem;
+  }
+}
+
+/* Ultra-wide & 4K Displays (>= 1440px) */
+@media (min-width: 1440px) {
+  .snap-section {
+    padding: 115px 5.5rem 3.5rem;
+  }
+}
+
+/* Short height screens (Landscape Mobile & Small Laptops) */
+@media (max-height: 620px) {
+  .snap-section {
+    min-height: auto;
+    padding-top: 60px;
+    padding-bottom: 30px;
   }
 }
 
@@ -245,6 +283,34 @@ body {
 @keyframes pulse-border {
   0%, 100% { border-color: rgba(212, 175, 55, 0.3); transform: scale(1); }
   50% { border-color: rgba(245, 215, 127, 0.7); transform: scale(1.05); }
+}
+
+/* Responsive Touch Targets & Mobile Adaptations */
+@media (max-width: 640px) {
+  /* Minimum comfortable touch targets */
+  button, a, [role="button"] {
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+  
+  .btn-gold-solid, .btn-gold-outline {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Fluid Responsive Typography & Container Utilities */
+@media (max-width: 767px) {
+  .hero-heading {
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-heading {
+    letter-spacing: 0.04em;
+  }
 }
 
 /* Reduced Motion */
