@@ -17,38 +17,17 @@ export const siteConfig = {
 
   // Social Drive configuration
   socialDrive: {
-    badge: "SOCIAL DRIVE",
-    headlineWhite: "NUMBERS CAN CHANGE",
-    headlineGold: "LIVES.",
-    subline: "A SMALL CONTRIBUTION. A BIGGER TOMORROW.",
-    totalRaised: 132450, // Displayed as ₹ 1,32,450 with live count-up
-    currency: "₹",
-    impactTagline: "TURNING POSSIBILITIES INTO OPPORTUNITIES",
-    impactTiers: [
-      {
-        id: "edu",
-        title: "EDUCATION",
-        subtitle: "SUPPORTS LEARNING RESOURCES",
-        amount: "₹ 500",
-        amountValue: 500,
-        desc: "Provides essential textbooks, geometry toolkits, and academic study kits to underprivileged students in rural high schools."
-      },
-      {
-        id: "opp",
-        title: "OPPORTUNITY",
-        subtitle: "HELPS BRIGHT MINDS GROW",
-        amount: "₹ 1,000",
-        amountValue: 1000,
-        desc: "Funds scholarship registration fees, travel grants, and digital access for talented young mathematicians to compete at regional summits."
-      },
-      {
-        id: "com",
-        title: "COMMUNITY",
-        subtitle: "BUILDS A STRONGER TOMORROW",
-        amount: "₹ 5,000",
-        amountValue: 5000,
-        desc: "Sponsors a complete interactive STEM mathematics laboratory setup and mentorship sessions at a government rural school."
-      }
+    badge: "SOCIAL IMPACT INITIATIVE",
+    title: "Social Impact Initiative",
+    paragraphs: [
+      "We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals through Bethesda Charitable Trust.",
+      "Join us in our mission to donate wheelchairs and create an inclusive environment where everyone can participate and shine in our festivities."
+    ],
+    metrics: [
+      { id: "wheelchairs", value: "50+", label: "Wheelchairs to Donate" },
+      { id: "lives", value: "200+", label: "Lives to Impact" },
+      { id: "events", value: "100%", label: "Inclusive Events" },
+      { id: "smiles", value: "∞", label: "Smiles to Create" }
     ]
   },
 
@@ -127,11 +106,34 @@ export const siteConfig = {
       time: "01:00 PM",
       timePeriod: "AFTERNOON",
       num: "04",
+      name: "INTEGRATION BEE",
+      category: "CALCULUS · SPEED · DUEL",
+      tagline: "The ultimate 1v1 calculus showdown.",
+      isHighlighted: true,
+      accentColor: "red",
+      image: "/assets/event-4-workshop.webp",
+      fallbackImage: "/assets/event-4-workshop.jpg",
+      venue: "Gauss Amphitheatre, CET",
+      teamSize: "Individual Knockout",
+      prizePool: "₹ 12,000",
+      coordinators: "Adarsh V. (+91 97455 33412) & Pooja N.",
+      fullDescription: "Head-to-head live blackboard calculus tournament. Solve complex integrals under 90-second timers with escalating difficulty brackets from Riemann sums to contour integration.",
+      rounds: [
+        { round: "Qualifier", desc: "20 rapid integral evaluations in 15 minutes" },
+        { round: "Sweet 16 Knockout", desc: "1v1 live blackboard race to compute definite integrals" },
+        { round: "Championship Bout", desc: "Multi-variable and special functions sudden death duel" }
+      ]
+    },
+    {
+      id: "05",
+      time: "02:15 PM",
+      timePeriod: "AFTERNOON",
+      num: "05",
       name: "WORKSHOP",
       category: "LEARN · EXPLORE · APPLY",
       tagline: "From theory to possibilities.",
-      isHighlighted: true,
-      accentColor: "red",
+      isHighlighted: false,
+      accentColor: "gold",
       image: "/assets/event-4-workshop.webp",
       fallbackImage: "/assets/event-4-workshop.jpg",
       venue: "Seminar Complex & Lab 2",
@@ -145,10 +147,32 @@ export const siteConfig = {
       ]
     },
     {
-      id: "05",
-      time: "02:30 PM",
+      id: "06",
+      time: "03:30 PM",
       timePeriod: "AFTERNOON",
-      num: "05",
+      num: "06",
+      name: "PAPER PRESENTATION",
+      category: "RESEARCH · DISCOVERY · EXPO",
+      tagline: "Unveiling visionary mathematical ideas.",
+      isHighlighted: true,
+      accentColor: "red",
+      image: "/assets/event-2-math-quiz.webp",
+      fallbackImage: "/assets/event-2-math-quiz.jpg",
+      venue: "Aryabhata Conference Hall",
+      teamSize: "Teams of 1 - 3",
+      prizePool: "₹ 15,000",
+      coordinators: "Kavya M. (+91 94951 88204) & Dr. R. George",
+      fullDescription: "Collegiate presentation symposium showcasing novel research, applications of graph theory, cryptography algorithms, financial mathematics, and topological modeling.",
+      rounds: [
+        { round: "Abstract Screening", desc: "Peer review of submitted research papers" },
+        { round: "Live Defense", desc: "10-minute presentation followed by 5-minute panel Q&A" }
+      ]
+    },
+    {
+      id: "07",
+      time: "04:45 PM",
+      timePeriod: "EVENING",
+      num: "07",
       name: "TREASURE HUNT",
       category: "FIND · SOLVE · UNLOCK",
       tagline: "Mathematics hides everywhere.",
@@ -168,10 +192,10 @@ export const siteConfig = {
       ]
     },
     {
-      id: "06",
-      time: "04:00 PM",
+      id: "08",
+      time: "06:00 PM",
       timePeriod: "EVENING",
-      num: "06",
+      num: "08",
       name: "VALEDICTORY",
       category: "CELEBRATE · HONOUR · INSPIRE",
       tagline: "Until next time.",
@@ -179,14 +203,14 @@ export const siteConfig = {
       accentColor: "red",
       image: "/assets/event-6-valedictory.webp",
       fallbackImage: "/assets/event-6-valedictory.jpg",
-      venue: "Main Amphitheatre",
-      teamSize: "All Attendees",
-      prizePool: "Trophies & Honors",
-      coordinators: "General Secretary, Mathematics Association",
-      fullDescription: "The grand culmination of ASTHRA ’26 celebrating victors, felicitating champions, presenting cash awards, and the passing of the ceremonial golden asthra bow.",
+      venue: "Main Auditorium",
+      teamSize: "Open to All",
+      prizePool: "Grand Trophy & Awards",
+      coordinators: "Fest General Convener",
+      fullDescription: "The grand finale ceremony honoring championship teams, distribution of the ₹ 75,000+ total prize pool, live musical symphony, and the formal closing of ASTHRA ’26.",
       rounds: [
-        { round: "Awards Presentation", desc: "Distribution of ₹50,000+ prize pool & trophies" },
-        { round: "Cultural Finale", desc: "Mathematics-inspired laser symphony and closing address" }
+        { round: "Prize Distribution", desc: "Felicitation of winners across all 8 competitive tracks" },
+        { round: "Closing Address", desc: "Vote of thanks and celebration symphony" }
       ]
     }
   ],

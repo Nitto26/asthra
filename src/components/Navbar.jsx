@@ -38,10 +38,11 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#040404]/94 backdrop-blur-xl py-4 sm:py-5 border-b border-[#D4AF37]/20 shadow-[0_12px_40px_rgba(0,0,0,0.9)]'
-            : 'bg-transparent py-6 sm:py-8'
+            ? 'bg-[#040404]/94 backdrop-blur-xl pt-4 pb-4 sm:pt-4 sm:pb-4 border-b border-[#D4AF37]/20 shadow-[0_12px_40px_rgba(0,0,0,0.9)]'
+            : 'bg-transparent pt-6 sm:pt-8 lg:pt-9 pb-4'
         }`}
         style={{
+          paddingTop: isScrolled ? 'max(1rem, env(safe-area-inset-top))' : 'max(1.75rem, env(safe-area-inset-top))',
           paddingLeft: 'max(1.5rem, env(safe-area-inset-left))',
           paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
         }}
@@ -49,7 +50,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
         <div className="relative w-full max-w-[1750px] mx-auto flex items-center justify-between px-2 sm:px-6">
           
           {/* =========================================================================
-              LEFT: Brand Logo & Typography (Significantly Larger)
+              LEFT: Brand Logo (Complete Emblem + Typography Graphic)
               ========================================================================= */}
           <a
             href="#hero"
@@ -57,37 +58,24 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
               e.preventDefault();
               handleNavClick('hero');
             }}
-            className="flex items-center gap-3.5 sm:gap-4 group text-decoration-none focus:outline-none z-10"
+            className="flex items-center group text-decoration-none focus:outline-none z-10"
             aria-label="ASTHRA '26 Home"
           >
-            <div className="w-10 h-10 sm:w-13 sm:h-13 relative flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#D4AF37]/15 blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105">
+              <div className="absolute inset-0 bg-[#D4AF37]/15 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <img
-                src="/assets/logo.svg"
-                alt="ASTHRA Emblem"
-                className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+                src="/assets/logo.png"
+                alt="ASTHRA '26 Logo"
+                className="h-full w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(212,175,55,0.45)]"
               />
-            </div>
-            <div className="flex flex-col text-left">
-              <div className="flex items-baseline gap-1.5 sm:gap-2">
-                <span className="font-serif-title font-bold text-lg sm:text-2xl tracking-wider text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors leading-tight">
-                  ASTHRA
-                </span>
-                <span className="font-serif-title text-sm sm:text-lg font-semibold text-[#D4AF37] leading-tight">
-                  ’26
-                </span>
-              </div>
-              <span className="text-[9px] sm:text-[11px] font-sans font-semibold tracking-[0.3em] text-[#A6A195] group-hover:text-[#D4AF37] uppercase leading-tight mt-0.5 sm:mt-1 transition-colors">
-                MATHEMATICS FEST
-              </span>
             </div>
           </a>
 
           {/* =========================================================================
-              CENTER: Desktop Navigation Links (Larger Pill & Type)
+              CENTER: Desktop Navigation Links (Vertically Centered Pill & Type)
               ========================================================================= */}
           <nav
-            className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-8 xl:gap-11 px-8 py-3 rounded-full border border-white/[0.09] bg-black/55 backdrop-blur-xl shadow-[0_6px_30px_rgba(0,0,0,0.65)]"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center gap-8 xl:gap-11 px-8 py-3 rounded-full border border-white/[0.09] bg-black/55 backdrop-blur-xl shadow-[0_6px_30px_rgba(0,0,0,0.65)]"
             aria-label="Main Navigation"
           >
             {siteConfig.navLinks.map((link) => {
@@ -169,7 +157,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
           MOBILE FULLSCREEN MENU DRAWER
           ========================================================================= */}
       <div
-        className={`fixed inset-0 z-40 bg-[#060606]/98 backdrop-blur-3xl transition-all duration-400 flex flex-col justify-between px-6 sm:px-12 pt-24 pb-8 ${
+        className={`fixed inset-0 z-40 bg-[#060606]/98 backdrop-blur-3xl transition-all duration-300 flex flex-col px-6 sm:px-12 ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         style={{
@@ -178,42 +166,28 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
           paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
         }}
       >
-        {/* Top Header inside Drawer with Close Button */}
-        <div className="flex items-center justify-between max-w-lg mx-auto w-full pb-4 border-b border-white/10">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#E52828] animate-pulse" />
-            <span className="text-[10px] font-sans font-semibold tracking-[0.3em] text-[#D4AF37] uppercase">
-              NAVIGATION MENU
-            </span>
-          </div>
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#A6A195] hover:text-[#F8F7F4] focus:outline-none cursor-pointer"
-            aria-label="Close menu"
-          >
-            <X size={15} />
-          </button>
-        </div>
+        {/* Top Spacer to prevent any overlap with the fixed top header */}
+        <div className="h-28 sm:h-32 shrink-0" />
 
-        {/* Menu Links */}
-        <div className="relative z-10 flex flex-col gap-4 sm:gap-5 my-auto max-w-lg mx-auto w-full py-4">
+        {/* Menu Links (Centered in the remaining screen space) */}
+        <div className="flex-1 flex flex-col justify-center gap-2.5 sm:gap-3.5 max-w-md mx-auto w-full py-2">
           {siteConfig.navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`flex items-baseline justify-between text-left py-2.5 px-3 rounded-lg group transition-all duration-200 cursor-pointer ${
+                className={`flex items-center justify-between text-left py-3 px-4 rounded-xl group transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-[#D4AF37]/10 text-[#F5D77F]'
+                    ? 'bg-[#D4AF37]/15 text-[#F5D77F] border border-[#D4AF37]/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                     : 'text-[#E6E3DB] hover:bg-white/5 hover:text-[#F5D77F]'
                 }`}
               >
-                <div className="flex items-baseline gap-4">
+                <div className="flex items-center gap-4">
                   <span className="font-mono text-xs text-[#D4AF37]/70 group-hover:text-[#D4AF37]">
                     {link.num}
                   </span>
-                  <span className="font-serif-display text-2xl sm:text-3xl font-normal tracking-wide">
+                  <span className="font-serif-display text-xl sm:text-2xl font-normal tracking-wide">
                     {link.label}
                   </span>
                 </div>
@@ -228,23 +202,19 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
           })}
         </div>
 
-        {/* Drawer Bottom CTA and Info */}
-        <div className="relative z-10 pt-5 border-t border-white/10 flex flex-col gap-3.5 max-w-lg mx-auto w-full">
+        {/* Drawer Bottom CTA with Generous Padding */}
+        <div className="shrink-0 pt-4 pb-4 sm:pb-6 max-w-md mx-auto w-full">
           <button
             onClick={() => {
               setMobileMenuOpen(false);
               sound.playSuccess();
               onOpenRegister();
             }}
-            className="w-full h-11 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-black font-sans font-bold text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.4)] cursor-pointer"
+            className="w-full h-12 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-black font-sans font-bold text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] cursor-pointer transition-all"
           >
             <Sparkles size={14} />
             <span>REGISTER FOR FESTIVAL</span>
           </button>
-          
-          <div className="text-center text-[10px] font-mono tracking-widest text-[#787369]">
-            {siteConfig.dates} · {siteConfig.college}
-          </div>
         </div>
       </div>
     </>

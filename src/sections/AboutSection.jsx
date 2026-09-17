@@ -1,41 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import React from 'react';
 import { sound } from '../utils/sound';
 
 export default function AboutSection({ onScrollNext }) {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay policy handle
-      });
-    }
-  }, []);
-
   return (
     <section
       id="about"
-      className="snap-section relative flex flex-col justify-between overflow-hidden min-h-[100svh] w-full select-none"
+      className="snap-section relative flex flex-col justify-center overflow-hidden min-h-[100svh] w-full select-none py-12 sm:py-16"
       style={{
         backgroundColor: '#020202'
       }}
     >
       {/* =========================================================================
-          BACKGROUND VIDEO LAYER: 0913.mp4 (Permanently Muted, Crystal Clear)
+          BACKGROUND IMAGE LAYER
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <video
-          ref={videoRef}
-          src="/assets/about-video.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img
+          src="/assets/WhatsApp Image 2026-09-16 at 7.54.49 PM.jpeg"
+          alt="About Section Background"
           className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.05] saturate-[1.05] opacity-90"
         />
-        {/* Minimal Gradient for Text Contrast & Section Transitions */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-transparent pointer-events-none" />
+        {/* Gradient for Text Contrast & Section Transitions */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/70 pointer-events-none" />
       </div>
 
@@ -53,7 +38,7 @@ export default function AboutSection({ onScrollNext }) {
       </div>
 
       {/* =========================================================================
-          MAIN TEXT CONTENT: Seamless Typography Directly over Video
+          MAIN TEXT CONTENT: Seamless Typography Directly over Image
           ========================================================================= */}
       <div className="relative z-20 my-auto py-6 max-w-3xl text-left">
         {/* Title */}
@@ -91,21 +76,6 @@ export default function AboutSection({ onScrollNext }) {
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Subtle Scroll Indicator CTA */}
-      <div className="relative z-20 pb-2 flex justify-center">
-        <button
-          onClick={() => {
-            sound.playClick();
-            onScrollNext('events');
-          }}
-          className="group flex items-center gap-2 px-5 py-2 rounded-full border border-white/15 bg-black/50 backdrop-blur-md text-[10px] font-sans font-semibold tracking-[0.25em] text-[#A6A195] hover:text-[#F5D77F] hover:border-[#D4AF37]/50 uppercase transition-all shadow-lg cursor-pointer"
-          aria-label="Scroll to Events"
-        >
-          <span>VIEW FESTIVAL EVENTS</span>
-          <ChevronDown size={13} className="text-[#D4AF37] group-hover:translate-y-0.5 transition-transform" />
-        </button>
       </div>
     </section>
   );

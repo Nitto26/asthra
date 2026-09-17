@@ -158,30 +158,6 @@ export default function ContactSection() {
         </a>
       </div>
 
-      {/* Bottom Socials & Quick Inquiry Trigger */}
-      <div className="relative z-20 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
-        <div className="flex items-center gap-4">
-          {siteConfig.contact.socials.map((soc) => (
-            <a
-              key={soc.name}
-              href={soc.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-sans font-medium tracking-wider text-[#A6A195] hover:text-[#F5D77F] transition-colors flex items-center gap-1"
-            >
-              {soc.name} <ExternalLink size={10} className="opacity-50" />
-            </a>
-          ))}
-        </div>
-
-        <button
-          onClick={() => setFormOpen(true)}
-          className="btn-gold-outline !py-1.5 !px-3.5 text-[10px]"
-        >
-          SEND MESSAGE
-        </button>
-      </div>
-
       </div>
 
       {/* Quick Inquiry Modal */}

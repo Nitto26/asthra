@@ -585,12 +585,37 @@ export default function EclipseCanvas() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('pointerdown', handlePointerDown);
 
+    // Responsive Camera & Eclipse Scaling Handler
+    const updateSize = () => {
+      if (!container) return;
+      const width = container.clientWidth || window.innerWidth;
+      const height = container.clientHeight || window.innerHeight;
+      const aspect = width / height;
+      camera.aspect = aspect;
+      camera.position.z = 21;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+
+      // Dynamically scale eclipseGroup so "AS" and "'26" ALWAYS extend outside the black circle on ANY screen width
+      let eclipseScale = 1.0;
+      if (width < 640) {
+        // Mobile (320px - 640px): scale down to ~50-60% so "AS" and "'26" are fully outside the black circle
+        eclipseScale = Math.max(0.48, Math.min(0.65, width / 750));
+      } else if (width < 1024) {
+        // Tablet (640px - 1024px)
+        eclipseScale = Math.max(0.68, Math.min(0.88, width / 1100));
+      } else {
+        // Desktop
+        eclipseScale = 1.0;
+      }
+      eclipseGroup.scale.set(eclipseScale, eclipseScale, 1);
+    };
+
+    updateSize();
+
     // Resize Handler
     const handleResize = () => {
-      if (!container) return;
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      updateSize();
     };
 
     window.addEventListener('resize', handleResize);
