@@ -159,47 +159,6 @@ export default function EclipseCanvas() {
     const starField = new THREE.Points(starGeo, starShaderMat);
     scene.add(starField);
 
-    // 4. Subtle Meteor / Shooting Star System
-    const meteorGroup = new THREE.Group();
-    scene.add(meteorGroup);
-
-    const createMeteor = () => {
-      const startX = (Math.random() - 0.5) * 32 - 4;
-      const startY = 14 + Math.random() * 5;
-      const startZ = -3 - Math.random() * 8;
-
-      const meteorGeo = new THREE.BufferGeometry();
-      const positions = new Float32Array([
-        startX, startY, startZ,
-        startX - 3.8, startY - 2.6, startZ
-      ]);
-      const colors = new Float32Array([
-        1.0, 0.98, 0.9,
-        0.85, 0.65, 0.2
-      ]);
-
-      meteorGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      meteorGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-      const meteorMat = new THREE.LineBasicMaterial({
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending,
-      });
-
-      const line = new THREE.Line(meteorGeo, meteorMat);
-      line.userData = {
-        vx: 0.42 + Math.random() * 0.2,
-        vy: -0.28 - Math.random() * 0.15,
-        life: 1.0,
-        decay: 0.018 + Math.random() * 0.01,
-      };
-      meteorGroup.add(line);
-    };
-
-    let meteorSpawnTimer = 0;
-
     // 5. Deep Velvet Dark Moon Disc
     const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, 128);
     const moonMat = new THREE.ShaderMaterial({
@@ -667,32 +626,6 @@ export default function EclipseCanvas() {
       // Diamond flare breathing shimmer
       const shimmer = 1.0 + Math.sin(elapsedTime * 3.5) * 0.04 + Math.sin(elapsedTime * 7.5) * 0.015;
       diamondSprite.scale.set(3.4 * shimmer, 3.4 * shimmer, 1);
-
-      // Shooting star meteors
-      meteorSpawnTimer += 0.016;
-      if (meteorSpawnTimer > 4.0 && Math.random() < 0.035) {
-        createMeteor();
-        meteorSpawnTimer = 0;
-      }
-
-      for (let i = meteorGroup.children.length - 1; i >= 0; i--) {
-        const meteor = meteorGroup.children[i];
-        const pos = meteor.geometry.attributes.position.array;
-        pos[0] += meteor.userData.vx;
-        pos[1] += meteor.userData.vy;
-        pos[3] += meteor.userData.vx;
-        pos[4] += meteor.userData.vy;
-        meteor.geometry.attributes.position.needsUpdate = true;
-
-        meteor.userData.life -= meteor.userData.decay;
-        meteor.material.opacity = meteor.userData.life;
-
-        if (meteor.userData.life <= 0) {
-          meteorGroup.remove(meteor);
-          meteor.geometry.dispose();
-          meteor.material.dispose();
-        }
-      }
 
       renderer.render(scene, camera);
     };

@@ -3,7 +3,8 @@ export const siteConfig = {
   subTitle: "MATHEMATICS FEST",
   college: "College of Engineering Trivandrum",
   department: "Department of Mathematics",
-  dates: "OCTOBER 24 – 26, 2026",
+  dates: "NOVEMBER 27, 2026",
+  eventDate: "2026-11-27T00:00:00",
   venue: "Main Auditorium & Ramanujan Complex, CET",
   
   // Navigation items
