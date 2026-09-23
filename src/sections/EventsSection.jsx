@@ -181,6 +181,8 @@ export default function EventsSection({ onSelectEvent }) {
                   <img
                     src={evt.image}
                     alt={evt.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
                   />
                   {/* Cinematic dark vignette overlays */}

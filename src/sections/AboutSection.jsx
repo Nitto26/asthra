@@ -17,6 +17,8 @@ export default function AboutSection({ onScrollNext }) {
         <img
           src="/assets/WhatsApp Image 2026-09-16 at 7.54.49 PM.jpeg"
           alt="About Section Background"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.05] saturate-[1.05] opacity-90"
         />
         {/* Gradient for Text Contrast & Section Transitions */}

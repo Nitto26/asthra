@@ -39,6 +39,8 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             key={src}
             src={src}
             alt={`Social Drive Background ${idx + 1}`}
+            loading="lazy"
+            decoding="async"
             className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.7] contrast-[1.05] saturate-[1.05] ${
               idx === currentBgIndex ? 'opacity-50' : 'opacity-0'
             }`}
