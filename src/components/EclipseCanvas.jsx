@@ -13,7 +13,7 @@ import { sound } from '../utils/sound';
  * 4. RAF-throttled mouse tracking.
  * 5. Complete memory management & disposal.
  */
-export default function EclipseCanvas() {
+export default function EclipseCanvas({ onLoaded }) {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function EclipseCanvas() {
 
     let isVisible = true;
     let animationFrameId = null;
+    let hasNotifiedLoaded = false;
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
@@ -527,17 +528,24 @@ export default function EclipseCanvas() {
 
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // 10. IntersectionObserver: Pause rendering when scrolled out of Hero section!
-    // This stops GPU/CPU work when viewing About, Events, Social Drive, Contact!
+    // 10. IntersectionObserver: Strictly pause rendering when scrolled out of Hero section!
+    // This stops 100% of WebGL GPU/CPU work when viewing About, Events, Social Drive, Contact!
     const heroSection = document.getElementById('hero') || container;
     const visibilityObserver = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        if (isVisible && !animationFrameId) {
-          animate();
+        if (isVisible) {
+          if (!animationFrameId) {
+            animate();
+          }
+        } else {
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.0 }
     );
     visibilityObserver.observe(heroSection);
 
@@ -581,6 +589,16 @@ export default function EclipseCanvas() {
       starField.position.y = -targetPosY * 0.35;
 
       renderer.render(scene, camera);
+
+      // Notify parent once initial frame is completely rendered to trigger seamless fade-in
+      if (!hasNotifiedLoaded) {
+        hasNotifiedLoaded = true;
+        if (onLoaded) {
+          requestAnimationFrame(() => {
+            onLoaded();
+          });
+        }
+      }
     };
 
     animate();
