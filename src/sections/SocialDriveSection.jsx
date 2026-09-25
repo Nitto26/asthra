@@ -11,19 +11,40 @@ const bgImages = [
 
 export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = React.useRef(null);
 
-  // Automatic looping background image cross-fade
+  // Monitor section visibility
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Automatic looping background image cross-fade (only when in viewport)
+  useEffect(() => {
+    if (!isVisible) return;
+
     const timer = setInterval(() => {
       setCurrentBgIndex((prev) => (prev + 1) % bgImages.length);
     }, 4500);
     return () => clearInterval(timer);
-  }, []);
+  }, [isVisible]);
 
   const { socialDrive } = siteConfig;
 
   return (
     <section
+      ref={sectionRef}
       id="social-drive"
       className="snap-section relative flex flex-col justify-center min-h-[100svh] overflow-hidden py-12 sm:py-16 md:py-20 w-full select-none"
       style={{

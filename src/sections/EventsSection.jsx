@@ -70,13 +70,13 @@ export default function EventsSection({ onSelectEvent }) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Dynamic Ambient Background Glow tied to active event */}
+      {/* Ambient Background Glow tied to active event (Optimized with low-cost blur & opacity transition) */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[550px] rounded-full pointer-events-none z-0 opacity-20 blur-[150px] transition-all duration-700"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[850px] h-[450px] sm:h-[550px] rounded-full pointer-events-none z-0 opacity-25 blur-3xl transition-opacity duration-500"
         style={{
           background: isCurrentRed
-            ? 'radial-gradient(circle, rgba(229, 40, 40, 0.35) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(229, 40, 40, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -128,51 +128,45 @@ export default function EventsSection({ onSelectEvent }) {
             let transform = '';
             let zIndex = 10;
             let opacity = 0;
-            let brightness = 1;
 
             if (isCenter) {
               transform = 'translateX(0%) scale(1.0) rotateY(0deg) translateZ(40px)';
               zIndex = 30;
               opacity = 1;
-              brightness = 1.05;
             } else if (isLeft) {
               transform = 'translateX(-58%) scale(0.92) rotateY(10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
-              brightness = 0.88;
             } else if (isRight) {
               transform = 'translateX(58%) scale(0.92) rotateY(-10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
-              brightness = 0.88;
             } else if (offset < 0) {
               transform = 'translateX(-115%) scale(0.78) rotateY(18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
-              brightness = 0.4;
             } else {
               transform = 'translateX(115%) scale(0.78) rotateY(-18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
-              brightness = 0.4;
             }
 
             return (
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[66vw] sm:w-[320px] md:w-[380px] lg:w-[420px] max-w-[450px] h-[56vh] sm:h-[62vh] md:h-[66vh] min-h-[400px] max-h-[640px] rounded-[22px] sm:rounded-[28px] md:rounded-[34px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${
+                className={`absolute w-[66vw] sm:w-[320px] md:w-[380px] lg:w-[420px] max-w-[450px] h-[56vh] sm:h-[62vh] md:h-[66vh] min-h-[400px] max-h-[640px] rounded-[22px] sm:rounded-[28px] md:rounded-[34px] overflow-hidden cursor-pointer select-none border transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                   isCenter
                     ? isRed
-                      ? 'border-[#FF4D4D] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
-                      : 'border-[#F5D77F] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
-                    : 'border-white/35 shadow-[0_20px_50px_rgba(0,0,0,0.9)] ring-1 ring-white/15'
+                      ? 'border-[#FF4D4D] shadow-[0_12px_32px_rgba(0,0,0,0.85)] sm:shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
+                      : 'border-[#F5D77F] shadow-[0_12px_32px_rgba(0,0,0,0.85)] sm:shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
+                    : 'border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.7)] sm:shadow-[0_15px_40px_rgba(0,0,0,0.85)] ring-1 ring-white/10'
                 }`}
                 style={{
                   transform,
                   zIndex,
                   opacity,
-                  filter: `brightness(${brightness})`,
+                  willChange: 'transform, opacity',
                   backgroundColor: '#101014',
                 }}
               >
@@ -181,27 +175,35 @@ export default function EventsSection({ onSelectEvent }) {
                   <img
                     src={evt.image}
                     alt={evt.name}
-                    loading="lazy"
+                    loading={isCenter ? 'eager' : 'lazy'}
                     decoding="async"
+                    fetchPriority={isCenter ? 'high' : 'low'}
                     className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
                   />
+                  {/* Hardware-accelerated darkening veil for side cards (replaces costly filter:brightness) */}
+                  {!isCenter && (
+                    <div
+                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out"
+                      aria-hidden="true"
+                    />
+                  )}
                   {/* Cinematic dark vignette overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-10" />
                 </div>
 
                 {/* Top Poster Meta */}
-                <div className="relative z-10 p-5 sm:p-6 md:p-7 flex items-center justify-between w-full">
-                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                <div className="relative z-20 p-5 sm:p-6 md:p-7 flex items-center justify-between w-full">
+                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                     {evt.num}
                   </span>
-                  <span className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-white/90 uppercase bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                  <span className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-white/90 uppercase bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                     {evt.time} {evt.timePeriod && `· ${evt.timePeriod}`}
                   </span>
                 </div>
 
                 {/* Bottom Card Content */}
-                <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 md:p-8 flex flex-col items-center text-center">
+                <div className="absolute bottom-0 inset-x-0 z-20 p-5 sm:p-6 md:p-8 flex flex-col items-center text-center">
                   <span className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${
                     isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
                   }`}>

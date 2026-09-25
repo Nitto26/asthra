@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
-import SectionIndicator from './components/SectionIndicator';
-import MathArcSystem from './components/MathArcSystem';
 import HeroSection from './sections/HeroSection';
-import AboutSection from './sections/AboutSection';
-import EventsSection from './sections/EventsSection';
-import SocialDriveSection from './sections/SocialDriveSection';
-import ContactSection from './sections/ContactSection';
-import EventModal from './components/EventModal';
-import RegisterModal from './components/RegisterModal';
-import DonateModal from './components/DonateModal';
 import { siteConfig } from './data/config';
+
+// Lazy-load offscreen sections to make the initial page payload tiny (<40kB JS)
+const AboutSection = lazy(() => import('./sections/AboutSection'));
+const EventsSection = lazy(() => import('./sections/EventsSection'));
+const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
+const ContactSection = lazy(() => import('./sections/ContactSection'));
+
+// Lazy load modals so forms & canvas-confetti are not in the critical initial bundle
+const EventModal = lazy(() => import('./components/EventModal'));
+const RegisterModal = lazy(() => import('./components/RegisterModal'));
+const DonateModal = lazy(() => import('./components/DonateModal'));
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -99,7 +101,6 @@ export default function App() {
   return (
     <div className="app-container">
       <div className="noise-overlay" aria-hidden="true" />
-      <div className="vignette-overlay" aria-hidden="true" />
 
       {/* Fixed Navigation Bar */}
       <Navbar
@@ -113,45 +114,49 @@ export default function App() {
         {/* 01 HERO */}
         <HeroSection onExplore={scrollToSection} />
 
-        {/* 02 ABOUT */}
-        <AboutSection onScrollNext={scrollToSection} />
-
-        {/* 03 EVENTS / TIMELINE */}
-        <EventsSection onSelectEvent={setSelectedEvent} />
-
-        {/* 04 SOCIAL DRIVE */}
-        <SocialDriveSection
-          onOpenDonate={handleOpenDonate}
-          onScrollNext={scrollToSection}
-        />
-
-        {/* 05 CONTACT */}
-        <ContactSection />
+        {/* 02 - 05 Offscreen Sections (Lazy loaded on demand) */}
+        <Suspense fallback={null}>
+          <AboutSection onScrollNext={scrollToSection} />
+          <EventsSection onSelectEvent={setSelectedEvent} />
+          <SocialDriveSection
+            onOpenDonate={handleOpenDonate}
+            onScrollNext={scrollToSection}
+          />
+          <ContactSection />
+        </Suspense>
       </main>
 
-      {/* Interactive Modals */}
-      <EventModal
-        event={selectedEvent}
-        onClose={() => setSelectedEvent(null)}
-        onOpenGeneralRegister={() => {
-          setSelectedEvent(null);
-          setRegisterModalOpen(true);
-        }}
-      />
+      {/* Interactive Modals (Lazy Loaded & Rendered On-Demand Only) */}
+      <Suspense fallback={null}>
+        {selectedEvent && (
+          <EventModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+            onOpenGeneralRegister={() => {
+              setSelectedEvent(null);
+              setRegisterModalOpen(true);
+            }}
+          />
+        )}
 
-      <RegisterModal
-        isOpen={registerModalOpen}
-        onClose={() => setRegisterModalOpen(false)}
-      />
+        {registerModalOpen && (
+          <RegisterModal
+            isOpen={registerModalOpen}
+            onClose={() => setRegisterModalOpen(false)}
+          />
+        )}
 
-      <DonateModal
-        isOpen={donateModalOpen}
-        initialTier={donateTier}
-        onClose={() => {
-          setDonateModalOpen(false);
-          setDonateTier(null);
-        }}
-      />
+        {donateModalOpen && (
+          <DonateModal
+            isOpen={donateModalOpen}
+            initialTier={donateTier}
+            onClose={() => {
+              setDonateModalOpen(false);
+              setDonateTier(null);
+            }}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }
