@@ -32,12 +32,12 @@ export default function EclipseCanvas({ onLoaded }) {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = 21;
 
-    // Adaptive pixel ratio: 1.0 on mobile (<768px) to protect mobile GPUs, max 1.5 on desktop
+    // Dynamic pixel ratio: Up to 2.0 on high-density mobile & desktop displays for razor-sharp clarity
     const isMobile = window.innerWidth < 768;
-    const pixelRatio = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.0);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile, // Disable expensive MSAA on mobile devices
+      antialias: true, // Hardware-accelerated MSAA for razor-sharp gold rim and glare
       alpha: true,
       powerPreference: 'high-performance',
     });
@@ -152,8 +152,8 @@ export default function EclipseCanvas({ onLoaded }) {
     const starField = new THREE.Points(starGeo, starShaderMat);
     scene.add(starField);
 
-    // 4. Dark Moon Disc (Optimized segments from 128 to 64)
-    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, isMobile ? 48 : 64);
+    // 4. Dark Moon Disc (High-fidelity smooth curvature)
+    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, 96);
     const moonMat = new THREE.ShaderMaterial({
       vertexShader: `
         varying vec2 vUv;
@@ -180,8 +180,8 @@ export default function EclipseCanvas({ onLoaded }) {
     moon.position.z = 0.5;
     eclipseGroup.add(moon);
 
-    // 5. 24K Gold Ring (Optimized segments from 240 to 128)
-    const shinyRingGeo = new THREE.RingGeometry(RADIUS - RING_THICKNESS * 0.5, RADIUS + RING_THICKNESS * 0.5, isMobile ? 96 : 144);
+    // 5. 24K Gold Ring (Ultra-smooth 160-segment ring)
+    const shinyRingGeo = new THREE.RingGeometry(RADIUS - RING_THICKNESS * 0.5, RADIUS + RING_THICKNESS * 0.5, 160);
     const shinyRingMat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },

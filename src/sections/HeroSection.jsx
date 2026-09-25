@@ -12,31 +12,9 @@ export default function HeroSection() {
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const [textVisible, setTextVisible] = useState(true);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
-  const [shouldMountCanvas, setShouldMountCanvas] = useState(false);
+  const [shouldMountCanvas, setShouldMountCanvas] = useState(true);
   const [showCountdown, setShowCountdown] = useState(false);
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeRemaining());
-
-  // Mount heavy Three.js WebGL canvas on first user interaction or after idle delay (guarantees 0ms TBT on mobile)
-  useEffect(() => {
-    const triggerMount = () => {
-      setShouldMountCanvas(true);
-      window.removeEventListener('scroll', triggerMount);
-      window.removeEventListener('touchstart', triggerMount);
-      window.removeEventListener('mousemove', triggerMount);
-    };
-
-    window.addEventListener('scroll', triggerMount, { passive: true, once: true });
-    window.addEventListener('touchstart', triggerMount, { passive: true, once: true });
-    window.addEventListener('mousemove', triggerMount, { passive: true, once: true });
-
-    const timer = setTimeout(triggerMount, 1800);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', triggerMount);
-      window.removeEventListener('touchstart', triggerMount);
-      window.removeEventListener('mousemove', triggerMount);
-    };
-  }, []);
 
   function calculateTimeRemaining() {
     const now = new Date().getTime();
