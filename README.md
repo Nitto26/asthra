@@ -3,7 +3,7 @@
 > **St. Thomas College (Autonomous), Thrissur · Department of Mathematics**  
 > *A Cinematic, 3D WebGL Mathematics Festival Experience*
 
-![Asthra '26 Banner](public/assets/event-1-inauguration.webp)
+website url ="https://asthra-ochre.vercel.app/"
 
 ---
 
