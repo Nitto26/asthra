@@ -56,7 +56,7 @@ export default function AboutSection({ onScrollNext }) {
           <p className="text-[#F8F7F4] font-medium leading-relaxed">
             <strong className="text-[#F5D77F] font-semibold">St. Thomas College (Autonomous), Thrissur</strong>, is the oldest Catholic College in Kerala and is the first College to have been established by diocesan clergy in India and is older than all the Universities in Kerala. It was founded as an educational institution in 1889.
           </p>
-          
+
           <p className="leading-relaxed text-[#DCD8CF]">
             The Department of Mathematics started in the year 1926 and presently offers research in Mathematics along with two UG and one PG courses in Mathematics. The department consistently maintains a high level of academic excellence and intends to produce highly qualified and motivated Mathematicians.
           </p>

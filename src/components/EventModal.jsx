@@ -47,9 +47,8 @@ export default function EventModal({ event, onClose, onOpenGeneralRegister }) {
       onClick={onClose}
     >
       <div
-        className={`relative w-full max-w-2xl my-auto rounded-3xl border ${
-          isRed ? 'border-[#E52828]/60 bg-[#0E0606]' : 'border-[#D4AF37]/50 bg-[#0A0A0C]'
-        } text-left shadow-2xl p-6 sm:p-9 md:p-10`}
+        className={`relative w-full max-w-2xl my-auto rounded-3xl border ${isRed ? 'border-[#E52828]/60 bg-[#0E0606]' : 'border-[#D4AF37]/50 bg-[#0A0A0C]'
+          } text-left shadow-2xl p-6 sm:p-9 md:p-10`}
         style={{
           boxShadow: isRed ? '0 0 45px rgba(229, 40, 40, 0.3)' : '0 0 45px rgba(212, 175, 55, 0.28)'
         }}
@@ -69,9 +68,8 @@ export default function EventModal({ event, onClose, onOpenGeneralRegister }) {
           <span className="font-mono text-xs font-semibold tracking-wider text-[#D4AF37]">
             EVENT {event.num} · {event.time}
           </span>
-          <span className={`text-[9.5px] sm:text-[10px] font-sans font-bold tracking-widest uppercase px-3 py-1 rounded-full ${
-            isRed ? 'bg-[#E52828]/20 text-[#FF6B6B] border border-[#E52828]/40' : 'bg-[#D4AF37]/20 text-[#F5D77F] border border-[#D4AF37]/40'
-          }`}>
+          <span className={`text-[9.5px] sm:text-[10px] font-sans font-bold tracking-widest uppercase px-3 py-1 rounded-full ${isRed ? 'bg-[#E52828]/20 text-[#FF6B6B] border border-[#E52828]/40' : 'bg-[#D4AF37]/20 text-[#F5D77F] border border-[#D4AF37]/40'
+            }`}>
             {event.category}
           </span>
         </div>
@@ -80,7 +78,7 @@ export default function EventModal({ event, onClose, onOpenGeneralRegister }) {
         <h2 className="font-serif-display text-2xl sm:text-4xl md:text-5xl font-bold text-[#F8F7F4] tracking-wide leading-tight">
           {event.name}
         </h2>
-        
+
         <p className="text-xs sm:text-sm text-[#A6A195] font-sans mt-2 leading-relaxed">
           {event.tagline}
         </p>
