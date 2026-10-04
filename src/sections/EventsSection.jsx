@@ -70,9 +70,9 @@ export default function EventsSection({ onSelectEvent }) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Ambient Background Glow tied to active event (Optimized with low-cost blur & opacity transition) */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[850px] h-[450px] sm:h-[550px] rounded-full pointer-events-none z-0 opacity-25 blur-3xl transition-opacity duration-500"
+      {/* Dynamic Ambient Background Glow tied to active event */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[550px] rounded-full pointer-events-none z-0 opacity-20 blur-[150px] transition-all duration-700"
         style={{
           background: isCurrentRed
             ? 'radial-gradient(circle, rgba(229, 40, 40, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
@@ -103,9 +103,9 @@ export default function EventsSection({ onSelectEvent }) {
           3D COVERFLOW MOTION POSTER CAROUSEL (Tiles taking ~70% of Section)
           ========================================================================= */}
       <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center my-auto py-2 sm:py-4">
-        
+
         {/* 3D Perspective Stage */}
-        <div 
+        <div
           className="relative w-full h-[62vh] sm:h-[68vh] md:h-[70vh] min-h-[440px] max-h-[720px] flex items-center justify-center"
           style={{ perspective: '1200px' }}
         >
@@ -155,13 +155,12 @@ export default function EventsSection({ onSelectEvent }) {
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[66vw] sm:w-[320px] md:w-[380px] lg:w-[420px] max-w-[450px] h-[56vh] sm:h-[62vh] md:h-[66vh] min-h-[400px] max-h-[640px] rounded-[22px] sm:rounded-[28px] md:rounded-[34px] overflow-hidden cursor-pointer select-none border transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                  isCenter
+                className={`absolute w-[66vw] sm:w-[320px] md:w-[380px] lg:w-[420px] max-w-[450px] h-[56vh] sm:h-[62vh] md:h-[66vh] min-h-[400px] max-h-[640px] rounded-[22px] sm:rounded-[28px] md:rounded-[34px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${isCenter
                     ? isRed
-                      ? 'border-[#FF4D4D] shadow-[0_12px_32px_rgba(0,0,0,0.85)] sm:shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
-                      : 'border-[#F5D77F] shadow-[0_12px_32px_rgba(0,0,0,0.85)] sm:shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
-                    : 'border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.7)] sm:shadow-[0_15px_40px_rgba(0,0,0,0.85)] ring-1 ring-white/10'
-                }`}
+                      ? 'border-[#FF4D4D] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
+                      : 'border-[#F5D77F] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
+                    : 'border-white/35 shadow-[0_20px_50px_rgba(0,0,0,0.9)] ring-1 ring-white/15'
+                  }`}
                 style={{
                   transform,
                   zIndex,
@@ -203,10 +202,9 @@ export default function EventsSection({ onSelectEvent }) {
                 </div>
 
                 {/* Bottom Card Content */}
-                <div className="absolute bottom-0 inset-x-0 z-20 p-5 sm:p-6 md:p-8 flex flex-col items-center text-center">
-                  <span className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${
-                    isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
-                  }`}>
+                <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 md:p-8 flex flex-col items-center text-center">
+                  <span className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
+                    }`}>
                     {evt.category}
                   </span>
                   <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-white leading-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.95)]">

@@ -4,15 +4,22 @@ import { sound } from '../utils/sound';
 import { ArrowRight, X, Sparkles } from 'lucide-react';
 
 export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [midPoint, setMidPoint] = useState(400);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setScrollY(window.scrollY);
+      setMidPoint(Math.max(250, window.innerHeight * 0.5));
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   // Prevent background scroll when mobile menu is open
@@ -33,24 +40,36 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
     setMobileMenuOpen(false);
   };
 
+  // Fade in proportional to scroll value; reaches 100% at the middle of the page/screen
+  const glassOpacity = Math.min(1, Math.max(0, scrollY / midPoint));
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#040404]/94 backdrop-blur-xl pt-4 pb-4 sm:pt-4 sm:pb-4 border-b border-[#D4AF37]/20 shadow-[0_12px_40px_rgba(0,0,0,0.9)]'
-            : 'bg-transparent pt-6 sm:pt-8 lg:pt-9 pb-4'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3.5 sm:py-4.5"
         style={{
-          paddingTop: isScrolled ? 'max(1rem, env(safe-area-inset-top))' : 'max(1.75rem, env(safe-area-inset-top))',
-          paddingLeft: 'max(1.5rem, env(safe-area-inset-left))',
-          paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
+          paddingTop: 'max(1rem, env(safe-area-inset-top))',
+          paddingLeft: 'max(1.25rem, env(safe-area-inset-left))',
+          paddingRight: 'max(1.25rem, env(safe-area-inset-right))',
         }}
       >
-        <div className="relative w-full max-w-[1750px] mx-auto flex items-center justify-between px-2 sm:px-6">
+        {/* Proportional Glassmorphic Backdrop Layer (No Bottom Border) */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-150 ease-out"
+          style={{
+            opacity: glassOpacity,
+            backgroundColor: 'rgba(5, 5, 7, 0.85)',
+            backdropFilter: `blur(${Math.round(glassOpacity * 24)}px)`,
+            WebkitBackdropFilter: `blur(${Math.round(glassOpacity * 24)}px)`,
+            boxShadow: glassOpacity > 0.05 ? '0 12px 40px rgba(0, 0, 0, 0.85)' : 'none',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 w-full max-w-[1750px] mx-auto flex items-center justify-between px-2 sm:px-6">
           
           {/* =========================================================================
-              LEFT: Brand Logo (Complete Emblem + Typography Graphic)
+              LEFT: Brand Logo (Alpha-Masked Light Sweep strictly over Emblem)
               ========================================================================= */}
           <a
             href="#hero"
@@ -61,21 +80,22 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
             className="flex items-center group text-decoration-none focus:outline-none z-10"
             aria-label="ASTHRA '26 Home"
           >
-            <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105">
-              <div className="absolute inset-0 bg-[#D4AF37]/15 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105 logo-shimmer-container">
               <img
                 src="/assets/logo.png"
                 alt="ASTHRA '26 Logo"
                 className="h-full w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(212,175,55,0.45)]"
               />
+              {/* Alpha-masked light reflection sweep strictly inside logo emblem pixels */}
+              <div className="logo-light-sweep" aria-hidden="true" />
             </div>
           </a>
 
           {/* =========================================================================
-              CENTER: Desktop Navigation Links (Vertically Centered Pill & Type)
+              CENTER: Desktop Navigation Links (Clean Floating Typography)
               ========================================================================= */}
           <nav
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center gap-8 xl:gap-11 px-8 py-3 rounded-full border border-white/[0.09] bg-black/55 backdrop-blur-xl shadow-[0_6px_30px_rgba(0,0,0,0.65)]"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center gap-8 xl:gap-11 py-2"
             aria-label="Main Navigation"
           >
             {siteConfig.navLinks.map((link) => {
@@ -84,22 +104,15 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}
-                  className={`relative flex flex-col items-center py-1 text-xs sm:text-[13px] font-sans tracking-[0.24em] uppercase transition-all duration-200 focus:outline-none cursor-pointer group ${
+                  className={`relative py-1 text-xs sm:text-[13px] font-sans tracking-[0.24em] uppercase transition-all duration-200 focus:outline-none cursor-pointer ${
                     isActive
-                      ? 'text-[#F5D77F] font-bold'
+                      ? 'text-[#F5D77F] font-bold drop-shadow-[0_0_10px_rgba(245,215,127,0.4)]'
                       : 'text-[#A6A195] hover:text-[#F8F7F4] font-medium'
                   }`}
                 >
-                  <span className="group-hover:translate-y-[-1px] transition-transform duration-200">
+                  <span className="hover:text-white transition-colors duration-200">
                     {link.label}
                   </span>
-                  
-                  {/* Active Indicator Underline & Dot */}
-                  {isActive ? (
-                    <span className="absolute -bottom-2 w-2 h-2 rounded-full bg-[#E52828] shadow-[0_0_12px_rgba(229,40,40,1)] animate-pulse" />
-                  ) : (
-                    <span className="absolute -bottom-2 w-0 h-[2px] bg-[#D4AF37]/70 group-hover:w-4 transition-all duration-300" />
-                  )}
                 </button>
               );
             })}

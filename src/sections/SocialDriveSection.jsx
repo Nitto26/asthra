@@ -62,9 +62,8 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             alt={`Social Drive Background ${idx + 1}`}
             loading="lazy"
             decoding="async"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.7] contrast-[1.05] saturate-[1.05] ${
-              idx === currentBgIndex ? 'opacity-50' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.7] contrast-[1.05] saturate-[1.05] ${idx === currentBgIndex ? 'opacity-50' : 'opacity-0'
+              }`}
           />
         ))}
         <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/85 pointer-events-none" />
@@ -72,15 +71,15 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
       </div>
 
       <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center px-3 sm:px-6 lg:px-12 my-auto py-4 sm:py-6">
-        
+
         {/* Responsive Grid: Split 2 columns on desktop, clean vertical flow on mobile */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center w-full">
-          
+
           {/* =========================================================================
               LEFT COLUMN: Header, Title & Narrative (lg:col-span-7)
               ========================================================================= */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            
+
             {/* Section Tag */}
             <div className="flex flex-col items-start mb-4 sm:mb-5">
               <div className="flex items-center gap-3">
@@ -103,7 +102,7 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
               <p className="text-[#F8F7F4] font-medium leading-relaxed">
                 We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals through <strong className="text-[#F5D77F] font-semibold">Bethesda Charitable Trust</strong>.
               </p>
-              
+
               <p className="text-[#DCD8CF] leading-relaxed">
                 Join us in our mission to <span className="text-[#F5D77F] font-semibold">donate wheelchairs</span> and create an inclusive environment where everyone can participate and shine in our festivities.
               </p>

@@ -136,7 +136,7 @@ export default function HeroSection() {
         >
           {/* First 'A' with signature swooping flourish leg */}
           <span className="text-[#F5D77F] font-serif-display inline-block relative mr-0.5 sm:mr-1">
-            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-br from-[#FFF4D0] via-[#F5D77F] to-[#D4AF37]">
+            <span className="relative z-10 gold-text font-serif-display">
               A
             </span>
             {/* Swoosh Tail SVG */}
@@ -167,12 +167,12 @@ export default function HeroSection() {
           </span>
 
           {/* Second 'A' in radiant gold */}
-          <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#FFF4D0] via-[#F5D77F] to-[#D4AF37] font-serif-display inline-block">
+          <span className="gold-text font-serif-display inline-block">
             A
           </span>
 
           {/* '26 in gold serif script */}
-          <span className="font-serif-title text-[clamp(1.85rem,7.8vw,5.5rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-[#9A7B1C] ml-1.5 sm:ml-3 tracking-normal drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+          <span className="font-serif-title text-[clamp(1.85rem,7.8vw,5.5rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold gold-text ml-1.5 sm:ml-3 tracking-normal drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">
             ’26
           </span>
         </h1>
