@@ -32,14 +32,17 @@ export default function EclipseCanvas({ onLoaded }) {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = 21;
 
-    // Dynamic pixel ratio: Up to 2.0 on high-density mobile & desktop displays for razor-sharp clarity
+    // Dynamic pixel ratio: Crisp 1.5-1.75 on Retina/4K displays without GPU fill-rate exhaustion
     const isMobile = window.innerWidth < 768;
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.0);
+    const pixelRatio = isMobile
+      ? Math.min(window.devicePixelRatio || 1, 1.75)
+      : Math.min(window.devicePixelRatio || 1, 1.5);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // Hardware-accelerated MSAA for razor-sharp gold rim and glare
       alpha: true,
       powerPreference: 'high-performance',
+      precision: 'mediump',
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(pixelRatio);
@@ -276,20 +279,21 @@ export default function EclipseCanvas({ onLoaded }) {
     movingGlintSprite.scale.set(1.6, 1.6, 1);
     eclipseGroup.add(movingGlintSprite);
 
-    // 7. Optimized Atmospheric Corona Shader (Fast 2-octave procedural FBM)
+    // 7. High-Performance Atmospheric Corona Shader (Annular Ring geometry bounded to the active corona)
     const coronaVertexShader = `
-      varying vec2 vUv;
+      varying vec2 vPos;
       void main() {
-        vUv = uv;
+        vPos = position.xy;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
     `;
 
     const coronaFragmentShader = `
+      precision mediump float;
       uniform float uTime;
       uniform vec2 uMouse;
       uniform float uPulse;
-      varying vec2 vUv;
+      varying vec2 vPos;
 
       vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
       vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -324,14 +328,10 @@ export default function EclipseCanvas({ onLoaded }) {
       }
 
       void main() {
-        vec2 uv = vUv - 0.5;
-        float dist = length(uv);
-        float rInner = 0.1037;
-        if (dist < rInner * 0.95) {
-          discard;
-        }
+        float dist = length(vPos) / 32.0;
+        float rInner = 3.32 / 32.0;
 
-        float angle = atan(uv.y, uv.x);
+        float angle = atan(vPos.y, vPos.x);
         float dFromLimb = max(0.0, dist - rInner);
 
         float speed = uTime * 0.03;
@@ -364,14 +364,15 @@ export default function EclipseCanvas({ onLoaded }) {
 
         float alpha = (limbGlow * 1.2 + midGlow * 0.85 + farGlow * 0.5 + diamondBias * 0.75 + pulseRing * 0.8);
         alpha = clamp(alpha, 0.0, 1.0);
-        alpha *= smoothstep(rInner * 0.95, rInner * 1.01, dist);
-        alpha *= smoothstep(0.45, 0.32, dist);
+        alpha *= smoothstep(rInner * 0.96, rInner * 1.01, dist);
+        alpha *= smoothstep(0.44, 0.32, dist);
 
         gl_FragColor = vec4(col * 0.9, alpha * 0.82);
       }
     `;
 
-    const coronaGeo = new THREE.PlaneGeometry(32, 32);
+    // Annular ring geometry (3.30 to 14.2) skips the inner lunar disc & outer offscreen pixels at the GPU hardware level
+    const coronaGeo = new THREE.RingGeometry(3.30, 14.2, 64, 4);
     const coronaUniforms = {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0, 0) },

@@ -7,6 +7,9 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  resolve: {
+    preserveSymlinks: true,
+  },
   build: {
     target: 'esnext',
     minify: 'esbuild',
