@@ -75,8 +75,8 @@ export default function EventsSection({ onSelectEvent }) {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[550px] rounded-full pointer-events-none z-0 opacity-20 blur-[150px] transition-all duration-700"
         style={{
           background: isCurrentRed
-            ? 'radial-gradient(circle, rgba(229, 40, 40, 0.35) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(229, 40, 40, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -128,33 +128,27 @@ export default function EventsSection({ onSelectEvent }) {
             let transform = '';
             let zIndex = 10;
             let opacity = 0;
-            let brightness = 1;
 
             if (isCenter) {
               transform = 'translateX(0%) scale(1.0) rotateY(0deg) translateZ(40px)';
               zIndex = 30;
               opacity = 1;
-              brightness = 1.05;
             } else if (isLeft) {
               transform = 'translateX(-58%) scale(0.92) rotateY(10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
-              brightness = 0.88;
             } else if (isRight) {
               transform = 'translateX(58%) scale(0.92) rotateY(-10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
-              brightness = 0.88;
             } else if (offset < 0) {
               transform = 'translateX(-115%) scale(0.78) rotateY(18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
-              brightness = 0.4;
             } else {
               transform = 'translateX(115%) scale(0.78) rotateY(-18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
-              brightness = 0.4;
             }
 
             return (
@@ -171,7 +165,7 @@ export default function EventsSection({ onSelectEvent }) {
                   transform,
                   zIndex,
                   opacity,
-                  filter: `brightness(${brightness})`,
+                  willChange: 'transform, opacity',
                   backgroundColor: '#101014',
                 }}
               >
@@ -180,21 +174,29 @@ export default function EventsSection({ onSelectEvent }) {
                   <img
                     src={evt.image}
                     alt={evt.name}
-                    loading="lazy"
+                    loading={isCenter ? 'eager' : 'lazy'}
                     decoding="async"
+                    fetchPriority={isCenter ? 'high' : 'low'}
                     className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
                   />
+                  {/* Hardware-accelerated darkening veil for side cards (replaces costly filter:brightness) */}
+                  {!isCenter && (
+                    <div
+                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out"
+                      aria-hidden="true"
+                    />
+                  )}
                   {/* Cinematic dark vignette overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-10" />
                 </div>
 
                 {/* Top Poster Meta */}
-                <div className="relative z-10 p-5 sm:p-6 md:p-7 flex items-center justify-between w-full">
-                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                <div className="relative z-20 p-5 sm:p-6 md:p-7 flex items-center justify-between w-full">
+                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                     {evt.num}
                   </span>
-                  <span className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-white/90 uppercase bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                  <span className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-white/90 uppercase bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                     {evt.time} {evt.timePeriod && `· ${evt.timePeriod}`}
                   </span>
                 </div>

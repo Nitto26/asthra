@@ -110,6 +110,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Offscreen Section Rendering Optimization: skips rendering/paint until viewport approaches */
+#about, #events, #social-drive, #contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 100vh;
+}
+
 /* Small to Medium Mobile (< 480px) */
 @media (max-width: 479px) {
   .snap-section {
@@ -157,7 +163,7 @@ body {
   }
 }
 
-/* Atmospheric Noise */
+/* Atmospheric Noise (Optimized: disabled on mobile to prevent GPU fillrate/compositor stalls) */
 .noise-overlay {
   position: fixed;
   inset: 0;
@@ -165,6 +171,12 @@ body {
   pointer-events: none;
   z-index: 99;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 768px) {
+  .noise-overlay {
+    display: none;
+  }
 }
 
 /* Fonts */

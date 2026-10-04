@@ -77,12 +77,6 @@ class SoundFX {
     this.playChime(880, 'triangle', 0.12, 0.05);
   }
 
-  playExplore() {
-    this.playChime(432, 'sine', 1.2, 0.08);
-    setTimeout(() => this.playChime(648, 'sine', 1.0, 0.07), 120);
-    setTimeout(() => this.playChime(864, 'sine', 1.4, 0.06), 250);
-  }
-
   playSuccess() {
     [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
       setTimeout(() => this.playChime(freq, 'sine', 0.8, 0.06), idx * 100);

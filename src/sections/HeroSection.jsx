@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { sound } from '../utils/sound';
 import { siteConfig } from '../data/config';
-import EclipseCanvas from '../components/EclipseCanvas';
+
+// Lazy-load Three.js EclipseCanvas so initial HTML and LCP elements render immediately (<1.5s)
+const EclipseCanvas = lazy(() => import('../components/EclipseCanvas'));
 
 const TARGET_DATE = new Date('2026-11-27T00:00:00').getTime();
 
 export default function HeroSection() {
+  const sectionRef = useRef(null);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const [textVisible, setTextVisible] = useState(true);
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [shouldMountCanvas, setShouldMountCanvas] = useState(true);
   const [showCountdown, setShowCountdown] = useState(false);
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeRemaining());
 
@@ -25,19 +32,37 @@ export default function HeroSection() {
     return { isPast: false, days, hours, minutes, seconds };
   }
 
-  // Update live countdown every second
+  // Track Hero visibility to pause countdown and render timers when viewing other sections
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Update live countdown every second (only active when Hero is visible)
+  useEffect(() => {
+    if (!isHeroVisible) return;
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeRemaining());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isHeroVisible]);
 
-  // 5-second alternating loop: ASTHRA '26 <-> LIVE COUNTDOWN
+  // 5-second alternating loop: ASTHRA '26 <-> LIVE COUNTDOWN (only active when Hero is visible and background has loaded)
   // Stops completely once Nov 27, 2026 arrives (stays fixed on ASTHRA '26)
   useEffect(() => {
-    if (timeLeft.isPast) {
+    if (timeLeft.isPast || !isHeroVisible || !backgroundLoaded) {
       setShowCountdown(false);
       return;
     }
@@ -47,19 +72,32 @@ export default function HeroSection() {
     }, 5500);
 
     return () => clearInterval(interval);
-  }, [timeLeft.isPast]);
+  }, [timeLeft.isPast, isHeroVisible, backgroundLoaded]);
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       className="snap-section relative w-full h-[100svh] min-h-[580px] overflow-hidden select-none bg-[#030303] flex items-center justify-center"
     >
-      {/* 3D WebGL Solar Eclipse Canvas with Photorealistic Corona & Golden Diamond Ring */}
-      <EclipseCanvas />
+      {/* 3D WebGL Solar Eclipse Canvas (Smoothly fades in once completely loaded behind text) */}
+      <div
+        className={`absolute inset-0 z-10 transition-opacity duration-1200 ease-in-out ${
+          backgroundLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {shouldMountCanvas && (
+          <Suspense fallback={null}>
+            <EclipseCanvas onLoaded={() => setBackgroundLoaded(true)} />
+          </Suspense>
+        )}
+      </div>
 
-      {/* Atmospheric Ambient Radiant Glow */}
+      {/* Atmospheric Ambient Radiant Glow (Fades in seamlessly with 3D background) */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,600px)] h-[min(90vw,600px)] rounded-full pointer-events-none z-10 opacity-25 blur-[100px] sm:blur-[120px]"
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,600px)] h-[min(90vw,600px)] rounded-full pointer-events-none z-10 blur-[100px] sm:blur-[120px] transition-opacity duration-1200 ease-in-out ${
+          backgroundLoaded ? 'opacity-25' : 'opacity-0'
+        }`}
         style={{
           background: 'radial-gradient(circle, rgba(245, 215, 127, 0.25) 0%, rgba(212, 175, 55, 0.08) 50%, rgba(0, 0, 0, 0) 70%)',
         }}
@@ -67,9 +105,11 @@ export default function HeroSection() {
       />
 
       {/* =========================================================================
-          LEFT SIDE WING (Only on Wide Screens, Fully Decoupled from Center)
+          LEFT SIDE WING (Only on Wide Screens, Smoothly Fades In with Text)
           ========================================================================= */}
-      <div className="hidden xl:flex absolute left-8 2xl:left-14 top-1/2 -translate-y-1/2 z-20 flex-col items-start text-left w-36 pointer-events-auto">
+      <div className={`hidden xl:flex absolute left-8 2xl:left-14 top-1/2 -translate-y-1/2 z-20 flex-col items-start text-left w-36 pointer-events-auto transition-opacity duration-1000 delay-200 ease-out ${
+        textVisible ? 'opacity-100' : 'opacity-0'
+      }`}>
         <div className="text-[10px] lg:text-[11px] font-sans font-medium tracking-[0.28em] indent-[0.28em] text-[#A6A195] leading-relaxed uppercase">
           <p className="text-[#E6E3DB]">IDEAS</p>
           <p className="text-[#E6E3DB]">PEOPLE</p>
@@ -80,8 +120,11 @@ export default function HeroSection() {
 
       {/* =========================================================================
           CENTER EDITORIAL TYPOGRAPHY (ASTHRA '26 / LIVE COUNTDOWN CROSS-FADE)
+          Fades in first on pitch-black background
           ========================================================================= */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full max-w-5xl px-3 sm:px-6 flex flex-col items-center justify-center text-center pointer-events-none">
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full max-w-5xl px-3 sm:px-6 flex flex-col items-center justify-center text-center pointer-events-none transition-opacity duration-1000 ease-out ${
+        textVisible ? 'opacity-100' : 'opacity-0'
+      }`}>
         
         {/* Layer 1: ASTHRA ’26 */}
         <h1
@@ -216,9 +259,11 @@ export default function HeroSection() {
       </div>
 
       {/* =========================================================================
-          RIGHT SIDE WING (Only on Wide Screens, Fully Decoupled from Center)
+          RIGHT SIDE WING (Only on Wide Screens, Smoothly Fades In with Text)
           ========================================================================= */}
-      <div className="hidden xl:flex absolute right-8 2xl:right-14 top-1/2 -translate-y-1/2 z-20 flex-col items-end text-right w-36 pointer-events-auto">
+      <div className={`hidden xl:flex absolute right-8 2xl:right-14 top-1/2 -translate-y-1/2 z-20 flex-col items-end text-right w-36 pointer-events-auto transition-opacity duration-1000 delay-200 ease-out ${
+        textVisible ? 'opacity-100' : 'opacity-0'
+      }`}>
         <div className="text-[10px] lg:text-[11px] font-sans font-medium tracking-[0.28em] indent-[0.28em] text-[#A6A195] leading-relaxed uppercase">
           <p className="text-[#E6E3DB]">A</p>
           <p className="text-[#E6E3DB]">BRIGHTER</p>

@@ -13,7 +13,7 @@ import { sound } from '../utils/sound';
  * 4. RAF-throttled mouse tracking.
  * 5. Complete memory management & disposal.
  */
-export default function EclipseCanvas() {
+export default function EclipseCanvas({ onLoaded }) {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function EclipseCanvas() {
 
     let isVisible = true;
     let animationFrameId = null;
+    let hasNotifiedLoaded = false;
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
@@ -31,12 +32,12 @@ export default function EclipseCanvas() {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = 21;
 
-    // Adaptive pixel ratio: 1.0 on mobile (<768px) to protect mobile GPUs, max 1.5 on desktop
+    // Dynamic pixel ratio: Up to 2.0 on high-density mobile & desktop displays for razor-sharp clarity
     const isMobile = window.innerWidth < 768;
-    const pixelRatio = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.0);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile, // Disable expensive MSAA on mobile devices
+      antialias: true, // Hardware-accelerated MSAA for razor-sharp gold rim and glare
       alpha: true,
       powerPreference: 'high-performance',
     });
@@ -151,8 +152,8 @@ export default function EclipseCanvas() {
     const starField = new THREE.Points(starGeo, starShaderMat);
     scene.add(starField);
 
-    // 4. Dark Moon Disc (Optimized segments from 128 to 64)
-    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, isMobile ? 48 : 64);
+    // 4. Dark Moon Disc (High-fidelity smooth curvature)
+    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, 96);
     const moonMat = new THREE.ShaderMaterial({
       vertexShader: `
         varying vec2 vUv;
@@ -179,8 +180,8 @@ export default function EclipseCanvas() {
     moon.position.z = 0.5;
     eclipseGroup.add(moon);
 
-    // 5. 24K Gold Ring (Optimized segments from 240 to 128)
-    const shinyRingGeo = new THREE.RingGeometry(RADIUS - RING_THICKNESS * 0.5, RADIUS + RING_THICKNESS * 0.5, isMobile ? 96 : 144);
+    // 5. 24K Gold Ring (Ultra-smooth 160-segment ring)
+    const shinyRingGeo = new THREE.RingGeometry(RADIUS - RING_THICKNESS * 0.5, RADIUS + RING_THICKNESS * 0.5, 160);
     const shinyRingMat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
@@ -527,17 +528,24 @@ export default function EclipseCanvas() {
 
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // 10. IntersectionObserver: Pause rendering when scrolled out of Hero section!
-    // This stops GPU/CPU work when viewing About, Events, Social Drive, Contact!
+    // 10. IntersectionObserver: Strictly pause rendering when scrolled out of Hero section!
+    // This stops 100% of WebGL GPU/CPU work when viewing About, Events, Social Drive, Contact!
     const heroSection = document.getElementById('hero') || container;
     const visibilityObserver = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        if (isVisible && !animationFrameId) {
-          animate();
+        if (isVisible) {
+          if (!animationFrameId) {
+            animate();
+          }
+        } else {
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.0 }
     );
     visibilityObserver.observe(heroSection);
 
@@ -581,6 +589,16 @@ export default function EclipseCanvas() {
       starField.position.y = -targetPosY * 0.35;
 
       renderer.render(scene, camera);
+
+      // Notify parent once initial frame is completely rendered to trigger seamless fade-in
+      if (!hasNotifiedLoaded) {
+        hasNotifiedLoaded = true;
+        if (onLoaded) {
+          requestAnimationFrame(() => {
+            onLoaded();
+          });
+        }
+      }
     };
 
     animate();

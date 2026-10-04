@@ -15,7 +15,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           three: ['three'],
-          vendor: ['react', 'react-dom', 'lucide-react', 'canvas-confetti'],
+          vendor: ['react', 'react-dom', 'lucide-react'],
         },
       },
     },
