@@ -271,6 +271,28 @@ export default function HeroSection() {
         </div>
         <span className="w-10 h-[1.5px] bg-[#D4AF37]/80 mt-3" />
       </div>
+
+      {/* =========================================================================
+          PRE-RELEASE TEASER FOOTER NOTICE (Centered at bottom)
+          ========================================================================= */}
+      <div 
+        className={`absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-opacity duration-1000 delay-500 ease-out ${
+          textVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{
+          bottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))',
+        }}
+      >
+        <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/35 shadow-[0_0_25px_rgba(212,175,55,0.2)]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5D77F] opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
+          </span>
+          <span className="font-mono text-[9.5px] sm:text-[11.5px] font-semibold tracking-[0.28em] indent-[0.28em] text-[#F5D77F] uppercase whitespace-nowrap drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]">
+            WEBSITE WILL BE LIVE SOON
+          </span>
+        </div>
+      </div>
     </section>
   );
 }
