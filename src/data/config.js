@@ -214,9 +214,9 @@ export const siteConfig = {
     headingGold: "BRIGHTER",
     headingWhiteEnd: "TOMORROW",
     subline: "REACH OUT. BE A PART OF ASTHRA ’26.",
-    email: "asthra@stthomas.ac.in",
-    phone: "+91 98765 43210",
-    phoneDisplay: "+91 98765 43210",
+    email: "asthrastc.26@gmail.com",
+    phone: "+91 73563 36812",
+    phoneDisplay: "+91 73563 36812",
     address: "Department of Mathematics, St. Thomas College (Autonomous), Thrissur, Kerala — 680001",
     socials: [
       { name: "Instagram", url: "https://instagram.com/asthra.stc", handle: "@asthra.stc" },

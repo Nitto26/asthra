@@ -46,27 +46,19 @@ export default function AboutSection({ onScrollNext }) {
         {/* Title */}
         <div className="flex flex-col items-start mb-5 sm:mb-6">
           <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] leading-tight filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
-            About <span className="gold-text font-serif-display font-semibold">Asthra 2025</span>
+            About <span className="gold-text font-serif-display font-semibold">ASTHRA 2k26</span>
           </h2>
           <span className="w-20 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mt-3" />
         </div>
 
         {/* Formatted Content with Rich Contrast & Spacing */}
         <div className="space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-          <p className="text-[#F8F7F4] font-medium leading-relaxed">
-            <strong className="text-[#F5D77F] font-semibold">St. Thomas College (Autonomous), Thrissur</strong>, is the oldest Catholic College in Kerala and is the first College to have been established by diocesan clergy in India and is older than all the Universities in Kerala. It was founded as an educational institution in 1889.
+          <p className="text-[#F8F7F4] text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+            <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
 
           <p className="leading-relaxed text-[#DCD8CF]">
-            The Department of Mathematics started in the year 1926 and presently offers research in Mathematics along with two UG and one PG courses in Mathematics. The department consistently maintains a high level of academic excellence and intends to produce highly qualified and motivated Mathematicians.
-          </p>
-
-          <p className="leading-relaxed text-[#DCD8CF]">
-            The Mathematics Department in STC holds the record for having the largest number of students within the department. With over <span className="text-[#F5D77F] font-semibold">10+ professors</span> and <span className="text-[#F5D77F] font-semibold">300 students</span>, we clearly have a lot of strength. And with that strength comes a lot of talent and capabilities. When it comes to creativity and imagination, we clearly don’t fall short.
-          </p>
-
-          <p className="leading-relaxed text-[#F8F7F4]">
-            So We, The Department of Mathematics, St. Thomas College (Autonomous) Thrissur are proud to present our first ever grand fest <strong className="text-[#F5D77F] font-semibold">'Asthra 2024'</strong> on <span className="text-[#F5D77F] font-semibold">December 5th and 6th</span>. The fest will be a colourful combination of maths, culture, and entertainment and will surely be a one-of-a-kind experience.
+            Founded as an educational institution in 1889, St. Thomas College is the oldest Catholic college in Kerala. The Department of Mathematics, established in 1926, consistently maintains academic distinction with research and dedicated programmes that foster talent, imagination, and analytical rigor.
           </p>
 
           <div className="pt-3 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 border-t border-white/20 mt-4">

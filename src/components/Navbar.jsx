@@ -77,7 +77,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
         <div className="relative z-10 w-full max-w-[1750px] mx-auto flex items-center justify-between px-2 sm:px-6">
           
           {/* =========================================================================
-              LEFT: Brand Logo (Golden Archer Emblem + Typography Brand Wordmark)
+              LEFT: Brand Logo Emblem Only
               ========================================================================= */}
           <a
             href="#hero"
@@ -85,7 +85,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
               e.preventDefault();
               handleNavClick('hero');
             }}
-            className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none focus:outline-none z-10 cursor-pointer"
+            className="flex items-center group text-decoration-none focus:outline-none z-10 cursor-pointer"
             aria-label="ASTHRA '26 Home"
           >
             <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105 logo-shimmer-container">
@@ -99,14 +99,6 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
               />
               {/* Alpha-masked light reflection sweep strictly inside logo emblem pixels */}
               <div className="logo-light-sweep" aria-hidden="true" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="font-serif-display font-bold text-sm sm:text-base tracking-[0.18em] text-[#F5D77F] leading-tight group-hover:text-white transition-colors">
-                ASTHRA
-              </span>
-              <span className="font-mono text-[8px] sm:text-[9px] tracking-[0.22em] text-[#A6A195] uppercase leading-none mt-0.5">
-                MATHEMATICS ’26
-              </span>
             </div>
           </a>
 
@@ -138,21 +130,9 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
           </nav>
 
           {/* =========================================================================
-              RIGHT: Action Cluster (Larger CTA + Larger Mobile Hamburger)
+              RIGHT: Action Cluster (Mobile Hamburger)
               ========================================================================= */}
           <div className="flex items-center gap-3 sm:gap-5 z-10">
-            {/* REGISTER NOW Button (Desktop & Tablet) */}
-            <button
-              onClick={() => {
-                sound.playSuccess();
-                onOpenRegister();
-              }}
-              className="hidden sm:inline-flex items-center gap-2.5 h-11 sm:h-12 px-7 sm:px-8 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#17140C] via-[#211A0C] to-[#17140C] text-[#F5D77F] hover:bg-[#D4AF37] hover:text-black font-sans text-xs sm:text-[12px] font-bold tracking-[0.22em] uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.22)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] cursor-pointer group"
-            >
-              <span>REGISTER NOW</span>
-              <ArrowRight size={14} className="transform transition-transform group-hover:translate-x-1" />
-            </button>
-
             {/* Hamburger Icon (Mobile / Tablet drawer trigger) */}
             <button
               onClick={() => {
@@ -234,19 +214,14 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
           })}
         </div>
 
-        {/* Drawer Bottom CTA with Generous Padding */}
-        <div className="shrink-0 pt-4 pb-4 sm:pb-6 max-w-md mx-auto w-full">
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              sound.playSuccess();
-              onOpenRegister();
-            }}
-            className="w-full h-12 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-black font-sans font-bold text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] cursor-pointer transition-all"
-          >
-            <Sparkles size={14} />
-            <span>REGISTER FOR FESTIVAL</span>
-          </button>
+        {/* Drawer Bottom Info Bar */}
+        <div className="shrink-0 pt-4 pb-4 sm:pb-6 max-w-md mx-auto w-full text-center border-t border-white/10">
+          <p className="font-mono text-[10px] tracking-[0.25em] text-[#A6A195] uppercase">
+            ST. THOMAS COLLEGE (AUTONOMOUS)
+          </p>
+          <p className="font-serif-title text-xs tracking-wider text-[#F5D77F] mt-1">
+            Department of Mathematics
+          </p>
         </div>
       </div>
     </>
