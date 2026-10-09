@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
 import { ArrowRight, X, Sparkles } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
-export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
+export default function Navbar({ activeSection, onNavigate, onOpenRegister, links }) {
   const [scrollY, setScrollY] = useState(0);
   const [midPoint, setMidPoint] = useState(400);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Filter navigation links if a specific list of sections is provided
+  const availableLinks = links
+    ? siteConfig.navLinks
+        .filter((l) => links.includes(l.id))
+        .map((l, idx) => ({ ...l, num: `0${idx + 1}` }))
+    : siteConfig.navLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,7 +77,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
         <div className="relative z-10 w-full max-w-[1750px] mx-auto flex items-center justify-between px-2 sm:px-6">
           
           {/* =========================================================================
-              LEFT: Brand Logo (Alpha-Masked Light Sweep strictly over Emblem)
+              LEFT: Brand Logo (Golden Archer Emblem + Typography Brand Wordmark)
               ========================================================================= */}
           <a
             href="#hero"
@@ -77,17 +85,28 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
               e.preventDefault();
               handleNavClick('hero');
             }}
-            className="flex items-center group text-decoration-none focus:outline-none z-10"
+            className="flex items-center gap-2.5 sm:gap-3 group text-decoration-none focus:outline-none z-10 cursor-pointer"
             aria-label="ASTHRA '26 Home"
           >
             <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105 logo-shimmer-container">
               <img
-                src="/assets/logo.png"
+                src={logoImg}
                 alt="ASTHRA '26 Logo"
                 className="h-full w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(212,175,55,0.45)]"
+                onError={(e) => {
+                  e.currentTarget.src = '/assets/logo.png';
+                }}
               />
               {/* Alpha-masked light reflection sweep strictly inside logo emblem pixels */}
               <div className="logo-light-sweep" aria-hidden="true" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-serif-display font-bold text-sm sm:text-base tracking-[0.18em] text-[#F5D77F] leading-tight group-hover:text-white transition-colors">
+                ASTHRA
+              </span>
+              <span className="font-mono text-[8px] sm:text-[9px] tracking-[0.22em] text-[#A6A195] uppercase leading-none mt-0.5">
+                MATHEMATICS ’26
+              </span>
             </div>
           </a>
 
@@ -98,7 +117,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:flex items-center gap-8 xl:gap-11 py-2"
             aria-label="Main Navigation"
           >
-            {siteConfig.navLinks.map((link) => {
+            {availableLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <button
@@ -184,7 +203,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister }) {
 
         {/* Menu Links (Centered in the remaining screen space) */}
         <div className="flex-1 flex flex-col justify-center gap-2.5 sm:gap-3.5 max-w-md mx-auto w-full py-2">
-          {siteConfig.navLinks.map((link) => {
+          {availableLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <button
