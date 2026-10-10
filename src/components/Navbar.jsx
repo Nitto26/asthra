@@ -169,12 +169,12 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
           MOBILE FULLSCREEN MENU DRAWER
           ========================================================================= */}
       <div
-        className={`fixed inset-0 z-40 bg-[#060606]/98 backdrop-blur-3xl transition-all duration-300 flex flex-col px-6 sm:px-12 ${
+        className={`fixed inset-0 z-40 bg-[#060606]/98 backdrop-blur-3xl transition-all duration-300 flex flex-col px-7 sm:px-14 ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         style={{
-          paddingLeft: 'max(1.5rem, env(safe-area-inset-left))',
-          paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
+          paddingLeft: 'max(1.75rem, env(safe-area-inset-left))',
+          paddingRight: 'max(1.75rem, env(safe-area-inset-right))',
           paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
         }}
       >
@@ -182,21 +182,27 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
         <div className="h-28 sm:h-32 shrink-0" />
 
         {/* Menu Links (Centered in the remaining screen space) */}
-        <div className="flex-1 flex flex-col justify-center gap-2.5 sm:gap-3.5 max-w-md mx-auto w-full py-2">
+        <div 
+          className="flex-1 flex flex-col justify-center gap-4 max-w-sm mx-auto w-full py-2"
+          style={{ paddingLeft: '12px', paddingRight: '12px' }}
+        >
           {availableLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`flex items-center justify-between text-left py-3 px-4 rounded-xl group transition-all duration-200 cursor-pointer ${
+                className={`flex items-center justify-between text-left rounded-2xl group transition-all duration-200 cursor-pointer w-full ${
                   isActive
-                    ? 'bg-[#D4AF37]/15 text-[#F5D77F] border border-[#D4AF37]/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]'
-                    : 'text-[#E6E3DB] hover:bg-white/5 hover:text-[#F5D77F]'
+                    ? 'bg-[#D4AF37]/15 text-[#F5D77F] border border-[#D4AF37]/50 shadow-[0_0_28px_rgba(212,175,55,0.25)]'
+                    : 'text-[#E6E3DB] hover:bg-white/5 hover:text-[#F5D77F] border border-transparent'
                 }`}
+                style={{
+                  padding: '18px 30px',
+                }}
               >
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-xs text-[#D4AF37]/70 group-hover:text-[#D4AF37]">
+                <div className="flex items-center gap-6">
+                  <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37] group-hover:text-[#F5D77F]">
                     {link.num}
                   </span>
                   <span className="font-serif-display text-xl sm:text-2xl font-normal tracking-wide">
@@ -204,8 +210,8 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
                   </span>
                 </div>
                 <ArrowRight
-                  size={16}
-                  className={`text-[#D4AF37] transition-all duration-200 ${
+                  size={20}
+                  className={`text-[#D4AF37] transition-all duration-200 shrink-0 ${
                     isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
                   }`}
                 />

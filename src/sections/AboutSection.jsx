@@ -1,30 +1,29 @@
 import React from 'react';
-import { sound } from '../utils/sound';
 
-export default function AboutSection({ onScrollNext }) {
+export default function AboutSection() {
   return (
     <section
       id="about"
       className="snap-section relative flex flex-col justify-center overflow-hidden min-h-[100svh] w-full select-none"
       style={{
-        backgroundColor: '#020202'
+        backgroundColor: '#020202',
       }}
     >
       {/* =========================================================================
-          BACKGROUND IMAGE LAYER WITH ENHANCED CONTRAST GRADIENTS
+          BACKGROUND IMAGE LAYER & CINEMATIC GRADIENT MASKS
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/assets/WhatsApp Image 2026-09-16 at 7.54.49 PM.jpeg"
+          src="/assets/about-bg.png"
           alt="About Section Background"
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-[1.08] saturate-[1.05]"
+          className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.08] saturate-[1.05]"
         />
-        {/* Full-coverage atmospheric dark gradients for maximum text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/85 to-[#020202]/60 pointer-events-none" />
+        {/* Full-coverage atmospheric dark gradients for maximum text legibility & contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/85 to-[#020202]/65 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/90 via-[#020202]/70 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px] pointer-events-none" />
+        <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] pointer-events-none" />
       </div>
 
       {/* =========================================================================
@@ -50,12 +49,12 @@ export default function AboutSection({ onScrollNext }) {
         </div>
 
         {/* Editorial Body: Outfit Font with Generous Line-Height & Spacing */}
-        <div className="space-y-6 sm:space-y-7 font-editorial text-[#E6E3DB] filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+        <div className="space-y-5 sm:space-y-6 font-editorial text-[#E6E3DB] filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
           <p className="text-[15px] sm:text-[17px] md:text-[19px] text-[#F8F7F4] font-normal leading-[1.9] sm:leading-[2.0] tracking-[0.02em]">
             <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white font-medium">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
 
-          <p className="text-[14px] sm:text-[15.5px] md:text-[17px] text-[#D4D0C5] font-light leading-[1.95] sm:leading-[2.05] tracking-[0.02em]">
+          <p className="text-[13.5px] sm:text-[15px] md:text-[16.5px] text-[#D4D0C5] font-light leading-[1.95] sm:leading-[2.05] tracking-[0.02em]">
             Founded as an educational institution in 1889, St. Thomas College is the oldest Catholic college in Kerala. The Department of Mathematics, established in 1926, consistently maintains academic distinction with research and dedicated programmes that foster talent, imagination, and analytical rigor.
           </p>
         </div>
@@ -79,4 +78,3 @@ export default function AboutSection({ onScrollNext }) {
     </section>
   );
 }
-

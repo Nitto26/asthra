@@ -44,16 +44,17 @@ export default function ContactSection() {
         paddingRight: 'max(1.25rem, env(safe-area-inset-right))',
       }}
     >
-      {/* Background: Grand Stone Archway with Golden Archer Statue matching Reference 5 */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      {/* Background: Grand Stone Archway with Golden Archer Statue */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <img
           src="/assets/contact-bg.webp"
           alt="Golden Archer Cathedral Monument"
           loading="lazy"
-          className="w-full h-full object-cover object-[78%_center] sm:object-right-center opacity-45 sm:opacity-55 filter brightness-95"
+          className="w-full h-full object-cover object-[76%_center] sm:object-right-center opacity-85 sm:opacity-95 filter brightness-105 contrast-105 saturate-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/75 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/70" />
+        {/* Soft left gradient for text readability without washing out the glowing archer */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/35 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-[#050505]/40 pointer-events-none" />
       </div>
 
       <div className="relative z-20 w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center gap-6 sm:gap-8 md:gap-10 px-3 sm:px-6 lg:px-12 my-auto py-6 sm:py-8">
