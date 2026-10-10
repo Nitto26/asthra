@@ -505,12 +505,16 @@ export default function EclipseCanvas({ onLoaded }) {
       renderer.setSize(w, h);
 
       let eclipseScale = 1.0;
-      if (w < 480) {
-        eclipseScale = Math.max(1.0, Math.min(1.18, 420 / Math.max(w, 320)));
+      if (w < 420) {
+        eclipseScale = 0.60;
+      } else if (w < 480) {
+        eclipseScale = 0.65;
+      } else if (w < 640) {
+        eclipseScale = 0.74;
       } else if (w < 768) {
-        eclipseScale = 1.12;
+        eclipseScale = 0.84;
       } else if (w < 1024) {
-        eclipseScale = 1.15;
+        eclipseScale = 0.98;
       } else if (w < 1440) {
         eclipseScale = 1.08;
       } else {
