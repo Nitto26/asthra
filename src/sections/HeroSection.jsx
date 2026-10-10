@@ -95,7 +95,7 @@ export default function HeroSection() {
 
       {/* Atmospheric Ambient Radiant Glow (High performance radial gradient with zero GPU filter passes) */}
       <div 
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,600px)] h-[min(90vw,600px)] rounded-full pointer-events-none z-10 transition-opacity duration-1200 ease-in-out ${
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(75vw,340px)] sm:w-[min(80vw,480px)] md:w-[600px] h-[min(75vw,340px)] sm:h-[min(80vw,480px)] md:h-[600px] rounded-full pointer-events-none z-10 transition-opacity duration-1200 ease-in-out ${
           backgroundLoaded ? 'opacity-30' : 'opacity-0'
         }`}
         style={{
@@ -187,71 +187,71 @@ export default function HeroSection() {
             }`}
           >
             {/* Grand Countdown Numbers Row (Optimized & Grand on Mobile & Desktop) */}
-            <div className="font-serif-display text-[clamp(3.1rem,13.2vw,7.6rem)] sm:text-7xl md:text-8xl lg:text-[104px] xl:text-[120px] font-normal tracking-[0.01em] select-none flex items-start justify-center leading-none filter drop-shadow-[0_4px_35px_rgba(0,0,0,0.98)]">
+            <div className="font-serif-display text-[clamp(2.5rem,10.5vw,7.6rem)] sm:text-7xl md:text-8xl lg:text-[104px] xl:text-[120px] font-normal tracking-[0.01em] select-none flex items-start justify-center filter drop-shadow-[0_4px_35px_rgba(0,0,0,0.98)]">
               
               {/* Days (Left - Outside Eclipse in Gold) */}
-              <div className="flex flex-col items-center">
-                <span className="gold-text font-serif-display font-bold drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
+              <div className="flex flex-col items-center gap-2 sm:gap-3.5 md:gap-4">
+                <span className="gold-text font-serif-display font-bold leading-none block drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
                   {String(timeLeft.days).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] sm:tracking-[0.25em] indent-[0.2em] sm:indent-[0.25em] text-[#A6A195] uppercase mt-2.5 sm:mt-3.5 md:mt-4">
+                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-[#A6A195] uppercase leading-none block">
                   DAYS
                 </span>
               </div>
 
               {/* Separator */}
-              <span className="font-serif-display text-[#D4AF37]/75 mx-0.5 sm:mx-2 md:mx-3 -mt-1 sm:-mt-2 select-none">
+              <span className="font-serif-display text-[#D4AF37]/75 mx-1 sm:mx-2 md:mx-3 leading-none select-none">
                 :
               </span>
 
               {/* Hours (Inside Eclipse in Gold) */}
-              <div className="flex flex-col items-center">
-                <span className="gold-text font-serif-display font-bold drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
+              <div className="flex flex-col items-center gap-2 sm:gap-3.5 md:gap-4">
+                <span className="gold-text font-serif-display font-bold leading-none block drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] sm:tracking-[0.25em] indent-[0.2em] sm:indent-[0.25em] text-[#A6A195] uppercase mt-2.5 sm:mt-3.5 md:mt-4">
+                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-[#A6A195] uppercase leading-none block">
                   HOURS
                 </span>
               </div>
 
               {/* Separator */}
-              <span className="font-serif-display text-[#D4AF37]/75 mx-0.5 sm:mx-2 md:mx-3 -mt-1 sm:-mt-2 select-none">
+              <span className="font-serif-display text-[#D4AF37]/75 mx-1 sm:mx-2 md:mx-3 leading-none select-none">
                 :
               </span>
 
               {/* Minutes (Inside Eclipse in Gold) */}
-              <div className="flex flex-col items-center">
-                <span className="gold-text font-serif-display font-bold drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
+              <div className="flex flex-col items-center gap-2 sm:gap-3.5 md:gap-4">
+                <span className="gold-text font-serif-display font-bold leading-none block drop-shadow-[0_0_25px_rgba(212,175,55,0.45)]">
                   {String(timeLeft.minutes).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] sm:tracking-[0.25em] indent-[0.2em] sm:indent-[0.25em] text-[#A6A195] uppercase mt-2.5 sm:mt-3.5 md:mt-4">
+                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-[#A6A195] uppercase leading-none block">
                   MINS
                 </span>
               </div>
 
               {/* Separator */}
-              <span className="font-serif-display text-[#D4AF37]/75 mx-0.5 sm:mx-2 md:mx-3 -mt-1 sm:-mt-2 select-none">
+              <span className="font-serif-display text-[#D4AF37]/75 mx-1 sm:mx-2 md:mx-3 leading-none select-none">
                 :
               </span>
 
               {/* Seconds (Right - Outside Eclipse in Radiant Luminous White) */}
-              <div className="flex flex-col items-center">
-                <span className="text-[#F8F7F4] font-serif-display font-bold drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+              <div className="flex flex-col items-center gap-2 sm:gap-3.5 md:gap-4">
+                <span className="text-[#F8F7F4] font-serif-display font-bold leading-none block drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
                   {String(timeLeft.seconds).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.2em] sm:tracking-[0.25em] indent-[0.2em] sm:indent-[0.25em] text-[#A6A195] uppercase mt-2.5 sm:mt-3.5 md:mt-4">
+                <span className="text-[9px] sm:text-[11px] md:text-xs font-sans font-semibold tracking-[0.18em] sm:tracking-[0.25em] text-[#A6A195] uppercase leading-none block">
                   SECS
                 </span>
               </div>
             </div>
 
             {/* Date Tag Bar Below (With prominent, generous separation from clock) */}
-            <div className="flex items-center justify-center gap-3 sm:gap-5 mt-10 sm:mt-14 md:mt-18 lg:mt-20 opacity-95">
-              <span className="w-12 sm:w-20 md:w-24 h-[1.5px] bg-[#D4AF37]/80" />
-              <span className="font-mono text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.35em] indent-[0.35em] text-[#F5D77F] uppercase drop-shadow-[0_0_12px_rgba(212,175,55,0.5)]">
+            <div className="flex items-center justify-center gap-3 sm:gap-5 mt-8 sm:mt-12 md:mt-16 lg:mt-18 opacity-95">
+              <span className="w-10 sm:w-20 md:w-24 h-[1.5px] bg-[#D4AF37]/80" />
+              <span className="font-mono text-[9px] sm:text-xs md:text-sm font-bold tracking-[0.25em] sm:tracking-[0.35em] text-[#F5D77F] uppercase drop-shadow-[0_0_12px_rgba(212,175,55,0.5)]">
                 NOVEMBER 27, 2026
               </span>
-              <span className="w-12 sm:w-20 md:w-24 h-[1.5px] bg-[#D4AF37]/80" />
+              <span className="w-10 sm:w-20 md:w-24 h-[1.5px] bg-[#D4AF37]/80" />
             </div>
           </div>
         )}
@@ -276,19 +276,32 @@ export default function HeroSection() {
           PRE-RELEASE TEASER FOOTER NOTICE (Centered at bottom)
           ========================================================================= */}
       <div 
-        className={`absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-opacity duration-1000 delay-500 ease-out ${
+        className={`absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-opacity duration-1000 delay-500 ease-out flex items-center justify-center ${
           textVisible ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          bottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))',
+          bottom: 'max(1.75rem, env(safe-area-inset-bottom, 1.75rem))',
         }}
       >
-        <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-[#D4AF37]/35 shadow-[0_0_25px_rgba(212,175,55,0.2)]">
-          <span className="relative flex h-2 w-2">
+        <div 
+          className="inline-flex items-center justify-center rounded-full bg-black/90 backdrop-blur-md border border-[#D4AF37]/50 shadow-[0_0_25px_rgba(212,175,55,0.3)]"
+          style={{
+            padding: '9px 28px 9px 22px',
+            gap: '12px',
+          }}
+        >
+          <span className="relative flex h-2 w-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5D77F] opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
           </span>
-          <span className="font-mono text-[9.5px] sm:text-[11.5px] font-semibold tracking-[0.28em] indent-[0.28em] text-[#F5D77F] uppercase whitespace-nowrap drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]">
+          <span 
+            className="font-sans font-semibold text-[#F5D77F] uppercase whitespace-nowrap drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+            style={{
+              fontSize: '11px',
+              letterSpacing: '0.14em',
+              lineHeight: '1.2',
+            }}
+          >
             WEBSITE WILL BE LIVE SOON
           </span>
         </div>

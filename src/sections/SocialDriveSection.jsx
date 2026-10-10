@@ -102,18 +102,6 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
               <p className="text-[#F8F7F4] font-medium leading-relaxed">
                 We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals through <strong className="text-[#F5D77F] font-semibold">Bethesda Charitable Trust</strong>.
               </p>
-
-              <p className="text-[#DCD8CF] leading-relaxed">
-                Join us in our mission to <span className="text-[#F5D77F] font-semibold">donate wheelchairs</span> and create an inclusive environment where everyone can participate and shine in our festivities.
-              </p>
-            </div>
-
-            {/* Bottom Accent Note */}
-            <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-white/15 w-full max-w-2xl flex items-center justify-between">
-              <p className="text-xs sm:text-sm font-serif-title tracking-wider text-[#F5D77F] italic">
-                Empowering lives through compassion and inclusivity.
-              </p>
-              <HeartHandshake size={18} className="text-[#D4AF37] opacity-80" />
             </div>
           </div>
 

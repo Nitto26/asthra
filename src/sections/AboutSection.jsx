@@ -15,7 +15,7 @@ export default function AboutSection({ onScrollNext }) {
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/assets/WhatsApp Image 2026-09-16 at 7.54.49 PM.jpeg"
+          src="/assets/about-bg.png"
           alt="About Section Background"
           loading="lazy"
           decoding="async"
@@ -56,19 +56,6 @@ export default function AboutSection({ onScrollNext }) {
           <p className="text-[#F8F7F4] text-sm sm:text-base md:text-lg font-medium leading-relaxed">
             <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
-
-          <p className="leading-relaxed text-[#DCD8CF]">
-            Founded as an educational institution in 1889, St. Thomas College is the oldest Catholic college in Kerala. The Department of Mathematics, established in 1926, consistently maintains academic distinction with research and dedicated programmes that foster talent, imagination, and analytical rigor.
-          </p>
-
-          <div className="pt-3 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 border-t border-white/20 mt-4">
-            <p className="text-xs sm:text-sm md:text-base font-serif-title tracking-wider text-[#F5D77F] italic">
-              Come join us as we create joy and unforgettable moments.
-            </p>
-            <span className="font-mono text-xs text-[#A6A195] uppercase tracking-widest">
-              Thank you.
-            </span>
-          </div>
         </div>
       </div>
     </section>
