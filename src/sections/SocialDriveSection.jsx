@@ -62,12 +62,12 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             alt={`Social Drive Background ${idx + 1}`}
             loading="lazy"
             decoding="async"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.7] contrast-[1.05] saturate-[1.05] ${idx === currentBgIndex ? 'opacity-50' : 'opacity-0'
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${idx === currentBgIndex ? 'opacity-70' : 'opacity-0'
               }`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/85 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070707] via-[#070707]/75 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/30 to-[#070707]/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070707]/70 via-transparent to-transparent pointer-events-none" />
       </div>
 
       <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center px-3 sm:px-6 lg:px-12 my-auto py-4 sm:py-6">

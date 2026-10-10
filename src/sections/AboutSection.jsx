@@ -1,17 +1,16 @@
 import React from 'react';
-import { sound } from '../utils/sound';
 
-export default function AboutSection({ onScrollNext }) {
+export default function AboutSection() {
   return (
     <section
       id="about"
-      className="snap-section relative flex flex-col justify-center overflow-hidden min-h-[100svh] w-full select-none py-12 sm:py-16"
+      className="snap-section relative flex flex-col justify-between overflow-hidden min-h-[100svh] w-full select-none"
       style={{
-        backgroundColor: '#020202'
+        backgroundColor: '#020202',
       }}
     >
       {/* =========================================================================
-          BACKGROUND IMAGE LAYER
+          BACKGROUND IMAGE LAYER & CINEMATIC GRADIENT MASKS
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
@@ -19,42 +18,47 @@ export default function AboutSection({ onScrollNext }) {
           alt="About Section Background"
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.05] saturate-[1.05] opacity-90"
+          className="w-full h-full object-cover object-top filter brightness-[1.05] contrast-[1.02] saturate-[1.08]"
         />
-        {/* Gradient for Text Contrast & Section Transitions */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/70 pointer-events-none" />
-      </div>
-
-      {/* Top Header Tag */}
-      <div className="relative z-20 flex items-center justify-between pt-2">
-        <div className="flex flex-col items-start">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-semibold text-[#D4AF37]">02</span>
-            <span className="w-10 h-[1.5px] bg-[#D4AF37]/80" />
-          </div>
-          <span className="text-[11px] font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase mt-1">
-            ABOUT FESTIVAL
-          </span>
-        </div>
+        {/* Soft top vignette for navbar/tag clarity */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#020202]/60 via-[#020202]/20 to-transparent pointer-events-none" />
+        {/* Soft bottom gradient to keep text legible while showing the imagery */}
+        <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-[#020202] via-[#020202]/75 to-transparent pointer-events-none" />
       </div>
 
       {/* =========================================================================
-          MAIN TEXT CONTENT: Seamless Typography Directly over Image
+          TOP HEADER TAG (In-flow at top of section)
           ========================================================================= */}
-      <div className="relative z-20 my-auto py-6 max-w-3xl text-left">
-        {/* Title */}
-        <div className="flex flex-col items-start mb-5 sm:mb-6">
-          <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] leading-tight filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
-            About <span className="gold-text font-serif-display font-semibold">ASTHRA 2k26</span>
-          </h2>
-          <span className="w-20 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mt-3" />
-        </div>
+      <div className="relative z-20 flex flex-col items-start text-left pointer-events-none">
+        <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37]">
+          02
+        </span>
+        <span className="text-[10.5px] sm:text-xs font-sans font-semibold tracking-[0.32em] text-[#E6E3DB] uppercase mt-0.5">
+          ABOUT FESTIVAL
+        </span>
+      </div>
 
-        {/* Formatted Content with Rich Contrast & Spacing */}
-        <div className="space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-          <p className="text-[#F8F7F4] text-sm sm:text-base md:text-lg font-medium leading-relaxed">
-            <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
+      {/* =========================================================================
+          MAIN EDITORIAL TYPOGRAPHY (In-flow at bottom of section)
+          ========================================================================= */}
+      <div className="relative z-20 max-w-xl text-left pb-2 sm:pb-4 md:pb-6">
+        {/* Title: "About" on Line 1, "ASTHRA 2k26" on Line 2 */}
+        <h2 className="leading-[0.95] filter drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)] mb-3.5 sm:mb-4.5">
+          <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal text-[#F8F7F4] tracking-tight font-serif-display">
+            About
+          </span>
+          <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal gold-text font-serif-display tracking-tight mt-1 sm:mt-1.5">
+            ASTHRA <span className="font-serif-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal">2k26</span>
+          </span>
+        </h2>
+
+        {/* Formatted Content with Rich Contrast & Exact Hierarchy */}
+        <div className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] max-w-lg">
+          <p className="leading-relaxed">
+            <strong className="text-[#F5D77F] font-bold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-[#FFFFFF] font-bold">Department of Mathematics, St. Thomas College (Autonomous), Thrissur.</strong>
+          </p>
+          <p className="leading-relaxed text-[#E6E3DB]/95 font-normal">
+            Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
         </div>
       </div>
