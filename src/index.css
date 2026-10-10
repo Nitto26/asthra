@@ -30,6 +30,7 @@
   --font-serif-display: 'Playfair Display', 'Cinzel', Georgia, serif;
   --font-serif-title: 'Cinzel', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-editorial: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'Space Grotesk', monospace;
 }
 
@@ -190,6 +191,10 @@ body {
 
 .font-sans {
   font-family: var(--font-sans);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
 }
 
 .font-mono {

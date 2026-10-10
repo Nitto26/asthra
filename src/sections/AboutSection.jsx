@@ -5,13 +5,13 @@ export default function AboutSection({ onScrollNext }) {
   return (
     <section
       id="about"
-      className="snap-section relative flex flex-col justify-center overflow-hidden min-h-[100svh] w-full select-none py-12 sm:py-16"
+      className="snap-section relative flex flex-col justify-center overflow-hidden min-h-[100svh] w-full select-none"
       style={{
         backgroundColor: '#020202'
       }}
     >
       {/* =========================================================================
-          BACKGROUND IMAGE LAYER
+          BACKGROUND IMAGE LAYER WITH ENHANCED CONTRAST GRADIENTS
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
@@ -19,58 +19,64 @@ export default function AboutSection({ onScrollNext }) {
           alt="About Section Background"
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.05] saturate-[1.05] opacity-90"
+          className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-[1.08] saturate-[1.05]"
         />
-        {/* Gradient for Text Contrast & Section Transitions */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/70 pointer-events-none" />
-      </div>
-
-      {/* Top Header Tag */}
-      <div className="relative z-20 flex items-center justify-between pt-2">
-        <div className="flex flex-col items-start">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-semibold text-[#D4AF37]">02</span>
-            <span className="w-10 h-[1.5px] bg-[#D4AF37]/80" />
-          </div>
-          <span className="text-[11px] font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase mt-1">
-            ABOUT FESTIVAL
-          </span>
-        </div>
+        {/* Full-coverage atmospheric dark gradients for maximum text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/85 to-[#020202]/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/90 via-[#020202]/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px] pointer-events-none" />
       </div>
 
       {/* =========================================================================
-          MAIN TEXT CONTENT: Seamless Typography Directly over Image
+          CONTENT WRAPPER: Gracefully Centered & Spread Across Viewport
           ========================================================================= */}
-      <div className="relative z-20 my-auto py-6 max-w-3xl text-left">
-        {/* Title */}
-        <div className="flex flex-col items-start mb-5 sm:mb-6">
-          <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] leading-tight filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
+      <div className="relative z-20 w-full max-w-3xl mx-auto px-6 sm:px-10 md:px-12 flex flex-col justify-center min-h-[100svh] py-20 sm:py-24 text-left">
+        
+        {/* Section Pill / Number Tag */}
+        <div className="flex items-center gap-3 mb-6 sm:mb-8">
+          <span className="font-mono text-xs font-semibold text-[#D4AF37]">02</span>
+          <span className="w-10 sm:w-12 h-[1.5px] bg-[#D4AF37]/80" />
+          <span className="text-[11px] sm:text-xs font-sans font-semibold tracking-[0.3em] text-[#E6E3DB] uppercase">
+            ABOUT FESTIVAL
+          </span>
+        </div>
+
+        {/* Section Headline */}
+        <div className="flex flex-col items-start mb-6 sm:mb-8">
+          <h2 className="font-serif-display text-3xl sm:text-4xl md:text-5xl font-normal tracking-wide text-[#F8F7F4] leading-[1.2] filter drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             About <span className="gold-text font-serif-display font-semibold">ASTHRA 2k26</span>
           </h2>
-          <span className="w-20 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mt-3" />
+          <span className="w-20 sm:w-28 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mt-3" />
         </div>
 
-        {/* Formatted Content with Rich Contrast & Spacing */}
-        <div className="space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-          <p className="text-[#F8F7F4] text-sm sm:text-base md:text-lg font-medium leading-relaxed">
-            <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
+        {/* Editorial Body: Outfit Font with Generous Line-Height & Spacing */}
+        <div className="space-y-6 sm:space-y-7 font-editorial text-[#E6E3DB] filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+          <p className="text-[15px] sm:text-[17px] md:text-[19px] text-[#F8F7F4] font-normal leading-[1.9] sm:leading-[2.0] tracking-[0.02em]">
+            <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the <strong className="text-white font-medium">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>. Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
 
-          <p className="leading-relaxed text-[#DCD8CF]">
+          <p className="text-[14px] sm:text-[15.5px] md:text-[17px] text-[#D4D0C5] font-light leading-[1.95] sm:leading-[2.05] tracking-[0.02em]">
             Founded as an educational institution in 1889, St. Thomas College is the oldest Catholic college in Kerala. The Department of Mathematics, established in 1926, consistently maintains academic distinction with research and dedicated programmes that foster talent, imagination, and analytical rigor.
           </p>
+        </div>
 
-          <div className="pt-3 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 border-t border-white/20 mt-4">
-            <p className="text-xs sm:text-sm md:text-base font-serif-title tracking-wider text-[#F5D77F] italic">
+        {/* Bottom Accent Quote & Thank You */}
+        <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-[#D4AF37]/25 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <p className="text-xs sm:text-[13px] md:text-sm font-sans font-medium uppercase tracking-[0.18em] text-[#F5D77F] drop-shadow-[0_0_12px_rgba(212,175,55,0.35)]">
               Come join us as we create joy and unforgettable moments.
             </p>
-            <span className="font-mono text-xs text-[#A6A195] uppercase tracking-widest">
+            <p className="text-[11px] sm:text-xs font-mono tracking-[0.25em] text-[#A6A195] uppercase mt-1">
               Thank you.
-            </span>
+            </p>
           </div>
+          <span className="font-mono text-[10px] sm:text-xs text-[#8C877B] uppercase tracking-[0.2em] self-start sm:self-auto">
+            STC · Thrissur
+          </span>
         </div>
+
       </div>
     </section>
   );
 }
+
