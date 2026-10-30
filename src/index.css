@@ -444,3 +444,45 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   LOW-SPEC MOBILE PERFORMANCE & BUTTERY SMOOTH TOUCH SCROLLING
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Disable CSS scroll-snap on mobile to unlock native 60-120fps hardware inertia scrolling */
+  html {
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+
+  .snap-section {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+    contain: content;
+  }
+
+  /* Disable GPU-taxing real-time blur passes on cards during mobile scroll */
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Isolate background images onto hardware layers without real-time filter passes */
+  .snap-section img {
+    filter: none !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Disable expensive offscreen rasterization from drop-shadow filters on body text */
+  p[class*="drop-shadow"] {
+    filter: none !important;
+    drop-shadow: none !important;
+  }
+}

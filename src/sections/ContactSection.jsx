@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
 import { Mail, Phone, MapPin, Copy, ExternalLink, Send, CheckCircle2 } from 'lucide-react';
@@ -9,6 +9,14 @@ export default function ContactSection() {
   const [formOpen, setFormOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [bgLoaded, setBgLoaded] = useState(false);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setBgLoaded(true);
+    }
+  }, []);
 
   const handleCopy = (text, fieldName) => {
     navigator.clipboard.writeText(text);
@@ -46,13 +54,27 @@ export default function ContactSection() {
     >
       {/* Background: Grand Stone Archway with Golden Archer Statue */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Color theme matching ambient texture (active before image fades in) */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 78% 45%, rgba(245, 215, 127, 0.16) 0%, rgba(212, 175, 55, 0.05) 40%, rgba(5, 5, 5, 0.95) 75%, #050505 100%)',
+          }}
+          aria-hidden="true"
+        />
+
         <img
+          ref={imgRef}
           src="/assets/contact-bg.webp"
           alt="Golden Archer Cathedral Monument"
           width="1672"
           height="941"
           loading="lazy"
-          className="w-full h-full object-cover object-[76%_center] sm:object-right-center opacity-85 sm:opacity-95 filter brightness-105 contrast-105 saturate-110"
+          decoding="async"
+          onLoad={() => setBgLoaded(true)}
+          className={`w-full h-full object-cover object-[76%_center] sm:object-right-center filter brightness-105 contrast-105 saturate-110 transition-opacity duration-1000 ease-in-out ${
+            bgLoaded ? 'opacity-85 sm:opacity-95' : 'opacity-0'
+          }`}
         />
         {/* Soft left gradient for text readability without washing out the glowing archer */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/35 to-transparent pointer-events-none" />

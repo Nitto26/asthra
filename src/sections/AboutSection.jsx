@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const leadershipList = [
   { role: 'Principal', name: 'Fr. Dr. Martin KA' },
@@ -8,6 +8,15 @@ const leadershipList = [
 ];
 
 export default function AboutSection() {
+  const [bgLoaded, setBgLoaded] = useState(false);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setBgLoaded(true);
+    }
+  }, []);
+
   return (
     <section
       id="about"
@@ -16,14 +25,26 @@ export default function AboutSection() {
     >
       {/* Background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Color theme matching ambient texture (renders immediately before image fades in) */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 65% 45%, rgba(245, 215, 127, 0.16) 0%, rgba(212, 175, 55, 0.06) 35%, rgba(2, 2, 2, 0.9) 70%, #020202 100%)',
+          }}
+          aria-hidden="true"
+        />
         <img
+          ref={imgRef}
           src="/assets/about-bg.webp"
           alt="About Section Background"
           width="941"
           height="1672"
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.08] saturate-[1.05]"
+          onLoad={() => setBgLoaded(true)}
+          className={`w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.08] saturate-[1.05] transition-opacity duration-1000 ease-in-out ${
+            bgLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/85 to-[#020202]/55 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/90 via-[#020202]/60 to-transparent pointer-events-none" />

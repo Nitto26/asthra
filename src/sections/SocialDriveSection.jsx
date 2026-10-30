@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
 import { HeartHandshake } from 'lucide-react';
@@ -11,8 +11,19 @@ const bgImages = [
 
 export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState({});
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = React.useRef(null);
+  const sectionRef = useRef(null);
+  const imgRefs = useRef([]);
+
+  // Check if any images are already cached/complete on mount
+  useEffect(() => {
+    bgImages.forEach((src, idx) => {
+      if (imgRefs.current[idx]?.complete) {
+        setLoadedImages((prev) => ({ ...prev, [src]: true }));
+      }
+    });
+  }, []);
 
   // Monitor section visibility
   useEffect(() => {
@@ -55,19 +66,36 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
     >
       {/* Dynamic Looping Cross-Fade Background Images */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {bgImages.map((src, idx) => (
-          <img
-            key={src}
-            src={src}
-            alt={`Social Drive Background ${idx + 1}`}
-            loading="lazy"
-            decoding="async"
-            width="820"
-            height="1600"
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${idx === currentBgIndex ? 'opacity-70' : 'opacity-0'
+        {/* Color theme matching ambient texture (active before images fade in) */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 80% 50%, rgba(245, 215, 127, 0.15) 0%, rgba(212, 175, 55, 0.05) 40%, rgba(7, 7, 7, 0.95) 75%, #070707 100%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {bgImages.map((src, idx) => {
+          const isCurrent = idx === currentBgIndex;
+          const isLoaded = !!loadedImages[src];
+
+          return (
+            <img
+              key={src}
+              ref={(el) => (imgRefs.current[idx] = el)}
+              src={src}
+              alt={`Social Drive Background ${idx + 1}`}
+              loading="lazy"
+              decoding="async"
+              onLoad={() => setLoadedImages((prev) => ({ ...prev, [src]: true }))}
+              width="820"
+              height="1600"
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${
+                isCurrent && isLoaded ? 'opacity-70' : 'opacity-0'
               }`}
-          />
-        ))}
+            />
+          );
+        })}
         <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/30 to-[#070707]/60 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#070707]/70 via-transparent to-transparent pointer-events-none" />
       </div>

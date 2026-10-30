@@ -32,17 +32,15 @@ export default function EclipseCanvas({ onLoaded }) {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = 21;
 
-    // Dynamic pixel ratio: Crisp 1.5-1.75 on Retina/4K displays without GPU fill-rate exhaustion
+    // Dynamic pixel ratio: 1.0 on mobile to completely prevent GPU fill-rate bottleneck
     const isMobile = window.innerWidth < 768;
-    const pixelRatio = isMobile
-      ? Math.min(window.devicePixelRatio || 1, 1.25)
-      : Math.min(window.devicePixelRatio || 1, 1.5);
+    const pixelRatio = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true, // Hardware-accelerated MSAA for razor-sharp gold rim and glare
+      antialias: !isMobile, // Disable MSAA on mobile for 50%+ GPU fill-rate savings during scroll
       alpha: true,
       powerPreference: 'high-performance',
-      precision: 'mediump',
+      precision: isMobile ? 'mediump' : 'highp',
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(pixelRatio);
@@ -75,7 +73,7 @@ export default function EclipseCanvas({ onLoaded }) {
     const starTexture = createPinpointStarTexture();
 
     // 3. Starfield (Optimized count: 1200 on mobile, 2200 on desktop)
-    const starCount = isMobile ? 1200 : 2200;
+    const starCount = isMobile ? 400 : 2200;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
     const starCols = new Float32Array(starCount * 3);
@@ -550,15 +548,31 @@ export default function EclipseCanvas({ onLoaded }) {
           }
         }
       },
-      { threshold: 0.0 }
+      { threshold: 0.02 }
     );
     visibilityObserver.observe(heroSection);
+
+    // Pause WebGL rendering entirely while mobile user is scrolling to keep 60fps compositor scroll
+    let isScrolling = false;
+    let scrollStopTimer = null;
+    const handleScroll = () => {
+      if (!isMobile) return;
+      isScrolling = true;
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
+      scrollStopTimer = setTimeout(() => {
+        isScrolling = false;
+        if (isVisible && !animationFrameId) {
+          animate();
+        }
+      }, 120);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // 11. Animation Loop (Only runs when visible)
     const startTime = performance.now();
 
     const animate = () => {
-      if (!isVisible) {
+      if (!isVisible || isScrolling) {
         animationFrameId = null;
         return;
       }
@@ -615,7 +629,9 @@ export default function EclipseCanvas({ onLoaded }) {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
       if (resizeTimeout) clearTimeout(resizeTimeout);
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement);
       }
