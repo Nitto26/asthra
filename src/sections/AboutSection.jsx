@@ -14,8 +14,10 @@ export default function AboutSection() {
           ========================================================================= */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/assets/about-bg.png"
+          src="/assets/about-bg.webp"
           alt="About Section Background"
+          width="941"
+          height="1672"
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.08] saturate-[1.05]"

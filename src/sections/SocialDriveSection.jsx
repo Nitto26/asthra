@@ -4,9 +4,9 @@ import { sound } from '../utils/sound';
 import { HeartHandshake } from 'lucide-react';
 
 const bgImages = [
-  '/assets/social.jpeg',
-  '/assets/social1.jpeg',
-  '/assets/socail3.jpeg'
+  '/assets/social.webp',
+  '/assets/social1.webp',
+  '/assets/socail3.webp'
 ];
 
 export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
@@ -62,6 +62,8 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             alt={`Social Drive Background ${idx + 1}`}
             loading="lazy"
             decoding="async"
+            width="820"
+            height="1600"
             className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${idx === currentBgIndex ? 'opacity-70' : 'opacity-0'
               }`}
           />

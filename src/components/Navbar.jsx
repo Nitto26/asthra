@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
 import { ArrowRight, X, Sparkles } from 'lucide-react';
-import logoImg from '../assets/logo.png';
 
 export default function Navbar({ activeSection, onNavigate, onOpenRegister, links }) {
   const [scrollY, setScrollY] = useState(0);
@@ -90,7 +89,9 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
           >
             <div className="h-9 sm:h-11 md:h-12 w-auto relative flex items-center transition-all duration-300 group-hover:scale-105 logo-shimmer-container">
               <img
-                src={logoImg}
+                src="/assets/logo.png"
+                width="48"
+                height="48"
                 alt="ASTHRA '26 Logo"
                 className="h-full w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(212,175,55,0.45)]"
                 onError={(e) => {

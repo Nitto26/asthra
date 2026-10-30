@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { sound } from '../utils/sound';
 import { siteConfig } from '../data/config';
-import ConstellationOverlay from '../components/ConstellationOverlay';
 
 // Lazy-load Three.js EclipseCanvas so initial HTML and LCP elements render immediately (<1.5s)
 const EclipseCanvas = lazy(() => import('../components/EclipseCanvas'));
@@ -14,6 +13,14 @@ export default function HeroSection() {
   const [textVisible, setTextVisible] = useState(true);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [shouldMountCanvas, setShouldMountCanvas] = useState(true);
+
+  // Mount 3D Eclipse canvas right after initial paint to keep FCP/LCP instant
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldMountCanvas(true);
+    }, 60);
+    return () => clearTimeout(timer);
+  }, []);
   const [showCountdown, setShowCountdown] = useState(false);
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeRemaining());
 
@@ -94,14 +101,6 @@ export default function HeroSection() {
         )}
       </div>
 
-      {/* Mobile Celestial Constellations & Orbital Charts (Razor-sharp starlight filaments & diamond flares) */}
-      <div
-        className={`absolute inset-0 z-12 transition-opacity duration-1200 ease-in-out pointer-events-none block lg:hidden ${
-          backgroundLoaded ? 'opacity-95' : 'opacity-0'
-        }`}
-      >
-        <ConstellationOverlay />
-      </div>
 
       {/* Atmospheric Ambient Radiant Glow (High performance radial gradient with zero GPU filter passes) */}
       <div 

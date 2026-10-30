@@ -35,7 +35,7 @@ export default function EclipseCanvas({ onLoaded }) {
     // Dynamic pixel ratio: Crisp 1.5-1.75 on Retina/4K displays without GPU fill-rate exhaustion
     const isMobile = window.innerWidth < 768;
     const pixelRatio = isMobile
-      ? Math.min(window.devicePixelRatio || 1, 1.75)
+      ? Math.min(window.devicePixelRatio || 1, 1.25)
       : Math.min(window.devicePixelRatio || 1, 1.5);
 
     const renderer = new THREE.WebGLRenderer({

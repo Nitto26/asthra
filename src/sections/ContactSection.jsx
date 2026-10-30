@@ -49,6 +49,8 @@ export default function ContactSection() {
         <img
           src="/assets/contact-bg.webp"
           alt="Golden Archer Cathedral Monument"
+          width="1672"
+          height="941"
           loading="lazy"
           className="w-full h-full object-cover object-[76%_center] sm:object-right-center opacity-85 sm:opacity-95 filter brightness-105 contrast-105 saturate-110"
         />
