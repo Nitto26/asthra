@@ -32,15 +32,17 @@ export default function EclipseCanvas({ onLoaded }) {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.z = 21;
 
-    // Dynamic pixel ratio: 1.0 on mobile to completely prevent GPU fill-rate bottleneck
+    // Dynamic pixel ratio: Crisp retina rendering for razor-sharp edges
     const isMobile = window.innerWidth < 768;
-    const pixelRatio = isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5);
+    const pixelRatio = isMobile
+      ? Math.min(window.devicePixelRatio || 1, 1.75)
+      : Math.min(window.devicePixelRatio || 1, 2.0);
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile, // Disable MSAA on mobile for 50%+ GPU fill-rate savings during scroll
+      antialias: true, // Hardware MSAA for razor-sharp finished edges on the gold rim
       alpha: true,
       powerPreference: 'high-performance',
-      precision: isMobile ? 'mediump' : 'highp',
+      precision: 'mediump',
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(pixelRatio);
@@ -73,7 +75,7 @@ export default function EclipseCanvas({ onLoaded }) {
     const starTexture = createPinpointStarTexture();
 
     // 3. Starfield (Optimized count: 1200 on mobile, 2200 on desktop)
-    const starCount = isMobile ? 400 : 2200;
+    const starCount = isMobile ? 800 : 2200;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
     const starCols = new Float32Array(starCount * 3);
@@ -153,28 +155,29 @@ export default function EclipseCanvas({ onLoaded }) {
     const starField = new THREE.Points(starGeo, starShaderMat);
     scene.add(starField);
 
-    // 4. Dark Moon Disc (High-fidelity smooth curvature)
-    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.01, 96);
+    // 4. Dark Moon Disc (Ultra-smooth 128-segment curvature with anti-aliased edge)
+    const moonGeo = new THREE.CircleGeometry(RADIUS - 0.005, 128);
     const moonMat = new THREE.ShaderMaterial({
       vertexShader: `
-        varying vec2 vUv;
+        varying vec3 vPos;
         void main() {
-          vUv = uv;
+          vPos = position;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
-        varying vec2 vUv;
+        varying vec3 vPos;
         void main() {
-          vec2 p = vUv - 0.5;
-          float r = length(p) * 2.0;
-          if (r > 1.0) discard;
+          float r = length(vPos.xy) / (3.32 - 0.005);
+          float edgeAlpha = smoothstep(1.0, 0.992, r);
           
-          vec3 darkColor = vec3(0.008, 0.007, 0.006);
-          float rim = smoothstep(0.95, 1.0, r) * 0.02;
-          gl_FragColor = vec4(darkColor + vec3(0.05, 0.04, 0.02) * rim, 1.0);
+          vec3 darkColor = vec3(0.007, 0.006, 0.005);
+          float rim = smoothstep(0.92, 1.0, r) * 0.035;
+          vec3 col = darkColor + vec3(0.06, 0.045, 0.02) * rim;
+          gl_FragColor = vec4(col, edgeAlpha);
         }
       `,
+      transparent: true,
       depthWrite: true,
     });
     const moon = new THREE.Mesh(moonGeo, moonMat);
@@ -235,7 +238,10 @@ export default function EclipseCanvas({ onLoaded }) {
           float microGleam = sin(angle * 40.0 + uTime * 6.0) * 0.06;
           col += specularCore * (sweepGlint * microGleam);
 
-          float alpha = 0.92 + 0.08 * bevelHighlight;
+          // Subpixel anti-aliasing on inner and outer rim for finished, razor-sharp edge
+          float edgeAA = smoothstep(0.0, 0.12, rNorm) * smoothstep(1.0, 0.88, rNorm);
+          col *= edgeAA;
+          float alpha = (0.78 + 0.22 * bevelHighlight) * edgeAA;
           gl_FragColor = vec4(col * (1.15 + sweepGlint * 0.4), alpha);
         }
       `,
@@ -370,7 +376,7 @@ export default function EclipseCanvas({ onLoaded }) {
     `;
 
     // Annular ring geometry (3.30 to 14.2) skips the inner lunar disc & outer offscreen pixels at the GPU hardware level
-    const coronaGeo = new THREE.RingGeometry(3.30, 14.2, 64, 4);
+    const coronaGeo = new THREE.RingGeometry(3.30, 14.2, 96, 4);
     const coronaUniforms = {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0, 0) },
@@ -489,8 +495,10 @@ export default function EclipseCanvas({ onLoaded }) {
       sound.playSolarPulse();
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    }
+    container.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
     // Responsive Sizing
     const updateSize = () => {
@@ -626,8 +634,10 @@ export default function EclipseCanvas({ onLoaded }) {
     return () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       visibilityObserver.disconnect();
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('pointerdown', handlePointerDown);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
+      container.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
       if (resizeTimeout) clearTimeout(resizeTimeout);

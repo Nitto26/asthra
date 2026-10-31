@@ -449,6 +449,11 @@ body {
    LOW-SPEC MOBILE PERFORMANCE & BUTTERY SMOOTH TOUCH SCROLLING
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Zero touch latency: eliminate browser gesture recognition delay */
+  html, body {
+    touch-action: pan-y pinch-zoom;
+  }
+
   /* Disable CSS scroll-snap on mobile to unlock native 60-120fps hardware inertia scrolling */
   html {
     scroll-snap-type: none !important;

@@ -174,6 +174,8 @@ export default function EventsSection({ onSelectEvent }) {
                   <img
                     src={evt.image}
                     alt={evt.name}
+                    width="400"
+                    height="600"
                     loading={isCenter ? 'eager' : 'lazy'}
                     decoding="async"
                     fetchPriority={isCenter ? 'high' : 'low'}

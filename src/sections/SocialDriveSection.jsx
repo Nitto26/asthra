@@ -90,9 +90,8 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
               onLoad={() => setLoadedImages((prev) => ({ ...prev, [src]: true }))}
               width="820"
               height="1600"
-              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${
-                isCurrent && isLoaded ? 'opacity-70' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out filter brightness-[0.88] contrast-[1.05] saturate-[1.05] ${isCurrent && isLoaded ? 'opacity-70' : 'opacity-0'
+                }`}
             />
           );
         })}
@@ -130,7 +129,7 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             {/* Narrative Content */}
             <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-2xl">
               <p className="text-[#F8F7F4] font-medium leading-relaxed">
-                We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals through <strong className="text-[#F5D77F] font-semibold">Bethesda Charitable Trust</strong>.
+                We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals.
               </p>
             </div>
           </div>

@@ -19,29 +19,25 @@ export default function App() {
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donateTier, setDonateTier] = useState(null);
 
-  // Monitor active section with IntersectionObserver
+  // Monitor active section with a single unified IntersectionObserver
   useEffect(() => {
-    const observers = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
 
     PRE_RELEASE_SECTIONS.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveSection(id);
-              }
-            });
-          },
-          { threshold: 0.35 }
-        );
-        observer.observe(el);
-        observers.push(observer);
-      }
+      if (el) observer.observe(el);
     });
 
-    return () => observers.forEach((obs) => obs.disconnect());
+    return () => observer.disconnect();
   }, []);
 
   // Keyboard navigation between available sections

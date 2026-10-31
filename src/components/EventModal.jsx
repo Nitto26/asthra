@@ -88,6 +88,10 @@ export default function EventModal({ event, onClose, onOpenGeneralRegister }) {
           <img
             src={event.image}
             alt={event.name}
+            width="600"
+            height="300"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />

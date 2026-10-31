@@ -42,13 +42,13 @@ export default function AboutSection() {
           loading="lazy"
           decoding="async"
           onLoad={() => setBgLoaded(true)}
-          className={`w-full h-full object-cover object-center filter brightness-[0.7] contrast-[1.08] saturate-[1.05] transition-opacity duration-1000 ease-in-out ${
+          className={`w-full h-full object-cover object-center filter brightness-[0.95] contrast-[1.05] saturate-[1.1] transition-opacity duration-1000 ease-in-out ${
             bgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/85 to-[#020202]/55 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/90 via-[#020202]/60 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        {/* Gentle atmospheric gradients: preserves clear text readability while allowing the background image to remain clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/50 to-[#020202]/25 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020202]/75 via-[#020202]/40 to-transparent pointer-events-none" />
       </div>
 
       {/* Content */}
