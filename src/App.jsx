@@ -18,6 +18,31 @@ export default function App() {
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donateTier, setDonateTier] = useState(null);
+  const [mountRest, setMountRest] = useState(false);
+
+  // Defer offscreen sections until idle or on first touch/scroll to eliminate main-thread TBT
+  useEffect(() => {
+    const trigger = () => setMountRest(true);
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(trigger, { timeout: 1200 });
+      window.addEventListener('scroll', trigger, { once: true, passive: true });
+      window.addEventListener('touchstart', trigger, { once: true, passive: true });
+      return () => {
+        cancelIdleCallback(id);
+        window.removeEventListener('scroll', trigger);
+        window.removeEventListener('touchstart', trigger);
+      };
+    } else {
+      const id = setTimeout(trigger, 800);
+      window.addEventListener('scroll', trigger, { once: true, passive: true });
+      window.addEventListener('touchstart', trigger, { once: true, passive: true });
+      return () => {
+        clearTimeout(id);
+        window.removeEventListener('scroll', trigger);
+        window.removeEventListener('touchstart', trigger);
+      };
+    }
+  }, []);
 
   // Monitor active section with a single unified IntersectionObserver
   useEffect(() => {
@@ -78,6 +103,14 @@ export default function App() {
   }, [activeSection, registerModalOpen, donateModalOpen]);
 
   const scrollToSection = (id) => {
+    if (!mountRest) {
+      setMountRest(true);
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 40);
+      return;
+    }
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -107,14 +140,18 @@ export default function App() {
         <HeroSection onExplore={() => scrollToSection('about')} />
 
         {/* 02 ABOUT FESTIVAL */}
-        <Suspense fallback={null}>
-          <AboutSection onScrollNext={() => scrollToSection('social-drive')} />
-          <SocialDriveSection
-            onOpenDonate={handleOpenDonate}
-            onScrollNext={() => scrollToSection('contact')}
-          />
-          <ContactSection />
-        </Suspense>
+        {mountRest ? (
+          <Suspense fallback={null}>
+            <AboutSection onScrollNext={() => scrollToSection('social-drive')} />
+            <SocialDriveSection
+              onOpenDonate={handleOpenDonate}
+              onScrollNext={() => scrollToSection('contact')}
+            />
+            <ContactSection />
+          </Suspense>
+        ) : (
+          <div className="min-h-[100svh]" />
+        )}
       </main>
 
       {/* Interactive Modals (Loaded On-Demand) */}

@@ -12,14 +12,18 @@ export default function HeroSection() {
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const [textVisible, setTextVisible] = useState(true);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
-  const [shouldMountCanvas, setShouldMountCanvas] = useState(true);
+  const [shouldMountCanvas, setShouldMountCanvas] = useState(false);
 
-  // Mount 3D Eclipse canvas right after initial paint to keep FCP/LCP instant
+  // Mount 3D Eclipse canvas immediately after initial paint via requestIdleCallback to keep TBT at 0ms
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShouldMountCanvas(true);
-    }, 60);
-    return () => clearTimeout(timer);
+    const mount = () => setShouldMountCanvas(true);
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(mount, { timeout: 350 });
+      return () => cancelIdleCallback(id);
+    } else {
+      const timer = setTimeout(mount, 100);
+      return () => clearTimeout(timer);
+    }
   }, []);
   const [showCountdown, setShowCountdown] = useState(false);
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeRemaining());
@@ -104,9 +108,7 @@ export default function HeroSection() {
 
       {/* Atmospheric Ambient Radiant Glow (High performance radial gradient with zero GPU filter passes) */}
       <div 
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(75vw,340px)] sm:w-[min(80vw,480px)] md:w-[600px] h-[min(75vw,340px)] sm:h-[min(80vw,480px)] md:h-[600px] rounded-full pointer-events-none z-10 transition-opacity duration-1200 ease-in-out ${
-          backgroundLoaded ? 'opacity-30' : 'opacity-0'
-        }`}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(75vw,340px)] sm:w-[min(80vw,480px)] md:w-[600px] h-[min(75vw,340px)] sm:h-[min(80vw,480px)] md:h-[600px] rounded-full pointer-events-none z-10 opacity-30" 
         style={{
           background: 'radial-gradient(circle, rgba(245, 215, 127, 0.22) 0%, rgba(212, 175, 55, 0.08) 35%, rgba(212, 175, 55, 0.02) 55%, rgba(0, 0, 0, 0) 70%)',
         }}
