@@ -500,11 +500,22 @@ export default function EclipseCanvas({ onLoaded }) {
     }
     container.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
-    // Responsive Sizing
+    // Responsive Sizing (Ignores minor mobile URL-bar height shifts to prevent WebGL buffer recreation)
+    let lastW = 0;
+    let lastH = 0;
+
     const updateSize = () => {
       if (!container) return;
       const w = container.clientWidth || window.innerWidth;
       const h = container.clientHeight || window.innerHeight;
+
+      // If only mobile address bar height shifted (under 140px) without width change, do not reallocate WebGL buffers
+      if (lastW > 0 && Math.abs(w - lastW) < 4 && Math.abs(h - lastH) < 140) {
+        return;
+      }
+      lastW = w;
+      lastH = h;
+
       const aspect = w / h;
       camera.aspect = aspect;
       camera.updateProjectionMatrix();
@@ -560,24 +571,50 @@ export default function EclipseCanvas({ onLoaded }) {
     );
     visibilityObserver.observe(heroSection);
 
-    // Pause WebGL rendering entirely while mobile user is scrolling to keep 60fps compositor scroll
+    // Instant touch-pause + scroll-pause to eliminate all touch-scroll lag on 90Hz/120Hz devices (Realme, etc.)
     let isScrolling = false;
     let scrollStopTimer = null;
-    const handleScroll = () => {
+
+    const pauseRendering = () => {
       if (!isMobile) return;
       isScrolling = true;
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
+    };
+
+    const resumeRenderingAfterScroll = (delay = 140) => {
+      if (!isMobile) return;
       if (scrollStopTimer) clearTimeout(scrollStopTimer);
       scrollStopTimer = setTimeout(() => {
         isScrolling = false;
         if (isVisible && !animationFrameId) {
+          lastRenderTime = performance.now();
           animate();
         }
-      }, 120);
+      }, delay);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // 11. Animation Loop (Only runs when visible)
+    const handleScroll = () => {
+      pauseRendering();
+      resumeRenderingAfterScroll(140);
+    };
+
+    const handleTouchStart = () => {
+      pauseRendering();
+    };
+
+    const handleTouchEnd = () => {
+      resumeRenderingAfterScroll(160);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+    // 11. Animation Loop (Capped to 60 FPS so 90Hz / 120Hz displays don't force double GPU workload)
     const startTime = performance.now();
+    let lastRenderTime = 0;
+    const FRAME_INTERVAL = 1000 / 60; // 16.66ms per frame max
 
     const animate = () => {
       if (!isVisible || isScrolling) {
@@ -587,7 +624,16 @@ export default function EclipseCanvas({ onLoaded }) {
 
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = (performance.now() - startTime) * 0.001;
+      const now = performance.now();
+      const delta = now - lastRenderTime;
+
+      // Skip frame on 90Hz/120Hz screens if interval hasn't elapsed, saving up to 50% GPU load
+      if (delta < FRAME_INTERVAL - 1.5) {
+        return;
+      }
+      lastRenderTime = now - (delta % FRAME_INTERVAL);
+
+      const elapsedTime = (now - startTime) * 0.001;
 
       const sweepSpeed = 0.95;
       const currentSweepAngle = ((0.73 - elapsedTime * sweepSpeed) % (Math.PI * 2) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
@@ -640,6 +686,9 @@ export default function EclipseCanvas({ onLoaded }) {
       container.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
       if (resizeTimeout) clearTimeout(resizeTimeout);
       if (scrollStopTimer) clearTimeout(scrollStopTimer);
       if (container && renderer.domElement) {
