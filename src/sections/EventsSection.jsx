@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
-import { Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function EventsSection({ onSelectEvent }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -32,6 +32,7 @@ export default function EventsSection({ onSelectEvent }) {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
       if (e.key === 'ArrowRight') nextSlide();
       if (e.key === 'ArrowLeft') prevSlide();
     };
@@ -55,13 +56,13 @@ export default function EventsSection({ onSelectEvent }) {
     touchStartX.current = null;
   };
 
-  const currentEvent = events[activeIndex];
-  const isCurrentRed = currentEvent.accentColor === 'red';
+  const currentEvent = events[activeIndex] || events[0];
+  const isCurrentRed = currentEvent?.accentColor === 'red';
 
   return (
     <section
       id="events"
-      className="snap-section relative flex flex-col justify-between items-center min-h-[100svh] overflow-hidden py-10 sm:py-14 md:py-16 w-full select-none"
+      className="snap-section relative flex flex-col justify-between items-center min-h-[100svh] overflow-hidden py-8 sm:py-12 md:py-14 w-full select-none"
       style={{
         background: 'radial-gradient(ellipse at 50% 20%, #110D0D 0%, #080808 55%, #020202 100%)',
         paddingLeft: 'max(1rem, env(safe-area-inset-left))',
@@ -84,7 +85,7 @@ export default function EventsSection({ onSelectEvent }) {
       {/* =========================================================================
           TOP HEADER
           ========================================================================= */}
-      <div className="relative z-20 flex flex-col items-center text-center mt-2 sm:mt-0">
+      <div className="relative z-20 flex flex-col items-center text-center mt-2 sm:mt-1">
         <div className="flex items-center justify-center gap-3">
           <span className="w-8 sm:w-12 h-[1.5px] bg-[#D4AF37]/80" />
           <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase">
@@ -100,13 +101,13 @@ export default function EventsSection({ onSelectEvent }) {
       </div>
 
       {/* =========================================================================
-          3D COVERFLOW MOTION POSTER CAROUSEL (Tiles taking ~70% of Section)
+          3D COVERFLOW MOTION POSTER CAROUSEL
           ========================================================================= */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center my-auto py-2 sm:py-4">
+      <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center my-auto py-2 sm:py-3">
 
         {/* 3D Perspective Stage */}
         <div
-          className="relative w-full h-[62vh] sm:h-[68vh] md:h-[70vh] min-h-[440px] max-h-[720px] flex items-center justify-center"
+          className="relative w-full h-[58vh] sm:h-[64vh] md:h-[66vh] min-h-[420px] max-h-[660px] flex items-center justify-center"
           style={{ perspective: '1200px' }}
         >
           {events.map((evt, idx) => {
@@ -134,19 +135,19 @@ export default function EventsSection({ onSelectEvent }) {
               zIndex = 30;
               opacity = 1;
             } else if (isLeft) {
-              transform = 'translateX(-58%) scale(0.92) rotateY(10deg) translateZ(-60px)';
+              transform = 'translateX(-56%) scale(0.92) rotateY(10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
             } else if (isRight) {
-              transform = 'translateX(58%) scale(0.92) rotateY(-10deg) translateZ(-60px)';
+              transform = 'translateX(56%) scale(0.92) rotateY(-10deg) translateZ(-60px)';
               zIndex = 10;
               opacity = 0.95;
             } else if (offset < 0) {
-              transform = 'translateX(-115%) scale(0.78) rotateY(18deg) translateZ(-140px)';
+              transform = 'translateX(-112%) scale(0.78) rotateY(18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
             } else {
-              transform = 'translateX(115%) scale(0.78) rotateY(-18deg) translateZ(-140px)';
+              transform = 'translateX(112%) scale(0.78) rotateY(-18deg) translateZ(-140px)';
               zIndex = 5;
               opacity = 0.25;
             }
@@ -155,18 +156,19 @@ export default function EventsSection({ onSelectEvent }) {
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[66vw] sm:w-[320px] md:w-[380px] lg:w-[420px] max-w-[450px] h-[56vh] sm:h-[62vh] md:h-[66vh] min-h-[400px] max-h-[640px] rounded-[22px] sm:rounded-[28px] md:rounded-[34px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${isCenter
+                className={`absolute w-[74vw] sm:w-[320px] md:w-[380px] lg:w-[410px] max-w-[440px] h-[52vh] sm:h-[58vh] md:h-[62vh] min-h-[380px] max-h-[600px] rounded-[22px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${
+                  isCenter
                     ? isRed
-                      ? 'border-[#FF4D4D] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
-                      : 'border-[#F5D77F] shadow-[0_30px_70px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
-                    : 'border-white/35 shadow-[0_20px_50px_rgba(0,0,0,0.9)] ring-1 ring-white/15'
-                  }`}
+                      ? 'border-[#FF4D4D] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
+                      : 'border-[#F5D77F] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
+                    : 'border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-white/10'
+                }`}
                 style={{
                   transform,
                   zIndex,
                   opacity,
                   willChange: 'transform, opacity',
-                  backgroundColor: '#101014',
+                  backgroundColor: '#0c0c10',
                 }}
               >
                 {/* Poster Background Image */}
@@ -181,20 +183,20 @@ export default function EventsSection({ onSelectEvent }) {
                     fetchPriority={isCenter ? 'high' : 'low'}
                     className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
                   />
-                  {/* Hardware-accelerated darkening veil for side cards (replaces costly filter:brightness) */}
+                  {/* Darkening veil for side cards */}
                   {!isCenter && (
                     <div
-                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out"
+                      className="absolute inset-0 bg-black/50 z-10 pointer-events-none transition-opacity duration-500 ease-out"
                       aria-hidden="true"
                     />
                   )}
-                  {/* Cinematic dark vignette overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-10" />
+                  {/* Vignette overlays for text contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-transparent z-10" />
                 </div>
 
                 {/* Top Poster Meta */}
-                <div className="relative z-20 p-5 sm:p-6 md:p-7 flex items-center justify-between w-full">
+                <div className="relative z-20 p-4 sm:p-5 md:p-6 flex items-center justify-between w-full">
                   <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                     {evt.num}
                   </span>
@@ -204,22 +206,25 @@ export default function EventsSection({ onSelectEvent }) {
                 </div>
 
                 {/* Bottom Card Content */}
-                <div className="absolute bottom-0 inset-x-0 z-10 p-5 sm:p-6 md:p-8 flex flex-col items-center text-center">
-                  <span className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
-                    }`}>
+                <div className="absolute bottom-0 inset-x-0 z-10 px-4 sm:px-6 pt-4 pb-6 sm:pb-7 md:pb-8 flex flex-col items-center text-center">
+                  <span
+                    className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${
+                      isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
+                    }`}
+                  >
                     {evt.category}
                   </span>
-                  <h3 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-white leading-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.95)]">
+                  <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-white leading-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.95)] max-w-full">
                     {evt.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#DCD8CF] font-sans mt-1.5 line-clamp-2 max-w-sm drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  <p className="text-xs sm:text-[13.5px] text-[#DCD8CF] font-sans mt-1.5 line-clamp-2 max-w-xs sm:max-w-sm drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                     {evt.tagline}
                   </p>
 
-                  {/* Subtle Tap indicator on center card */}
+                  {/* Tap indicator on active center card */}
                   {isCenter && (
-                    <span className="mt-3 text-[9px] sm:text-[10px] font-mono tracking-[0.2em] text-[#F5D77F]/80 uppercase">
-                      TAP TO VIEW ROUNDS & REGISTER
+                    <span className="mt-3.5 text-[9px] sm:text-[10px] font-mono tracking-[0.2em] text-[#F5D77F]/90 uppercase bg-black/65 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#D4AF37]/40 shadow-[0_4px_14px_rgba(0,0,0,0.6)]">
+                      TAP TO VIEW DETAILS &amp; REGISTER
                     </span>
                   )}
                 </div>
@@ -228,8 +233,45 @@ export default function EventsSection({ onSelectEvent }) {
           })}
         </div>
 
+        {/* Carousel Navigation Controls (Arrows + 7 Dot Indicators) */}
+        <div className="relative z-20 flex items-center justify-center gap-4 sm:gap-6 mt-3 sm:mt-5">
+          <button
+            onClick={prevSlide}
+            aria-label="Previous Event"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg"
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          {/* 7 Indicator Dots */}
+          <div className="flex items-center gap-2">
+            {events.map((evt, idx) => (
+              <button
+                key={evt.id}
+                onClick={() => {
+                  sound.playClick();
+                  setActiveIndex(idx);
+                }}
+                aria-label={`Go to event ${idx + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  idx === activeIndex
+                    ? 'w-7 sm:w-8 h-2 bg-gradient-to-r from-[#F5D77F] to-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.6)]'
+                    : 'w-2 h-2 bg-white/25 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            aria-label="Next Event"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+
       </div>
     </section>
   );
 }
-
