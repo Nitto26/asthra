@@ -169,7 +169,7 @@ export default function EventsSection({ onSelectEvent }) {
                   isCenter
                     ? isRed
                       ? 'border-[#FF4D4D] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
-                      : 'border-[#F5D77F] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
+                      : 'border-[#D4AF37] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
                     : 'border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-white/10'
                 }`}
                 style={{
@@ -178,11 +178,13 @@ export default function EventsSection({ onSelectEvent }) {
                   opacity,
                   willChange: 'transform, opacity',
                   backgroundColor: '#0c0c10',
+                  WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+                  isolation: 'isolate',
                 }}
               >
-                {/* Poster Background Image Only */}
-                <div className="absolute inset-0 z-0">
-                  <picture className="w-full h-full block">
+                {/* Poster Background Image Only with Inherited Rounded Clipping */}
+                <div className="absolute inset-0 z-0 rounded-[inherit] overflow-hidden">
+                  <picture className="w-full h-full block rounded-[inherit] overflow-hidden">
                     {evt.imageWebp && <source srcSet={evt.imageWebp} type="image/webp" />}
                     <img
                       src={evt.image}
@@ -192,28 +194,41 @@ export default function EventsSection({ onSelectEvent }) {
                       loading={isCenter ? 'eager' : 'lazy'}
                       decoding="async"
                       fetchPriority={isCenter ? 'high' : 'low'}
-                      className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full object-cover object-center rounded-[inherit] transform transition-transform duration-700 hover:scale-105"
                     />
                   </picture>
 
                   {/* Subtle darkening veil for side cards so center card pops */}
                   {!isCenter && (
                     <div
-                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out"
+                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out rounded-[inherit]"
                       aria-hidden="true"
                     />
                   )}
 
-                  {/* Small vibrant accent and soft vignette on the bottom corners of each card */}
-                  <div
-                    className="absolute inset-0 pointer-events-none z-10"
-                    style={{
-                      background: isRed
-                        ? 'radial-gradient(circle at 0% 100%, rgba(255, 77, 77, 0.35) 0%, transparent 26%), radial-gradient(circle at 100% 100%, rgba(255, 77, 77, 0.35) 0%, transparent 26%), linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, transparent 14%)'
-                        : 'radial-gradient(circle at 0% 100%, rgba(245, 215, 127, 0.35) 0%, transparent 26%), radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.35) 0%, transparent 26%), linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, transparent 14%)',
-                    }}
-                    aria-hidden="true"
-                  />
+                  {/* Bottom Black Vignette & Dot-Dot Texture on Corners */}
+                  <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 md:h-40 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
+                    {/* Deep Pure Black Gradient Fade & Corner Vignette */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.95) 0%, transparent 48%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.95) 0%, transparent 48%)',
+                      }}
+                    />
+
+                    {/* Dotted Texture Pattern Masked at the Bottom */}
+                    <div
+                      className="absolute inset-0 opacity-40 pointer-events-none"
+                      style={{
+                        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.2px, transparent 1.2px)',
+                        backgroundSize: '8px 8px',
+                        maskImage: 'linear-gradient(to top, black 20%, transparent 95%)',
+                        WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 95%)',
+                      }}
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
               </div>
             );
