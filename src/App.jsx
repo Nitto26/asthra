@@ -4,17 +4,20 @@ import HeroSection from './sections/HeroSection';
 
 // Lazy-load offscreen sections to keep initial loading instantaneous (<1.5s)
 const AboutSection = lazy(() => import('./sections/AboutSection'));
+const EventsSection = lazy(() => import('./sections/EventsSection'));
 const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
 // Lazy load modals so forms & canvas-confetti are loaded on-demand only
+const EventModal = lazy(() => import('./components/EventModal'));
 const RegisterModal = lazy(() => import('./components/RegisterModal'));
 const DonateModal = lazy(() => import('./components/DonateModal'));
 
-const PRE_RELEASE_SECTIONS = ['hero', 'about', 'social-drive', 'contact'];
+const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'contact'];
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donateTier, setDonateTier] = useState(null);
@@ -57,7 +60,7 @@ export default function App() {
       { threshold: 0.35 }
     );
 
-    PRE_RELEASE_SECTIONS.forEach((id) => {
+    SECTIONS.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -69,38 +72,39 @@ export default function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-      if (registerModalOpen || donateModalOpen) {
+      if (selectedEvent || registerModalOpen || donateModalOpen) {
         if (e.key === 'Escape') {
+          setSelectedEvent(null);
           setRegisterModalOpen(false);
           setDonateModalOpen(false);
         }
         return;
       }
 
-      const currentIndex = PRE_RELEASE_SECTIONS.indexOf(activeSection);
+      const currentIndex = SECTIONS.indexOf(activeSection);
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        if (currentIndex < PRE_RELEASE_SECTIONS.length - 1) {
+        if (currentIndex < SECTIONS.length - 1) {
           e.preventDefault();
-          scrollToSection(PRE_RELEASE_SECTIONS[currentIndex + 1]);
+          scrollToSection(SECTIONS[currentIndex + 1]);
         }
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         if (currentIndex > 0) {
           e.preventDefault();
-          scrollToSection(PRE_RELEASE_SECTIONS[currentIndex - 1]);
+          scrollToSection(SECTIONS[currentIndex - 1]);
         }
       } else if (e.key === 'Home') {
         e.preventDefault();
-        scrollToSection(PRE_RELEASE_SECTIONS[0]);
+        scrollToSection(SECTIONS[0]);
       } else if (e.key === 'End') {
         e.preventDefault();
-        scrollToSection(PRE_RELEASE_SECTIONS[PRE_RELEASE_SECTIONS.length - 1]);
+        scrollToSection(SECTIONS[SECTIONS.length - 1]);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection, registerModalOpen, donateModalOpen]);
+  }, [activeSection, selectedEvent, registerModalOpen, donateModalOpen]);
 
   const scrollToSection = (id) => {
     if (!mountRest) {
@@ -131,22 +135,30 @@ export default function App() {
         activeSection={activeSection}
         onNavigate={scrollToSection}
         onOpenRegister={() => setRegisterModalOpen(true)}
-        links={PRE_RELEASE_SECTIONS}
+        links={SECTIONS}
       />
 
-      {/* Full-Screen Cinematic Pre-Release Sections */}
+      {/* Full-Screen Cinematic Sections */}
       <main>
         {/* 01 HERO TEASER */}
         <HeroSection onExplore={() => scrollToSection('about')} />
 
-        {/* 02 ABOUT FESTIVAL */}
+        {/* OFFSCREEN SECTIONS */}
         {mountRest ? (
           <Suspense fallback={null}>
-            <AboutSection onScrollNext={() => scrollToSection('social-drive')} />
+            {/* 02 ABOUT FESTIVAL */}
+            <AboutSection onScrollNext={() => scrollToSection('events')} />
+
+            {/* 03 EVENTS SHOWCASE */}
+            <EventsSection onSelectEvent={(evt) => setSelectedEvent(evt)} />
+
+            {/* 04 SOCIAL DRIVE */}
             <SocialDriveSection
               onOpenDonate={handleOpenDonate}
               onScrollNext={() => scrollToSection('contact')}
             />
+
+            {/* 05 CONTACT */}
             <ContactSection />
           </Suspense>
         ) : (
@@ -156,6 +168,17 @@ export default function App() {
 
       {/* Interactive Modals (Loaded On-Demand) */}
       <Suspense fallback={null}>
+        {selectedEvent && (
+          <EventModal
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+            onOpenGeneralRegister={() => {
+              setSelectedEvent(null);
+              setRegisterModalOpen(true);
+            }}
+          />
+        )}
+
         {registerModalOpen && (
           <RegisterModal
             isOpen={registerModalOpen}
@@ -177,5 +200,3 @@ export default function App() {
     </div>
   );
 }
-
-
