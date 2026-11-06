@@ -192,17 +192,7 @@ export default function EventsSection({ onSelectEvent }) {
                   )}
                   {/* Vignette overlays for text contrast */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-transparent z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-transparent z-10" />
-                </div>
-
-                {/* Top Poster Meta */}
-                <div className="relative z-20 p-4 sm:p-5 md:p-6 flex items-center justify-between w-full">
-                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#F5D77F] bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
-                    {evt.num}
-                  </span>
-                  <span className="font-mono text-[10px] sm:text-xs font-semibold tracking-wider text-white/90 uppercase bg-[#0c0c10]/90 px-3 py-1.5 rounded-full border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
-                    {evt.time} {evt.timePeriod && `· ${evt.timePeriod}`}
-                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent z-10" />
                 </div>
 
                 {/* Bottom Card Content */}
@@ -220,52 +210,26 @@ export default function EventsSection({ onSelectEvent }) {
                   <p className="text-xs sm:text-[13.5px] text-[#DCD8CF] font-sans mt-1.5 line-clamp-2 max-w-xs sm:max-w-sm drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                     {evt.tagline}
                   </p>
-
-                  {/* Tap indicator on active center card */}
-                  {isCenter && (
-                    <span className="mt-3.5 text-[9px] sm:text-[10px] font-mono tracking-[0.2em] text-[#F5D77F]/90 uppercase bg-black/65 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#D4AF37]/40 shadow-[0_4px_14px_rgba(0,0,0,0.6)]">
-                      TAP TO VIEW DETAILS &amp; REGISTER
-                    </span>
-                  )}
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Carousel Navigation Controls (Arrows + 7 Dot Indicators) */}
+        {/* Carousel Navigation Controls (Arrows) */}
         <div className="relative z-20 flex items-center justify-center gap-4 sm:gap-6 mt-3 sm:mt-5">
           <button
             onClick={prevSlide}
             aria-label="Previous Event"
-            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg active:scale-95"
           >
             <ChevronLeft size={18} />
           </button>
 
-          {/* 7 Indicator Dots */}
-          <div className="flex items-center gap-2">
-            {events.map((evt, idx) => (
-              <button
-                key={evt.id}
-                onClick={() => {
-                  sound.playClick();
-                  setActiveIndex(idx);
-                }}
-                aria-label={`Go to event ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  idx === activeIndex
-                    ? 'w-7 sm:w-8 h-2 bg-gradient-to-r from-[#F5D77F] to-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.6)]'
-                    : 'w-2 h-2 bg-white/25 hover:bg-white/50'
-                }`}
-              />
-            ))}
-          </div>
-
           <button
             onClick={nextSlide}
             aria-label="Next Event"
-            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg active:scale-95"
           >
             <ChevronRight size={18} />
           </button>

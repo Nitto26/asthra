@@ -282,41 +282,6 @@ export default function HeroSection() {
         </div>
         <span className="w-10 h-[1.5px] bg-[#D4AF37]/80 mt-3" />
       </div>
-
-      {/* =========================================================================
-          PRE-RELEASE TEASER FOOTER NOTICE (Centered at bottom)
-          ========================================================================= */}
-      <div 
-        className={`absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-opacity duration-1000 delay-500 ease-out flex items-center justify-center ${
-          textVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          bottom: 'max(1.75rem, env(safe-area-inset-bottom, 1.75rem))',
-        }}
-      >
-        <div 
-          className="inline-flex items-center justify-center rounded-full bg-black/90 backdrop-blur-md border border-[#D4AF37]/50 shadow-[0_0_25px_rgba(212,175,55,0.3)]"
-          style={{
-            padding: '9px 28px 9px 22px',
-            gap: '12px',
-          }}
-        >
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5D77F] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
-          </span>
-          <span 
-            className="font-sans font-semibold text-[#F5D77F] uppercase whitespace-nowrap drop-shadow-[0_0_10px_rgba(212,175,55,0.4)]"
-            style={{
-              fontSize: '11px',
-              letterSpacing: '0.14em',
-              lineHeight: '1.2',
-            }}
-          >
-            WEBSITE WILL BE LIVE SOON
-          </span>
-        </div>
-      </div>
     </section>
   );
 }
