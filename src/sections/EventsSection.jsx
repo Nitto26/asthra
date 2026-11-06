@@ -184,19 +184,16 @@ export default function EventsSection({ onSelectEvent }) {
               >
                 {/* Poster Background Image with Inherited Rounded Clipping */}
                 <div className="absolute inset-0 z-0 rounded-[inherit] overflow-hidden">
-                  <picture className="w-full h-full block rounded-[inherit] overflow-hidden">
-                    {evt.imageWebp && <source srcSet={evt.imageWebp} type="image/webp" />}
-                    <img
-                      src={evt.image}
-                      alt={evt.name}
-                      width="1086"
-                      height="1448"
-                      loading={isCenter ? 'eager' : 'lazy'}
-                      decoding="async"
-                      fetchPriority={isCenter ? 'high' : 'low'}
-                      className="w-full h-full object-cover object-center rounded-[inherit] transform transition-transform duration-700 hover:scale-105"
-                    />
-                  </picture>
+                  <img
+                    src={evt.image}
+                    alt={evt.name}
+                    width="1086"
+                    height="1448"
+                    loading={isCenter ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchPriority={isCenter ? 'high' : 'low'}
+                    className="w-full h-full object-cover object-center rounded-[inherit] transform transition-transform duration-700 hover:scale-105"
+                  />
 
                   {/* Subtle darkening veil for side cards so center card pops */}
                   {!isCenter && (
