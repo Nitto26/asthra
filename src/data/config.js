@@ -32,6 +32,9 @@ export const siteConfig = {
     ]
   },
 
+  // Festival Registration URL (Update "##" with your live Google Form or registration portal URL when ready)
+  registrationLink: "##",
+
   // Events Timeline Data (Exactly 7 Fest Events)
   events: [
     {
@@ -42,6 +45,7 @@ export const siteConfig = {
       name: "MINI MILITIA",
       category: "TOURNAMENT · MULTIPLAYER COMBAT",
       tagline: "Lock, load, and conquer the battlefield.",
+      registrationLink: "##",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/event-1-inauguration.webp",
@@ -64,6 +68,7 @@ export const siteConfig = {
       name: "MATHEMATICS QUIZ",
       category: "QUIZ COMPETITION · THINK & SOLVE",
       tagline: "Questions beyond the obvious.",
+      registrationLink: "##",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/event-2-math-quiz.webp",
@@ -86,6 +91,7 @@ export const siteConfig = {
       name: "FIND X",
       category: "TREASURE HUNT · CAMPUS QUEST",
       tagline: "Mathematics hides everywhere. Follow the clues.",
+      registrationLink: "##",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/event-5-treasure-hunt.webp",
@@ -108,6 +114,7 @@ export const siteConfig = {
       name: "LOG-IC",
       category: "APTITUDE COMPETITION · REASONING",
       tagline: "Pure reasoning under pressure.",
+      registrationLink: "##",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/event-3-puzzle-arena.webp",
@@ -129,6 +136,7 @@ export const siteConfig = {
       name: "SPEAKATHON",
       category: "SPEAKING COMPETITION · ORATORY",
       tagline: "Articulate the power of ideas.",
+      registrationLink: "##",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/event-6-valedictory.webp",
@@ -150,6 +158,7 @@ export const siteConfig = {
       name: "DECRYPTO",
       category: "PUZZLE COMPETITION · CIPHERS",
       tagline: "Break the cipher. Unravel the mystery.",
+      registrationLink: "##",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/event-3-puzzle-arena.webp",
@@ -171,6 +180,7 @@ export const siteConfig = {
       name: "PYTHON SPRINT",
       category: "SPRINT CODING COMPETITION · SPEED",
       tagline: "Speed, syntax, and algorithmic mastery.",
+      registrationLink: "##",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/event-4-workshop.webp",

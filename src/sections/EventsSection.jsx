@@ -20,11 +20,20 @@ export default function EventsSection({ onSelectEvent }) {
   };
 
   const handleCardClick = (idx, event) => {
+    sound.playClick();
     if (idx === activeIndex) {
-      sound.playClick();
-      onSelectEvent(event);
+      const link = event?.registrationLink || siteConfig.registrationLink || "##";
+      if (link && link !== "##" && !link.startsWith("#")) {
+        if (link.startsWith("http://") || link.startsWith("https://")) {
+          window.open(link, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = link;
+        }
+      } else {
+        // Show alternative page showing "Registration is not started"
+        if (onSelectEvent) onSelectEvent(event);
+      }
     } else {
-      sound.playClick();
       setActiveIndex(idx);
     }
   };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './sections/HeroSection';
+import { siteConfig } from './data/config';
 
 // Lazy-load offscreen sections to keep initial loading instantaneous (<1.5s)
 const AboutSection = lazy(() => import('./sections/AboutSection'));
@@ -8,9 +9,8 @@ const EventsSection = lazy(() => import('./sections/EventsSection'));
 const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
-// Lazy load modals so forms & canvas-confetti are loaded on-demand only
-const EventModal = lazy(() => import('./components/EventModal'));
-const RegisterModal = lazy(() => import('./components/RegisterModal'));
+// Lazy load modals so forms & notices are loaded on-demand only
+const RegistrationNoticeModal = lazy(() => import('./components/RegistrationNoticeModal'));
 const DonateModal = lazy(() => import('./components/DonateModal'));
 
 const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'contact'];
@@ -18,7 +18,6 @@ const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'contact'];
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donateTier, setDonateTier] = useState(null);
   const [mountRest, setMountRest] = useState(false);
@@ -72,10 +71,9 @@ export default function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-      if (selectedEvent || registerModalOpen || donateModalOpen) {
+      if (selectedEvent || donateModalOpen) {
         if (e.key === 'Escape') {
           setSelectedEvent(null);
-          setRegisterModalOpen(false);
           setDonateModalOpen(false);
         }
         return;
@@ -104,7 +102,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection, selectedEvent, registerModalOpen, donateModalOpen]);
+  }, [activeSection, selectedEvent, donateModalOpen]);
 
   const scrollToSection = (id) => {
     if (!mountRest) {
@@ -126,6 +124,19 @@ export default function App() {
     setDonateModalOpen(true);
   };
 
+  const handleOpenRegister = () => {
+    const link = siteConfig.registrationLink || "##";
+    if (link && link !== "##" && !link.startsWith("#")) {
+      if (link.startsWith("http://") || link.startsWith("https://")) {
+        window.open(link, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = link;
+      }
+    } else {
+      setSelectedEvent({ name: "ASTHRA ’26 COMPETITIONS" });
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="noise-overlay" aria-hidden="true" />
@@ -134,7 +145,7 @@ export default function App() {
       <Navbar
         activeSection={activeSection}
         onNavigate={scrollToSection}
-        onOpenRegister={() => setRegisterModalOpen(true)}
+        onOpenRegister={handleOpenRegister}
         links={SECTIONS}
       />
 
@@ -169,20 +180,9 @@ export default function App() {
       {/* Interactive Modals (Loaded On-Demand) */}
       <Suspense fallback={null}>
         {selectedEvent && (
-          <EventModal
+          <RegistrationNoticeModal
             event={selectedEvent}
             onClose={() => setSelectedEvent(null)}
-            onOpenGeneralRegister={() => {
-              setSelectedEvent(null);
-              setRegisterModalOpen(true);
-            }}
-          />
-        )}
-
-        {registerModalOpen && (
-          <RegisterModal
-            isOpen={registerModalOpen}
-            onClose={() => setRegisterModalOpen(false)}
           />
         )}
 
