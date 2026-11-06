@@ -165,7 +165,7 @@ export default function EventsSection({ onSelectEvent }) {
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[74vw] sm:w-[320px] md:w-[380px] lg:w-[410px] max-w-[440px] h-[52vh] sm:h-[58vh] md:h-[62vh] min-h-[380px] max-h-[600px] rounded-[22px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${
+                className={`absolute w-[74vw] sm:w-[330px] md:w-[380px] lg:w-[410px] max-w-[430px] aspect-[3/4] max-h-[60vh] sm:max-h-[65vh] rounded-[22px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${
                   isCenter
                     ? isRed
                       ? 'border-[#FF4D4D] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
@@ -180,45 +180,40 @@ export default function EventsSection({ onSelectEvent }) {
                   backgroundColor: '#0c0c10',
                 }}
               >
-                {/* Poster Background Image */}
+                {/* Poster Background Image Only */}
                 <div className="absolute inset-0 z-0">
-                  <img
-                    src={evt.image}
-                    alt={evt.name}
-                    width="400"
-                    height="600"
-                    loading={isCenter ? 'eager' : 'lazy'}
-                    decoding="async"
-                    fetchPriority={isCenter ? 'high' : 'low'}
-                    className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
-                  />
-                  {/* Darkening veil for side cards */}
+                  <picture className="w-full h-full block">
+                    {evt.imageWebp && <source srcSet={evt.imageWebp} type="image/webp" />}
+                    <img
+                      src={evt.image}
+                      alt={evt.name}
+                      width="1086"
+                      height="1448"
+                      loading={isCenter ? 'eager' : 'lazy'}
+                      decoding="async"
+                      fetchPriority={isCenter ? 'high' : 'low'}
+                      className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
+                    />
+                  </picture>
+
+                  {/* Subtle darkening veil for side cards so center card pops */}
                   {!isCenter && (
                     <div
-                      className="absolute inset-0 bg-black/50 z-10 pointer-events-none transition-opacity duration-500 ease-out"
+                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out"
                       aria-hidden="true"
                     />
                   )}
-                  {/* Vignette overlays for text contrast */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-transparent z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent z-10" />
-                </div>
 
-                {/* Bottom Card Content */}
-                <div className="absolute bottom-0 inset-x-0 z-10 px-4 sm:px-6 pt-4 pb-6 sm:pb-7 md:pb-8 flex flex-col items-center text-center">
-                  <span
-                    className={`text-[9.5px] sm:text-xs font-sans font-bold tracking-[0.25em] uppercase mb-1.5 ${
-                      isRed ? 'text-[#FF7A7A]' : 'text-[#F5D77F]'
-                    }`}
-                  >
-                    {evt.category}
-                  </span>
-                  <h3 className="font-serif-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide text-white leading-tight drop-shadow-[0_4px_15px_rgba(0,0,0,0.95)] max-w-full">
-                    {evt.name}
-                  </h3>
-                  <p className="text-xs sm:text-[13.5px] text-[#DCD8CF] font-sans mt-1.5 line-clamp-2 max-w-xs sm:max-w-sm drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                    {evt.tagline}
-                  </p>
+                  {/* Small vibrant accent and soft vignette on the bottom corners of each card */}
+                  <div
+                    className="absolute inset-0 pointer-events-none z-10"
+                    style={{
+                      background: isRed
+                        ? 'radial-gradient(circle at 0% 100%, rgba(255, 77, 77, 0.35) 0%, transparent 26%), radial-gradient(circle at 100% 100%, rgba(255, 77, 77, 0.35) 0%, transparent 26%), linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, transparent 14%)'
+                        : 'radial-gradient(circle at 0% 100%, rgba(245, 215, 127, 0.35) 0%, transparent 26%), radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.35) 0%, transparent 26%), linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, transparent 14%)',
+                    }}
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
             );

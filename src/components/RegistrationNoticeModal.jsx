@@ -92,3 +92,4 @@ export default function RegistrationNoticeModal({ event, onClose }) {
     </div>
   );
 }
+
