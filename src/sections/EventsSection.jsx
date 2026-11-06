@@ -207,83 +207,83 @@ export default function EventsSection({ onSelectEvent }) {
                   )}
 
                   {/* Top-Left Card Number (Visible on all cards: 1, 2, 3...) */}
-                  <div className="absolute top-3 left-3.5 sm:top-4 sm:left-4 z-20 pointer-events-none">
-                    <span className="font-sans font-bold text-sm sm:text-base text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                  <div className="absolute top-4 left-4.5 sm:top-5 sm:left-6 z-20 pointer-events-none">
+                    <span className="font-sans font-bold text-sm sm:text-base text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                       {idx + 1}
                     </span>
                   </div>
 
                   {/* Top-Right 'Click to Register' (Visible on active center card) */}
                   {isCenter && (
-                    <div className="absolute top-3 right-3.5 sm:top-4 sm:right-4 z-20 pointer-events-none">
-                      <span className="font-sans text-[11px] sm:text-xs font-semibold tracking-wide text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                    <div className="absolute top-4 right-4.5 sm:top-5 sm:right-6 z-20 pointer-events-none">
+                      <span className="font-sans text-[11.5px] sm:text-[13px] font-semibold text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                         Click to Register
                       </span>
                     </div>
                   )}
 
                   {/* Bottom Black Vignette & Dot-Dot Texture on Corners */}
-                  <div className="absolute inset-x-0 bottom-0 h-32 sm:h-38 md:h-42 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
+                  <div className="absolute inset-x-0 bottom-0 h-40 sm:h-48 md:h-52 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
                     {/* Deep Pure Black Gradient Fade & Corner Vignette */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          'linear-gradient(to top, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.78) 55%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 48%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 48%)',
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.88) 50%, rgba(0, 0, 0, 0.45) 80%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 50%)',
                       }}
                     />
 
                     {/* Dotted Texture Pattern Masked at the Bottom */}
                     <div
-                      className="absolute inset-0 opacity-40 pointer-events-none"
+                      className="absolute inset-0 opacity-45 pointer-events-none"
                       style={{
                         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.2px, transparent 1.2px)',
                         backgroundSize: '8px 8px',
-                        maskImage: 'linear-gradient(to top, black 25%, transparent 95%)',
-                        WebkitMaskImage: 'linear-gradient(to top, black 25%, transparent 95%)',
+                        maskImage: 'linear-gradient(to top, black 30%, transparent 95%)',
+                        WebkitMaskImage: 'linear-gradient(to top, black 30%, transparent 95%)',
                       }}
                       aria-hidden="true"
                     />
                   </div>
 
-                  {/* Bottom Details Overlay (Exact Placement & Typography matching reference) */}
+                  {/* Bottom Details Overlay (Exact Placement, Padding & Centering matching reference) */}
                   {isCenter && (
-                    <div className="absolute inset-x-0 bottom-0 z-20 px-3.5 sm:px-4 md:px-5 py-3 sm:py-3.5 flex items-center justify-between w-full pointer-events-none">
+                    <div className="absolute inset-x-4 sm:inset-x-6 md:inset-x-7 bottom-4 sm:bottom-5 md:bottom-6 z-20 flex items-center justify-between pointer-events-none">
                       {/* Left: Prize Pool */}
-                      <div className="flex flex-col items-start shrink-0 pl-0.5 sm:pl-1">
-                        <span className="font-sans text-[9px] sm:text-[10px] md:text-[11px] font-semibold text-[#A6A195] uppercase tracking-wider">
+                      <div className="flex flex-col items-start shrink-0">
+                        <span className="font-sans text-[10px] sm:text-[11px] font-medium text-[#C8C4B7] tracking-normal leading-none">
                           Price Pool
                         </span>
-                        <span className="font-sans font-extrabold text-xl sm:text-2xl md:text-3xl text-white tracking-tight leading-none mt-0.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                        <span className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight leading-none mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                           {evt.prizeDisplay || "3K"}
                         </span>
                       </div>
 
                       {/* Thin Vertical Divider */}
-                      <div className="w-[1.5px] h-9 sm:h-11 bg-white/25 mx-2.5 sm:mx-3.5 shrink-0" />
+                      <div className="w-[1.5px] h-10 sm:h-12 bg-white/25 mx-3 sm:mx-4.5 shrink-0" />
 
                       {/* Right: Event Name, Venue, Time */}
-                      <div className="flex flex-col justify-center gap-0.5 sm:gap-1 min-w-0 flex-1 pr-0.5 sm:pr-1 text-left">
+                      <div className="flex flex-col justify-center gap-1 sm:gap-1.5 min-w-0 flex-1 text-left">
                         {/* Row 1: Trophy + Event Name */}
-                        <div className="flex items-center gap-1.5 min-w-0 text-white font-semibold text-[11px] sm:text-xs md:text-[13px] leading-tight">
-                          <Trophy size={13} className="text-[#F5D77F] shrink-0" />
-                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                        <div className="flex items-center gap-2 min-w-0 text-white font-semibold text-xs sm:text-[13px] leading-tight">
+                          <Trophy size={14} className="text-white/95 shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.nameDisplay || evt.name}
                           </span>
                         </div>
 
                         {/* Row 2: MapPin + Venue */}
-                        <div className="flex items-center gap-1.5 min-w-0 text-[#DCD8CF] font-medium text-[10px] sm:text-[11px] md:text-xs leading-tight">
-                          <MapPin size={12} className="text-[#F5D77F] shrink-0" />
-                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-normal text-[11px] sm:text-xs leading-tight">
+                          <MapPin size={13} className="text-white/85 shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.venueDisplay || evt.venue}
                           </span>
                         </div>
 
                         {/* Row 3: Clock + Time */}
-                        <div className="flex items-center gap-1.5 min-w-0 text-[#DCD8CF] font-medium text-[10px] sm:text-[11px] md:text-xs leading-tight">
-                          <Clock size={12} className="text-[#F5D77F] shrink-0" />
-                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-normal text-[11px] sm:text-xs leading-tight">
+                          <Clock size={13} className="text-white/85 shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.timeDisplay || evt.time}
                           </span>
                         </div>
