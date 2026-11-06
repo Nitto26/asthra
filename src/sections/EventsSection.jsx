@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Trophy, MapPin, Clock } from 'lucide-react';
 
 export default function EventsSection({ onSelectEvent }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -182,7 +182,7 @@ export default function EventsSection({ onSelectEvent }) {
                   isolation: 'isolate',
                 }}
               >
-                {/* Poster Background Image Only with Inherited Rounded Clipping */}
+                {/* Poster Background Image with Inherited Rounded Clipping */}
                 <div className="absolute inset-0 z-0 rounded-[inherit] overflow-hidden">
                   <picture className="w-full h-full block rounded-[inherit] overflow-hidden">
                     {evt.imageWebp && <source srcSet={evt.imageWebp} type="image/webp" />}
@@ -206,14 +206,30 @@ export default function EventsSection({ onSelectEvent }) {
                     />
                   )}
 
+                  {/* Top-Left Card Number (Visible on all cards: 1, 2, 3...) */}
+                  <div className="absolute top-3 left-3.5 sm:top-4 sm:left-4 z-20 pointer-events-none">
+                    <span className="font-sans font-bold text-sm sm:text-base text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                      {idx + 1}
+                    </span>
+                  </div>
+
+                  {/* Top-Right 'Click to Register' (Visible on active center card) */}
+                  {isCenter && (
+                    <div className="absolute top-3 right-3.5 sm:top-4 sm:right-4 z-20 pointer-events-none">
+                      <span className="font-sans text-[11px] sm:text-xs font-semibold tracking-wide text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                        Click to Register
+                      </span>
+                    </div>
+                  )}
+
                   {/* Bottom Black Vignette & Dot-Dot Texture on Corners */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 md:h-40 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
+                  <div className="absolute inset-x-0 bottom-0 h-32 sm:h-38 md:h-42 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
                     {/* Deep Pure Black Gradient Fade & Corner Vignette */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          'linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.95) 0%, transparent 48%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.95) 0%, transparent 48%)',
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.78) 55%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 48%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 48%)',
                       }}
                     />
 
@@ -223,12 +239,57 @@ export default function EventsSection({ onSelectEvent }) {
                       style={{
                         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.2px, transparent 1.2px)',
                         backgroundSize: '8px 8px',
-                        maskImage: 'linear-gradient(to top, black 20%, transparent 95%)',
-                        WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 95%)',
+                        maskImage: 'linear-gradient(to top, black 25%, transparent 95%)',
+                        WebkitMaskImage: 'linear-gradient(to top, black 25%, transparent 95%)',
                       }}
                       aria-hidden="true"
                     />
                   </div>
+
+                  {/* Bottom Details Overlay (Exact Placement & Typography matching reference) */}
+                  {isCenter && (
+                    <div className="absolute inset-x-0 bottom-0 z-20 px-3.5 sm:px-4 md:px-5 py-3 sm:py-3.5 flex items-center justify-between w-full pointer-events-none">
+                      {/* Left: Prize Pool */}
+                      <div className="flex flex-col items-start shrink-0 pl-0.5 sm:pl-1">
+                        <span className="font-sans text-[9px] sm:text-[10px] md:text-[11px] font-semibold text-[#A6A195] uppercase tracking-wider">
+                          Price Pool
+                        </span>
+                        <span className="font-sans font-extrabold text-xl sm:text-2xl md:text-3xl text-white tracking-tight leading-none mt-0.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                          {evt.prizeDisplay || "3K"}
+                        </span>
+                      </div>
+
+                      {/* Thin Vertical Divider */}
+                      <div className="w-[1.5px] h-9 sm:h-11 bg-white/25 mx-2.5 sm:mx-3.5 shrink-0" />
+
+                      {/* Right: Event Name, Venue, Time */}
+                      <div className="flex flex-col justify-center gap-0.5 sm:gap-1 min-w-0 flex-1 pr-0.5 sm:pr-1 text-left">
+                        {/* Row 1: Trophy + Event Name */}
+                        <div className="flex items-center gap-1.5 min-w-0 text-white font-semibold text-[11px] sm:text-xs md:text-[13px] leading-tight">
+                          <Trophy size={13} className="text-[#F5D77F] shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                            {evt.nameDisplay || evt.name}
+                          </span>
+                        </div>
+
+                        {/* Row 2: MapPin + Venue */}
+                        <div className="flex items-center gap-1.5 min-w-0 text-[#DCD8CF] font-medium text-[10px] sm:text-[11px] md:text-xs leading-tight">
+                          <MapPin size={12} className="text-[#F5D77F] shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                            {evt.venueDisplay || evt.venue}
+                          </span>
+                        </div>
+
+                        {/* Row 3: Clock + Time */}
+                        <div className="flex items-center gap-1.5 min-w-0 text-[#DCD8CF] font-medium text-[10px] sm:text-[11px] md:text-xs leading-tight">
+                          <Clock size={12} className="text-[#F5D77F] shrink-0" />
+                          <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                            {evt.timeDisplay || evt.time}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );
