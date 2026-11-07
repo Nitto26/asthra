@@ -71,7 +71,7 @@ export default function EventsSection({ onSelectEvent }) {
   return (
     <section
       id="events"
-      className="snap-section relative flex flex-col justify-between items-center min-h-[100svh] overflow-hidden py-8 sm:py-12 md:py-14 w-full select-none"
+      className="snap-section relative flex flex-col justify-center items-center min-h-[100svh] overflow-hidden py-6 sm:py-8 md:py-10 w-full select-none"
       style={{
         background: 'radial-gradient(ellipse at 50% 20%, #110D0D 0%, #080808 55%, #020202 100%)',
         paddingLeft: 'max(1rem, env(safe-area-inset-left))',
@@ -82,7 +82,7 @@ export default function EventsSection({ onSelectEvent }) {
     >
       {/* Dynamic Ambient Background Glow tied to active event */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[550px] rounded-full pointer-events-none z-0 opacity-20 blur-[150px] transition-all duration-700"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[750px] h-[450px] rounded-full pointer-events-none z-0 opacity-20 blur-[140px] transition-all duration-700"
         style={{
           background: isCurrentRed
             ? 'radial-gradient(circle, rgba(229, 40, 40, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
@@ -94,29 +94,29 @@ export default function EventsSection({ onSelectEvent }) {
       {/* =========================================================================
           TOP HEADER
           ========================================================================= */}
-      <div className="relative z-20 flex flex-col items-center text-center mt-2 sm:mt-1">
+      <div className="relative z-20 flex flex-col items-center text-center mb-4 sm:mb-6 md:mb-7">
         <div className="flex items-center justify-center gap-3">
-          <span className="w-8 sm:w-12 h-[1.5px] bg-[#D4AF37]/80" />
-          <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase">
+          <span className="w-7 sm:w-10 h-[1.5px] bg-[#D4AF37]/80" />
+          <span className="text-[9.5px] sm:text-[11px] font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase">
             03 · EVENTS SHOWCASE
           </span>
-          <span className="w-8 sm:w-12 h-[1.5px] bg-[#D4AF37]/80" />
+          <span className="w-7 sm:w-10 h-[1.5px] bg-[#D4AF37]/80" />
         </div>
 
-        <h2 className="font-serif-display text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#F8F7F4] mt-2 select-none leading-tight">
+        <h2 className="font-serif-display text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-[#F8F7F4] mt-1.5 select-none leading-tight">
           <span>A WEEK OF </span>
           <span className="gold-text font-serif-display font-medium">IDEAS</span>
         </h2>
       </div>
 
       {/* =========================================================================
-          3D COVERFLOW MOTION POSTER CAROUSEL
+          3D COVERFLOW MOTION POSTER CAROUSEL (Compact Sizing matching Reference IMAGE 1)
           ========================================================================= */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto flex-1 flex flex-col items-center justify-center my-auto py-2 sm:py-3">
+      <div className="relative z-20 w-full max-w-5xl mx-auto flex flex-col items-center justify-center">
 
         {/* 3D Perspective Stage */}
         <div
-          className="relative w-full h-[58vh] sm:h-[64vh] md:h-[66vh] min-h-[420px] max-h-[660px] flex items-center justify-center"
+          className="relative w-full h-[360px] sm:h-[390px] md:h-[415px] flex items-center justify-center"
           style={{ perspective: '1200px' }}
         >
           {events.map((evt, idx) => {
@@ -134,43 +134,43 @@ export default function EventsSection({ onSelectEvent }) {
 
             const isRed = evt.accentColor === 'red';
 
-            // Transform Styles based on 3D Coverflow positioning
+            // Transform Styles matching Reference Image 1 exactly
             let transform = '';
             let zIndex = 10;
             let opacity = 0;
 
             if (isCenter) {
-              transform = 'translateX(0%) scale(1.0) rotateY(0deg) translateZ(40px)';
+              transform = 'translateX(0%) scale(1.0) rotateY(0deg) translateZ(35px)';
               zIndex = 30;
               opacity = 1;
             } else if (isLeft) {
-              transform = 'translateX(-56%) scale(0.92) rotateY(10deg) translateZ(-60px)';
-              zIndex = 10;
+              transform = 'translateX(-54%) scale(0.88) rotateY(12deg) translateZ(-45px)';
+              zIndex = 15;
               opacity = 0.95;
             } else if (isRight) {
-              transform = 'translateX(56%) scale(0.92) rotateY(-10deg) translateZ(-60px)';
-              zIndex = 10;
+              transform = 'translateX(54%) scale(0.88) rotateY(-12deg) translateZ(-45px)';
+              zIndex = 15;
               opacity = 0.95;
             } else if (offset < 0) {
-              transform = 'translateX(-112%) scale(0.78) rotateY(18deg) translateZ(-140px)';
+              transform = 'translateX(-106%) scale(0.76) rotateY(18deg) translateZ(-110px)';
               zIndex = 5;
-              opacity = 0.25;
+              opacity = 0.35;
             } else {
-              transform = 'translateX(112%) scale(0.78) rotateY(-18deg) translateZ(-140px)';
+              transform = 'translateX(106%) scale(0.76) rotateY(-18deg) translateZ(-110px)';
               zIndex = 5;
-              opacity = 0.25;
+              opacity = 0.35;
             }
 
             return (
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[74vw] sm:w-[330px] md:w-[380px] lg:w-[410px] max-w-[430px] aspect-[3/4] max-h-[60vh] sm:max-h-[65vh] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
+                className={`absolute w-[220px] sm:w-[245px] md:w-[260px] lg:w-[270px] max-w-[280px] aspect-[3/4.15] max-h-[385px] sm:max-h-[405px] rounded-[20px] sm:rounded-[22px] md:rounded-[24px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
                   isCenter
                     ? isRed
-                      ? 'border-[1.5px] border-[#FF4D4D] shadow-[0_22px_55px_rgba(0,0,0,0.95),0_0_20px_rgba(255,77,77,0.3)]'
-                      : 'border-[1.5px] border-[#D4AF37] shadow-[0_22px_55px_rgba(0,0,0,0.95),0_0_20px_rgba(212,175,55,0.3)]'
-                    : 'border border-white/20 shadow-[0_16px_40px_rgba(0,0,0,0.85)]'
+                      ? 'border border-[#FF4D4D] shadow-[0_16px_40px_rgba(0,0,0,0.95),0_0_18px_rgba(255,77,77,0.25)]'
+                      : 'border border-[#D4AF37] shadow-[0_16px_40px_rgba(0,0,0,0.95),0_0_18px_rgba(212,175,55,0.25)]'
+                    : 'border border-white/20 shadow-[0_12px_30px_rgba(0,0,0,0.85)]'
                 }`}
                 style={{
                   transform,
@@ -198,44 +198,44 @@ export default function EventsSection({ onSelectEvent }) {
                   {/* Subtle darkening veil for side cards so center card pops */}
                   {!isCenter && (
                     <div
-                      className="absolute inset-0 bg-black/45 z-10 pointer-events-none transition-opacity duration-500 ease-out rounded-[inherit]"
+                      className="absolute inset-0 bg-black/50 z-10 pointer-events-none transition-opacity duration-500 ease-out rounded-[inherit]"
                       aria-hidden="true"
                     />
                   )}
 
-                  {/* Top-Left Card Number (Visible on all cards: 1, 2, 3...) */}
-                  <div className="absolute top-4.5 left-5 sm:top-5 sm:left-6 z-20 pointer-events-none">
-                    <span className="font-sans font-bold text-base sm:text-lg text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                  {/* Top-Left Card Number (Visible on cards: 1, 2, 3...) */}
+                  <div className="absolute top-3 left-3.5 sm:top-3.5 sm:left-4 z-20 pointer-events-none">
+                    <span className="font-sans font-bold text-xs sm:text-sm text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                       {idx + 1}
                     </span>
                   </div>
 
                   {/* Top-Right 'Click to Register' (Visible on active center card) */}
                   {isCenter && (
-                    <div className="absolute top-4.5 right-5 sm:top-5 sm:right-6 z-20 pointer-events-none">
-                      <span className="font-sans text-xs sm:text-[13px] font-semibold text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                    <div className="absolute top-3 right-3.5 sm:top-3.5 sm:right-4 z-20 pointer-events-none">
+                      <span className="font-sans text-[10px] sm:text-[11px] font-semibold text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                         Click to Register
                       </span>
                     </div>
                   )}
 
-                  {/* Bottom Black Vignette & Dot-Dot Texture */}
-                  <div className="absolute inset-x-0 bottom-0 h-40 sm:h-48 md:h-52 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
+                  {/* Bottom Black Vignette & Dot Texture */}
+                  <div className="absolute inset-x-0 bottom-0 h-32 sm:h-36 md:h-40 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
                     {/* Deep Pure Black Gradient Fade */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.9) 45%, rgba(0, 0, 0, 0.4) 80%, transparent 100%)',
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.9) 45%, rgba(0, 0, 0, 0.35) 80%, transparent 100%)',
                       }}
                     />
 
                     {/* Dotted Texture Pattern Masked at the Bottom */}
                     <div
-                      className="absolute inset-0 opacity-45 pointer-events-none"
+                      className="absolute inset-0 opacity-40 pointer-events-none"
                       style={{
-                        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.2px, transparent 1.2px)',
-                        backgroundSize: '8px 8px',
+                        backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.1px, transparent 1.1px)',
+                        backgroundSize: '7px 7px',
                         maskImage: 'linear-gradient(to top, black 35%, transparent 95%)',
                         WebkitMaskImage: 'linear-gradient(to top, black 35%, transparent 95%)',
                       }}
@@ -243,43 +243,43 @@ export default function EventsSection({ onSelectEvent }) {
                     />
                   </div>
 
-                  {/* Bottom Details Overlay (Exact Placement, Spacing & Typography matching reference mockup) */}
+                  {/* Bottom Details Overlay (Exact Placement, Sizing & Hierarchy matching Reference Image 1) */}
                   {isCenter && (
-                    <div className="absolute inset-x-5 sm:inset-x-6 md:inset-x-7 bottom-4 sm:bottom-5 md:bottom-6 z-20 flex items-center justify-between pointer-events-none">
+                    <div className="absolute inset-x-3.5 sm:inset-x-4 bottom-3 sm:bottom-3.5 z-20 flex items-center justify-between pointer-events-none">
                       {/* Left: Price Pool */}
                       <div className="flex flex-col items-start shrink-0">
-                        <span className="font-sans text-[10px] sm:text-[11px] font-semibold text-white/75 uppercase tracking-wider leading-none">
+                        <span className="font-sans text-[8.5px] sm:text-[9.5px] font-semibold text-white/75 uppercase tracking-wider leading-none">
                           Price Pool
                         </span>
-                        <span className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight leading-none mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                        <span className="font-sans font-bold text-xl sm:text-2xl text-white tracking-tight leading-none mt-1 drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">
                           {evt.prizeDisplay || "3K"}
                         </span>
                       </div>
 
                       {/* Thin Vertical Divider */}
-                      <div className="w-[1.5px] h-10 sm:h-12 bg-white/25 mx-3.5 sm:mx-4.5 shrink-0" />
+                      <div className="w-px h-8 sm:h-9 bg-white/20 mx-2.5 sm:mx-3 shrink-0" />
 
                       {/* Right: Event Name, Venue, Time */}
-                      <div className="flex flex-col justify-center gap-1 sm:gap-1.5 min-w-0 flex-1 text-left">
+                      <div className="flex flex-col justify-center gap-0.5 sm:gap-1 min-w-0 flex-1 text-left">
                         {/* Row 1: Trophy + Event Name */}
-                        <div className="flex items-center gap-2 min-w-0 text-white font-semibold text-xs sm:text-[13px] leading-tight">
-                          <Trophy size={14} className="text-white shrink-0" strokeWidth={2} />
+                        <div className="flex items-center gap-1.5 min-w-0 text-white font-semibold text-[10.5px] sm:text-[11.5px] leading-tight">
+                          <Trophy size={12} className="text-white shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.nameDisplay || evt.name}
                           </span>
                         </div>
 
                         {/* Row 2: MapPin + Venue */}
-                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-medium text-[11px] sm:text-xs leading-tight">
-                          <MapPin size={13} className="text-white/85 shrink-0" strokeWidth={2} />
+                        <div className="flex items-center gap-1.5 min-w-0 text-white/90 font-medium text-[9.5px] sm:text-[10px] leading-tight">
+                          <MapPin size={11} className="text-white/85 shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.venueDisplay || evt.venue}
                           </span>
                         </div>
 
                         {/* Row 3: Clock + Time */}
-                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-medium text-[11px] sm:text-xs leading-tight">
-                          <Clock size={13} className="text-white/85 shrink-0" strokeWidth={2} />
+                        <div className="flex items-center gap-1.5 min-w-0 text-white/90 font-medium text-[9.5px] sm:text-[10px] leading-tight">
+                          <Clock size={11} className="text-white/85 shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.timeDisplay || evt.time}
                           </span>
@@ -294,21 +294,23 @@ export default function EventsSection({ onSelectEvent }) {
         </div>
 
         {/* Carousel Navigation Controls (Arrows) */}
-        <div className="relative z-20 flex items-center justify-center gap-4 sm:gap-6 mt-3 sm:mt-5">
+        <div className="relative z-20 flex items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4 md:mt-5">
           <button
+            type="button"
             onClick={prevSlide}
             aria-label="Previous Event"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg active:scale-95"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={14} />
           </button>
 
           <button
+            type="button"
             onClick={nextSlide}
             aria-label="Next Event"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-lg active:scale-95"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={14} />
           </button>
         </div>
 
