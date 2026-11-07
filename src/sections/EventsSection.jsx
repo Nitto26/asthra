@@ -296,8 +296,8 @@ export default function EventsSection({ onSelectEvent }) {
             })}
           </div>
 
-          {/* Carousel Navigation Controls (Arrows directly beneath carousel) */}
-          <div className="relative z-20 flex items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-4">
+          {/* Carousel Navigation Controls (Centered between tile bottom and section bottom) */}
+          <div className="relative z-20 flex items-center justify-center gap-3.5 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-2 sm:pb-3">
             <button
               type="button"
               onClick={prevSlide}
