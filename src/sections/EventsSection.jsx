@@ -49,20 +49,27 @@ export default function EventsSection({ onSelectEvent }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Touch swipe support
+  // Touch swipe support (distinguish horizontal swipe from vertical page scroll)
+  const touchStartY = useRef(null);
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e) => {
-    if (touchStartX.current === null) return;
+    if (touchStartX.current === null || touchStartY.current === null) return;
     const diffX = touchStartX.current - e.changedTouches[0].clientX;
-    if (diffX > 45) {
-      nextSlide();
-    } else if (diffX < -45) {
-      prevSlide();
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
     }
     touchStartX.current = null;
+    touchStartY.current = null;
   };
 
   const currentEvent = events[activeIndex] || events[0];
@@ -79,17 +86,29 @@ export default function EventsSection({ onSelectEvent }) {
         paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
         paddingLeft: 'max(1rem, env(safe-area-inset-left))',
         paddingRight: 'max(1rem, env(safe-area-inset-right))',
+        touchAction: 'pan-y',
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Dynamic Ambient Background Glow tied to active event */}
+      {/* Dynamic Ambient Background Glow (Static GPU-accelerated opacity crossfade, zero repaint) */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[850px] h-[520px] rounded-full pointer-events-none z-0 opacity-20 blur-[150px] transition-all duration-700"
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[850px] h-[520px] rounded-full pointer-events-none z-0 blur-[120px] transition-opacity duration-700 ease-out ${
+          isCurrentRed ? 'opacity-0' : 'opacity-20'
+        }`}
         style={{
-          background: isCurrentRed
-            ? 'radial-gradient(circle, rgba(229, 40, 40, 0.4) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(245, 215, 127, 0.15) 50%, transparent 70%)',
+          transform: 'translate3d(-50%, -50%, 0)',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[850px] h-[520px] rounded-full pointer-events-none z-0 blur-[120px] transition-opacity duration-700 ease-out ${
+          isCurrentRed ? 'opacity-20' : 'opacity-0'
+        }`}
+        style={{
+          background: 'radial-gradient(circle, rgba(229, 40, 40, 0.45) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 70%)',
+          transform: 'translate3d(-50%, -50%, 0)',
         }}
         aria-hidden="true"
       />
@@ -122,70 +141,85 @@ export default function EventsSection({ onSelectEvent }) {
 
           {/* 3D Perspective Stage */}
           <div
-            className="relative w-full h-[410px] sm:h-[450px] md:h-[485px] lg:h-[505px] flex items-center justify-center"
-            style={{ perspective: '1200px' }}
+            className="relative w-full h-[410px] sm:h-[450px] md:h-[485px] lg:h-[505px] flex items-center justify-center transform-gpu"
+            style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
           >
             {events.map((evt, idx) => {
               // Calculate relative offset handling circular wrap
               let offset = idx - activeIndex;
               if (offset > total / 2) offset -= total;
-              if (offset < -total / 2) offset += total;
+              if (offset < -total / 2) offset -= total;
 
               const isCenter = offset === 0;
               const isLeft = offset === -1;
               const isRight = offset === 1;
-              const isVisible = Math.abs(offset) <= 2;
-
-              if (!isVisible) return null;
+              const isFarLeft = offset === -2;
+              const isFarRight = offset === 2;
 
               const isRed = evt.accentColor === 'red';
 
-              // Transform Styles matching Reference Image 2 proportions
+              // GPU-composited 3D Transform Styles
               let transform = '';
-              let zIndex = 10;
+              let zIndex = 5;
               let opacity = 0;
+              let pointerEvents = 'none';
 
               if (isCenter) {
-                transform = 'translateX(0%) scale(1.0) rotateY(0deg) translateZ(35px)';
+                transform = 'translate3d(0%, 0, 35px) scale(1.0) rotateY(0deg)';
                 zIndex = 30;
                 opacity = 1;
+                pointerEvents = 'auto';
               } else if (isLeft) {
-                transform = 'translateX(-55%) scale(0.90) rotateY(12deg) translateZ(-45px)';
+                transform = 'translate3d(-55%, 0, -45px) scale(0.90) rotateY(12deg)';
                 zIndex = 15;
                 opacity = 0.95;
+                pointerEvents = 'auto';
               } else if (isRight) {
-                transform = 'translateX(55%) scale(0.90) rotateY(-12deg) translateZ(-45px)';
+                transform = 'translate3d(55%, 0, -45px) scale(0.90) rotateY(-12deg)';
                 zIndex = 15;
                 opacity = 0.95;
-              } else if (offset < 0) {
-                transform = 'translateX(-108%) scale(0.78) rotateY(18deg) translateZ(-110px)';
-                zIndex = 5;
+                pointerEvents = 'auto';
+              } else if (isFarLeft) {
+                transform = 'translate3d(-108%, 0, -110px) scale(0.78) rotateY(18deg)';
+                zIndex = 8;
                 opacity = 0.38;
+                pointerEvents = 'auto';
+              } else if (isFarRight) {
+                transform = 'translate3d(108%, 0, -110px) scale(0.78) rotateY(-18deg)';
+                zIndex = 8;
+                opacity = 0.38;
+                pointerEvents = 'auto';
               } else {
-                transform = 'translateX(108%) scale(0.78) rotateY(-18deg) translateZ(-110px)';
-                zIndex = 5;
-                opacity = 0.38;
+                transform = offset < 0
+                  ? 'translate3d(-145%, 0, -160px) scale(0.65) rotateY(22deg)'
+                  : 'translate3d(145%, 0, -160px) scale(0.65) rotateY(-22deg)';
+                zIndex = 1;
+                opacity = 0;
+                pointerEvents = 'none';
               }
 
               return (
                 <div
                   key={evt.id}
                   onClick={() => handleCardClick(idx, evt)}
-                  className={`absolute w-[72vw] sm:w-[305px] md:w-[330px] lg:w-[345px] max-w-[355px] min-w-[240px] aspect-[3/4.15] max-h-[455px] sm:max-h-[485px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
+                  className={`absolute w-[72vw] sm:w-[305px] md:w-[330px] lg:w-[345px] max-w-[355px] min-w-[240px] aspect-[3/4.15] max-h-[455px] sm:max-h-[485px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden cursor-pointer select-none border ${
                     isCenter
                       ? isRed
-                        ? 'border border-[#FF4D4D] shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_20px_rgba(255,77,77,0.25)]'
-                        : 'border border-[#D4AF37] shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_20px_rgba(212,175,55,0.25)]'
-                      : 'border border-white/20 shadow-[0_14px_35px_rgba(0,0,0,0.85)]'
+                        ? 'border-[#FF4D4D] shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_20px_rgba(255,77,77,0.25)]'
+                        : 'border-[#D4AF37] shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_20px_rgba(212,175,55,0.25)]'
+                      : 'border-white/20 shadow-[0_14px_35px_rgba(0,0,0,0.85)]'
                   }`}
                   style={{
                     transform,
                     zIndex,
                     opacity,
+                    pointerEvents,
                     willChange: 'transform, opacity',
+                    transition: 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms cubic-bezier(0.16, 1, 0.3, 1)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transformStyle: 'preserve-3d',
                     backgroundColor: '#0c0c10',
-                    WebkitMaskImage: '-webkit-radial-gradient(white, black)',
-                    isolation: 'isolate',
                   }}
                 >
                   {/* Poster Background Image with Inherited Rounded Clipping */}
@@ -195,10 +229,9 @@ export default function EventsSection({ onSelectEvent }) {
                       alt={evt.name}
                       width="1086"
                       height="1448"
-                      loading={isCenter ? 'eager' : 'lazy'}
+                      loading="eager"
                       decoding="async"
-                      fetchPriority={isCenter ? 'high' : 'low'}
-                      className="w-full h-full object-cover object-center rounded-[inherit] transform transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full object-cover object-center rounded-[inherit]"
                     />
 
                     {/* Subtle darkening veil for side cards so center card pops */}

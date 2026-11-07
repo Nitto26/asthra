@@ -69,18 +69,11 @@ export default function RegistrationNoticeModal({ event, onClose }) {
             sound.playClick();
             onClose();
           }}
-          className="absolute top-4 right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 text-[#E6E3DB] hover:text-white transition-all flex items-center justify-center cursor-pointer z-20"
+          className="absolute top-4 right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 bg-black/60 hover:bg-black/80 text-[#E6E3DB] hover:text-white transition-all flex items-center justify-center cursor-pointer z-30 shadow-md backdrop-blur-sm"
           aria-label="Close modal"
         >
           <X size={15} />
         </button>
-
-        {/* 1. Header Tag (Centered with comfortable spacing from border) */}
-        <div className="w-full text-center pr-6 pl-2 mb-3">
-          <span className="font-mono text-[11px] sm:text-xs font-bold tracking-widest text-[#F5D77F] uppercase inline-block">
-            EVENT {event.num || event.id} · {event.category?.split('·')[0]?.trim() || "COMPETITION"}
-          </span>
-        </div>
 
         {/* 2. Event Poster Image */}
         <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-black shrink-0 border border-white/10 shadow-md mb-4">
@@ -127,11 +120,6 @@ export default function RegistrationNoticeModal({ event, onClose }) {
             {isLinkReady ? 'Online Registration is Live' : 'Registration is not started'}
           </h3>
 
-          <p className="font-sans text-xs sm:text-[13px] text-[#A6A195] leading-relaxed max-w-sm mx-auto">
-            {isLinkReady
-              ? 'Click below to submit your registration entry on the official portal.'
-              : 'Online registrations for this competition have not started yet. The registration portal will open soon.'}
-          </p>
         </div>
 
         {/* 7. Action Button (shown only when registration link is live) */}
