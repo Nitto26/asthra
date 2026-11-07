@@ -7,7 +7,7 @@ const EclipseCanvas = lazy(() => import('../components/EclipseCanvas'));
 
 const TARGET_DATE = new Date('2026-11-27T00:00:00').getTime();
 
-export default function HeroSection({ onExplore, onRegister }) {
+export default function HeroSection({ onExplore }) {
   const sectionRef = useRef(null);
   const [isHeroVisible, setIsHeroVisible] = useState(true);
   const [textVisible, setTextVisible] = useState(true);
@@ -281,24 +281,6 @@ export default function HeroSection({ onExplore, onRegister }) {
           <p className="text-[#F5D77F] font-semibold">TOMORROW</p>
         </div>
         <span className="w-10 h-[1.5px] bg-[#D4AF37]/80 mt-3" />
-      </div>
-
-      {/* =========================================================================
-          BOTTOM FLOATING CTA: REGISTER FOR EVENTS (Centered & Scaled to Match Navbar on Desktop)
-          ========================================================================= */}
-      <div className={`absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 -translate-x-1/2 z-30 pointer-events-auto transition-opacity duration-1000 delay-300 ease-out ${
-        textVisible ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <button
-          type="button"
-          onClick={() => {
-            sound.playClick();
-            if (onRegister) onRegister();
-          }}
-          className="inline-flex items-center justify-center h-12 px-12 sm:px-14 md:px-16 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-black font-sans font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(212,175,55,0.45)] hover:shadow-[0_0_45px_rgba(212,175,55,0.7)] hover:brightness-110 active:scale-95 transition-all cursor-pointer whitespace-nowrap text-center"
-        >
-          <span className="text-center font-bold">Register for Events</span>
-        </button>
       </div>
     </section>
   );

@@ -11,9 +11,8 @@ export const siteConfig = {
   navLinks: [
     { id: "hero", label: "HOME", num: "01" },
     { id: "about", label: "ABOUT", num: "02" },
-    { id: "events", label: "EVENTS", num: "03" },
-    { id: "social-drive", label: "SOCIAL DRIVE", num: "04" },
-    { id: "contact", label: "CONTACT", num: "05" }
+    { id: "social-drive", label: "SOCIAL DRIVE", num: "03" },
+    { id: "contact", label: "CONTACT", num: "04" }
   ],
 
   // Social Drive configuration

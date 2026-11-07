@@ -112,7 +112,7 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             {/* Section Tag */}
             <div className="flex flex-col items-start mb-4 sm:mb-5">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37]">04</span>
+                <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37]">03</span>
                 <span className="w-10 sm:w-14 h-[1.5px] bg-[#D4AF37]/80" />
               </div>
               <span className="text-[10.5px] sm:text-xs font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase mt-1">

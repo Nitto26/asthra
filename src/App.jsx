@@ -5,19 +5,16 @@ import { siteConfig } from './data/config';
 
 // Lazy-load offscreen sections to keep initial loading instantaneous (<1.5s)
 const AboutSection = lazy(() => import('./sections/AboutSection'));
-const EventsSection = lazy(() => import('./sections/EventsSection'));
 const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
 // Lazy load modals so forms & notices are loaded on-demand only
-const RegistrationNoticeModal = lazy(() => import('./components/RegistrationNoticeModal'));
 const DonateModal = lazy(() => import('./components/DonateModal'));
 
-const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'contact'];
+const SECTIONS = ['hero', 'about', 'social-drive', 'contact'];
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donateTier, setDonateTier] = useState(null);
   const [mountRest, setMountRest] = useState(false);
@@ -71,9 +68,8 @@ export default function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-      if (selectedEvent || donateModalOpen) {
+      if (donateModalOpen) {
         if (e.key === 'Escape') {
-          setSelectedEvent(null);
           setDonateModalOpen(false);
         }
         return;
@@ -102,7 +98,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection, selectedEvent, donateModalOpen]);
+  }, [activeSection, donateModalOpen]);
 
   const scrollToSection = (id) => {
     if (!mountRest) {
@@ -124,32 +120,6 @@ export default function App() {
     setDonateModalOpen(true);
   };
 
-  const handleOpenRegister = () => {
-    const link = siteConfig.registrationLink || "##";
-    if (link && link !== "##" && !link.startsWith("#")) {
-      if (link.startsWith("http://") || link.startsWith("https://")) {
-        window.open(link, '_blank', 'noopener,noreferrer');
-      } else {
-        window.location.href = link;
-      }
-    } else {
-      setSelectedEvent({
-        id: "GENERAL",
-        num: "01",
-        name: "ASTHRA ’26 FESTIVAL",
-        nameDisplay: "ASTHRA ’26 EVENTS",
-        category: "ALL EVENTS & WORKSHOPS",
-        prizeDisplay: "50K+",
-        prizePool: "₹ 50K+ Pool",
-        venue: "St. Thomas College Campus",
-        venueDisplay: "College Campus",
-        time: "Nov 27-28, 2026",
-        timeDisplay: "Full Festival",
-        image: "/assets/about-bg.webp",
-      });
-    }
-  };
-
   return (
     <div className="app-container">
       <div className="noise-overlay" aria-hidden="true" />
@@ -158,7 +128,6 @@ export default function App() {
       <Navbar
         activeSection={activeSection}
         onNavigate={scrollToSection}
-        onOpenRegister={handleOpenRegister}
         links={SECTIONS}
       />
 
@@ -167,25 +136,21 @@ export default function App() {
         {/* 01 HERO TEASER */}
         <HeroSection
           onExplore={() => scrollToSection('about')}
-          onRegister={handleOpenRegister}
         />
 
         {/* OFFSCREEN SECTIONS */}
         {mountRest ? (
           <Suspense fallback={null}>
             {/* 02 ABOUT FESTIVAL */}
-            <AboutSection onScrollNext={() => scrollToSection('events')} />
+            <AboutSection onScrollNext={() => scrollToSection('social-drive')} />
 
-            {/* 03 EVENTS SHOWCASE */}
-            <EventsSection onSelectEvent={(evt) => setSelectedEvent(evt)} />
-
-            {/* 04 SOCIAL DRIVE */}
+            {/* 03 SOCIAL DRIVE */}
             <SocialDriveSection
               onOpenDonate={handleOpenDonate}
               onScrollNext={() => scrollToSection('contact')}
             />
 
-            {/* 05 CONTACT */}
+            {/* 04 CONTACT */}
             <ContactSection />
           </Suspense>
         ) : (
@@ -195,12 +160,6 @@ export default function App() {
 
       {/* Interactive Modals (Loaded On-Demand) */}
       <Suspense fallback={null}>
-        {selectedEvent && (
-          <RegistrationNoticeModal
-            event={selectedEvent}
-            onClose={() => setSelectedEvent(null)}
-          />
-        )}
 
         {donateModalOpen && (
           <DonateModal
