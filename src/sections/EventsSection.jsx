@@ -30,7 +30,7 @@ export default function EventsSection({ onSelectEvent }) {
           window.location.href = link;
         }
       } else {
-        // Show alternative page showing "Registration is not started"
+        // Show alternative modal showing "Registration is not started"
         if (onSelectEvent) onSelectEvent(event);
       }
     } else {
@@ -165,12 +165,12 @@ export default function EventsSection({ onSelectEvent }) {
               <div
                 key={evt.id}
                 onClick={() => handleCardClick(idx, evt)}
-                className={`absolute w-[74vw] sm:w-[330px] md:w-[380px] lg:w-[410px] max-w-[430px] aspect-[3/4] max-h-[60vh] sm:max-h-[65vh] rounded-[22px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none border ${
+                className={`absolute w-[74vw] sm:w-[330px] md:w-[380px] lg:w-[410px] max-w-[430px] aspect-[3/4] max-h-[60vh] sm:max-h-[65vh] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
                   isCenter
                     ? isRed
-                      ? 'border-[#FF4D4D] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#FF4D4D]/60'
-                      : 'border-[#D4AF37] shadow-[0_25px_60px_rgba(0,0,0,0.95)] ring-2 ring-[#F5D77F]/60'
-                    : 'border-white/30 shadow-[0_16px_40px_rgba(0,0,0,0.85)] ring-1 ring-white/10'
+                      ? 'border-[1.5px] border-[#FF4D4D] shadow-[0_22px_55px_rgba(0,0,0,0.95),0_0_20px_rgba(255,77,77,0.3)]'
+                      : 'border-[1.5px] border-[#D4AF37] shadow-[0_22px_55px_rgba(0,0,0,0.95),0_0_20px_rgba(212,175,55,0.3)]'
+                    : 'border border-white/20 shadow-[0_16px_40px_rgba(0,0,0,0.85)]'
                 }`}
                 style={{
                   transform,
@@ -204,29 +204,29 @@ export default function EventsSection({ onSelectEvent }) {
                   )}
 
                   {/* Top-Left Card Number (Visible on all cards: 1, 2, 3...) */}
-                  <div className="absolute top-4 left-4.5 sm:top-5 sm:left-6 z-20 pointer-events-none">
-                    <span className="font-sans font-bold text-sm sm:text-base text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                  <div className="absolute top-4.5 left-5 sm:top-5 sm:left-6 z-20 pointer-events-none">
+                    <span className="font-sans font-bold text-base sm:text-lg text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                       {idx + 1}
                     </span>
                   </div>
 
                   {/* Top-Right 'Click to Register' (Visible on active center card) */}
                   {isCenter && (
-                    <div className="absolute top-4 right-4.5 sm:top-5 sm:right-6 z-20 pointer-events-none">
-                      <span className="font-sans text-[11.5px] sm:text-[13px] font-semibold text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+                    <div className="absolute top-4.5 right-5 sm:top-5 sm:right-6 z-20 pointer-events-none">
+                      <span className="font-sans text-xs sm:text-[13px] font-semibold text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                         Click to Register
                       </span>
                     </div>
                   )}
 
-                  {/* Bottom Black Vignette & Dot-Dot Texture on Corners */}
+                  {/* Bottom Black Vignette & Dot-Dot Texture */}
                   <div className="absolute inset-x-0 bottom-0 h-40 sm:h-48 md:h-52 pointer-events-none z-10 rounded-b-[inherit] overflow-hidden">
-                    {/* Deep Pure Black Gradient Fade & Corner Vignette */}
+                    {/* Deep Pure Black Gradient Fade */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background:
-                          'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.88) 50%, rgba(0, 0, 0, 0.45) 80%, transparent 100%), radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.98) 0%, transparent 50%)',
+                          'linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.9) 45%, rgba(0, 0, 0, 0.4) 80%, transparent 100%)',
                       }}
                     />
 
@@ -236,19 +236,19 @@ export default function EventsSection({ onSelectEvent }) {
                       style={{
                         backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.45) 1.2px, transparent 1.2px)',
                         backgroundSize: '8px 8px',
-                        maskImage: 'linear-gradient(to top, black 30%, transparent 95%)',
-                        WebkitMaskImage: 'linear-gradient(to top, black 30%, transparent 95%)',
+                        maskImage: 'linear-gradient(to top, black 35%, transparent 95%)',
+                        WebkitMaskImage: 'linear-gradient(to top, black 35%, transparent 95%)',
                       }}
                       aria-hidden="true"
                     />
                   </div>
 
-                  {/* Bottom Details Overlay (Exact Placement, Padding & Centering matching reference) */}
+                  {/* Bottom Details Overlay (Exact Placement, Spacing & Typography matching reference mockup) */}
                   {isCenter && (
-                    <div className="absolute inset-x-4 sm:inset-x-6 md:inset-x-7 bottom-4 sm:bottom-5 md:bottom-6 z-20 flex items-center justify-between pointer-events-none">
-                      {/* Left: Prize Pool */}
+                    <div className="absolute inset-x-5 sm:inset-x-6 md:inset-x-7 bottom-4 sm:bottom-5 md:bottom-6 z-20 flex items-center justify-between pointer-events-none">
+                      {/* Left: Price Pool */}
                       <div className="flex flex-col items-start shrink-0">
-                        <span className="font-sans text-[10px] sm:text-[11px] font-medium text-[#C8C4B7] tracking-normal leading-none">
+                        <span className="font-sans text-[10px] sm:text-[11px] font-semibold text-white/75 uppercase tracking-wider leading-none">
                           Price Pool
                         </span>
                         <span className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight leading-none mt-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
@@ -257,29 +257,29 @@ export default function EventsSection({ onSelectEvent }) {
                       </div>
 
                       {/* Thin Vertical Divider */}
-                      <div className="w-[1.5px] h-10 sm:h-12 bg-white/25 mx-3 sm:mx-4.5 shrink-0" />
+                      <div className="w-[1.5px] h-10 sm:h-12 bg-white/25 mx-3.5 sm:mx-4.5 shrink-0" />
 
                       {/* Right: Event Name, Venue, Time */}
                       <div className="flex flex-col justify-center gap-1 sm:gap-1.5 min-w-0 flex-1 text-left">
                         {/* Row 1: Trophy + Event Name */}
                         <div className="flex items-center gap-2 min-w-0 text-white font-semibold text-xs sm:text-[13px] leading-tight">
-                          <Trophy size={14} className="text-white/95 shrink-0" />
+                          <Trophy size={14} className="text-white shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.nameDisplay || evt.name}
                           </span>
                         </div>
 
                         {/* Row 2: MapPin + Venue */}
-                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-normal text-[11px] sm:text-xs leading-tight">
-                          <MapPin size={13} className="text-white/85 shrink-0" />
+                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-medium text-[11px] sm:text-xs leading-tight">
+                          <MapPin size={13} className="text-white/85 shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.venueDisplay || evt.venue}
                           </span>
                         </div>
 
                         {/* Row 3: Clock + Time */}
-                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-normal text-[11px] sm:text-xs leading-tight">
-                          <Clock size={13} className="text-white/85 shrink-0" />
+                        <div className="flex items-center gap-2 min-w-0 text-white/90 font-medium text-[11px] sm:text-xs leading-tight">
+                          <Clock size={13} className="text-white/85 shrink-0" strokeWidth={2} />
                           <span className="truncate drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">
                             {evt.timeDisplay || evt.time}
                           </span>
