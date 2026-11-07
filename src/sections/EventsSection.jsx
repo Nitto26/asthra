@@ -95,7 +95,7 @@ export default function EventsSection({ onSelectEvent }) {
       />
 
       {/* Unified Vertically Centered Showcase Composition (Balanced spacing matching Image 2) */}
-      <div className="relative z-20 flex flex-col items-center justify-center w-full max-w-6xl mx-auto my-auto gap-4 sm:gap-5 md:gap-6">
+      <div className="relative z-20 flex flex-col items-center justify-center w-full max-w-6xl mx-auto my-auto gap-4 sm:gap-5 md:gap-6 pb-14 sm:pb-16 md:pb-20">
 
         {/* =========================================================================
             TOP HEADER
@@ -296,29 +296,29 @@ export default function EventsSection({ onSelectEvent }) {
             })}
           </div>
 
-          {/* Carousel Navigation Controls (Centered between tile bottom and section bottom) */}
-          <div className="relative z-20 flex items-center justify-center gap-3.5 sm:gap-4 mt-6 sm:mt-8 md:mt-10 lg:mt-12 pb-2 sm:pb-3">
-            <button
-              type="button"
-              onClick={prevSlide}
-              aria-label="Previous Event"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
-            >
-              <ChevronLeft size={16} />
-            </button>
-
-            <button
-              type="button"
-              onClick={nextSlide}
-              aria-label="Next Event"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
-            >
-              <ChevronRight size={16} />
-            </button>
-          </div>
-
         </div>
 
+      </div>
+
+      {/* Carousel Navigation Controls (Positioned just above the event section bottom) */}
+      <div className="absolute bottom-5 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center gap-3.5 sm:gap-4 pointer-events-auto">
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Previous Event"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
+        >
+          <ChevronLeft size={16} />
+        </button>
+
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Next Event"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/60 hover:border-[#D4AF37] hover:bg-[#D4AF37]/15 text-[#E6E3DB] hover:text-[#F5D77F] transition-all flex items-center justify-center cursor-pointer shadow-md active:scale-95"
+        >
+          <ChevronRight size={16} />
+        </button>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
-import { ArrowRight, X, Sparkles } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 
 export default function Navbar({ activeSection, onNavigate, onOpenRegister, links }) {
   const [scrollY, setScrollY] = useState(0);
@@ -131,9 +131,21 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
           </nav>
 
           {/* =========================================================================
-              RIGHT: Action Cluster (Mobile Hamburger)
+              RIGHT: Action Cluster (Register CTA & Mobile Hamburger)
               ========================================================================= */}
-          <div className="flex items-center gap-3 sm:gap-5 z-10">
+          <div className="flex items-center gap-3 sm:gap-4 z-10">
+            {/* REGISTER FOR EVENTS CTA Button on Navbar (Matches Hero Section on Desktop) */}
+            <button
+              type="button"
+              onClick={() => {
+                sound.playClick();
+                if (onOpenRegister) onOpenRegister();
+              }}
+              className="hidden lg:inline-flex items-center justify-center h-12 px-12 sm:px-14 md:px-16 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-black font-sans font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(212,175,55,0.45)] hover:shadow-[0_0_35px_rgba(212,175,55,0.65)] hover:brightness-110 active:scale-95 transition-all cursor-pointer whitespace-nowrap text-center"
+            >
+              <span className="text-center font-bold">Register for Events</span>
+            </button>
+
             {/* Hamburger Icon (Mobile / Tablet drawer trigger) */}
             <button
               onClick={() => {
@@ -219,6 +231,21 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
               </button>
             );
           })}
+        </div>
+
+        {/* Mobile Drawer Register Button */}
+        <div className="max-w-xs mx-auto w-full px-4 mb-4 shrink-0 text-center">
+          <button
+            type="button"
+            onClick={() => {
+              sound.playClick();
+              setMobileMenuOpen(false);
+              if (onOpenRegister) onOpenRegister();
+            }}
+            className="w-full inline-flex items-center justify-center h-12 px-10 sm:px-12 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] via-[#F5D77F] to-[#D4AF37] text-black font-sans font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(212,175,55,0.45)] hover:brightness-110 active:scale-95 transition-all cursor-pointer text-center"
+          >
+            <span className="text-center font-bold">Register for Events</span>
+          </button>
         </div>
 
         {/* Drawer Bottom Info Bar */}

@@ -85,8 +85,8 @@ export default function RegistrationNoticeModal({ event, onClose }) {
         {/* 2. Event Poster Image */}
         <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-black shrink-0 border border-white/10 shadow-md mb-4">
           <img
-            src={event.image}
-            alt={event.name}
+            src={event.image || '/assets/about-bg.webp'}
+            alt={event.name || "ASTHRA ’26"}
             width="800"
             height="450"
             loading="eager"

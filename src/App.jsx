@@ -133,7 +133,20 @@ export default function App() {
         window.location.href = link;
       }
     } else {
-      setSelectedEvent({ name: "ASTHRA ’26 COMPETITIONS" });
+      setSelectedEvent({
+        id: "GENERAL",
+        num: "01",
+        name: "ASTHRA ’26 FESTIVAL",
+        nameDisplay: "ASTHRA ’26 EVENTS",
+        category: "ALL EVENTS & WORKSHOPS",
+        prizeDisplay: "50K+",
+        prizePool: "₹ 50K+ Pool",
+        venue: "St. Thomas College Campus",
+        venueDisplay: "College Campus",
+        time: "Nov 27-28, 2026",
+        timeDisplay: "Full Festival",
+        image: "/assets/about-bg.webp",
+      });
     }
   };
 
@@ -152,7 +165,10 @@ export default function App() {
       {/* Full-Screen Cinematic Sections */}
       <main>
         {/* 01 HERO TEASER */}
-        <HeroSection onExplore={() => scrollToSection('about')} />
+        <HeroSection
+          onExplore={() => scrollToSection('about')}
+          onRegister={handleOpenRegister}
+        />
 
         {/* OFFSCREEN SECTIONS */}
         {mountRest ? (
