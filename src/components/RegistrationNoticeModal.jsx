@@ -50,43 +50,40 @@ export default function RegistrationNoticeModal({ event, onClose }) {
         aria-hidden="true"
       />
 
-      {/* 1. Modal Container (0px horizontal padding for full-width banner) */}
+      {/* Modal Dialog Container */}
       <div
-        className="modal-container relative w-full max-w-[460px] sm:max-w-[480px] my-auto rounded-[22px] sm:rounded-[24px] border border-[#D4AF37]/35 bg-[#09080B] text-left shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col"
+        className="relative w-[calc(100vw-2rem)] max-w-[440px] sm:max-w-[460px] m-auto rounded-3xl border border-[#D4AF37]/40 bg-[#09080B] text-center shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col"
         style={{
+          padding: '24px 22px 20px 22px',
           boxShadow: isRed
-            ? '0 0 50px rgba(255, 77, 77, 0.16)'
-            : '0 0 50px rgba(212, 175, 55, 0.16)',
+            ? '0 0 45px rgba(255, 77, 77, 0.18)'
+            : '0 0 45px rgba(212, 175, 55, 0.18)',
           boxSizing: 'border-box',
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 2. Header (14px horizontal padding, ~38px height) */}
-        <div className="modal-header flex items-center justify-between px-3.5 h-[38px] border-b border-white/10 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[11px] font-bold tracking-wider text-[#F5D77F] bg-[#14120C] px-2.5 py-0.5 rounded-full border border-[#D4AF37]/40 shadow-sm leading-none flex items-center">
-              EVENT {event.num || event.id}
-            </span>
-            <span className="font-sans text-[10px] font-semibold tracking-wider text-[#A6A195] uppercase px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 leading-none flex items-center">
-              {event.category?.split('·')[0]?.trim() || "COMPETITION"}
-            </span>
-          </div>
+        {/* Top Floating Close Button */}
+        <button
+          type="button"
+          onClick={() => {
+            sound.playClick();
+            onClose();
+          }}
+          className="absolute top-4 right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 text-[#E6E3DB] hover:text-white transition-all flex items-center justify-center cursor-pointer z-20"
+          aria-label="Close modal"
+        >
+          <X size={15} />
+        </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              sound.playClick();
-              onClose();
-            }}
-            className="w-7 h-7 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 text-[#E6E3DB] hover:text-white transition-all flex items-center justify-center cursor-pointer shrink-0"
-            aria-label="Close modal"
-          >
-            <X size={15} />
-          </button>
+        {/* 1. Header Tag (Centered with comfortable spacing from border) */}
+        <div className="w-full text-center pr-6 pl-2 mb-3">
+          <span className="font-mono text-[11px] sm:text-xs font-bold tracking-widest text-[#F5D77F] uppercase inline-block">
+            EVENT {event.num || event.id} · {event.category?.split('·')[0]?.trim() || "COMPETITION"}
+          </span>
         </div>
 
-        {/* 3. Event Banner (~175px height, edge-to-edge with 16px internal padding for content) */}
-        <div className="event-banner relative w-full h-[175px] overflow-hidden bg-black shrink-0 border-b border-white/10">
+        {/* 2. Event Poster Image */}
+        <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-black shrink-0 border border-white/10 shadow-md mb-4">
           <img
             src={event.image}
             alt={event.name}
@@ -96,100 +93,66 @@ export default function RegistrationNoticeModal({ event, onClose }) {
             decoding="async"
             className="w-full h-full object-cover object-center block"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent pointer-events-none" />
+        </div>
 
-          {/* Banner Content (16px horizontal padding) */}
-          <div className="event-banner-content absolute inset-x-0 bottom-0 px-4 py-3 flex flex-col gap-1.5 z-10 pointer-events-none">
-            <h2 className="event-title font-serif-display text-lg sm:text-xl font-bold tracking-wide text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] truncate">
-              {event.nameDisplay || event.name}
-            </h2>
-            <div className="event-meta flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-white/90 font-medium">
-              <span className="inline-flex items-center gap-1.5 shrink-0">
-                <Trophy size={12} className="text-[#F5D77F] shrink-0" />
-                <span>{event.prizeDisplay ? `₹ ${event.prizeDisplay} Pool` : event.prizePool}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 shrink-0">
-                <MapPin size={12} className="text-[#F5D77F] shrink-0" />
-                <span>{event.venueDisplay || event.venue}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 shrink-0">
-                <Clock size={12} className="text-[#F5D77F] shrink-0" />
-                <span>{event.timeDisplay || event.time}</span>
-              </span>
-            </div>
+        {/* 3. Event Name (Centered with word & letter spacing) */}
+        <h2 className="font-serif-display text-xl sm:text-2xl font-bold tracking-wide text-white text-center leading-tight mb-2.5 px-2">
+          {event.nameDisplay || event.name}
+        </h2>
+
+        {/* 4. Details: Price Pool · Place (Venue) · Time (Centered row with balanced spacing) */}
+        <div className="flex items-center justify-center gap-4 sm:gap-6 text-xs text-white/90 font-medium flex-wrap mb-4 px-2">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <Trophy size={13} className="text-[#F5D77F] shrink-0" />
+            <span>{event.prizeDisplay ? `₹ ${event.prizeDisplay} Pool` : event.prizePool}</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            <MapPin size={13} className="text-[#F5D77F] shrink-0" />
+            <span>{event.venueDisplay || event.venue}</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            <Clock size={13} className="text-[#F5D77F] shrink-0" />
+            <span>{event.timeDisplay || event.time}</span>
           </div>
         </div>
 
-        {/* 4. Lower Content Container (16px horizontal padding) */}
-        <div className="px-4 pt-3.5 pb-2 flex flex-col">
-          {/* Registration Status Section (12-14px vertical padding, 6-8px internal gaps) */}
-          <div className="registration-status w-full rounded-xl sm:rounded-2xl border border-[#D4AF37]/35 bg-gradient-to-b from-[#14120A]/90 to-[#0A0A0C]/95 py-3 px-4 text-center shadow-[0_0_20px_rgba(212,175,55,0.06)] flex flex-col items-center gap-1.5 sm:gap-2 box-border">
-            <div className="status-badge inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#F5D77F]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5D77F] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
-              </span>
-              <span className="font-mono text-[9.5px] sm:text-[10px] font-bold tracking-widest uppercase">
-                STATUS · {isLinkReady ? 'REGISTRATION LIVE' : 'NOT STARTED'}
-              </span>
-            </div>
+        {/* 5. Horizontal Divider Line (Generous vertical breathing space) */}
+        <div className="w-full h-px bg-white/15 my-3" />
 
-            <h3 className="registration-heading font-serif-display text-base sm:text-lg font-bold tracking-wide text-white leading-tight uppercase mt-0.5">
-              {isLinkReady ? 'Online Registration is Live' : 'REGISTRATION IS NOT STARTED'}
-            </h3>
+        {/* 6. Registration Notice: Centered with comfortable line and word spacing */}
+        <div className="text-center flex flex-col items-center px-2 mb-3">
+          <h3 className="font-serif-display text-base sm:text-lg font-bold tracking-wide text-white uppercase leading-snug mb-1.5">
+            {isLinkReady ? 'Online Registration is Live' : 'Registration is not started'}
+          </h3>
 
-            <p className="registration-description font-sans text-xs text-[#DCD8CF] leading-relaxed max-w-sm mx-auto">
-              {isLinkReady
-                ? 'Click below to submit your registration entry on the official portal.'
-                : 'Online registrations for this competition have not started yet.'}
-            </p>
+          <p className="font-sans text-xs sm:text-[13px] text-[#A6A195] leading-relaxed max-w-sm mx-auto">
+            {isLinkReady
+              ? 'Click below to submit your registration entry on the official portal.'
+              : 'Online registrations for this competition have not started yet. The registration portal will open soon.'}
+          </p>
+        </div>
 
-            {!isLinkReady && (
-              <p className="registration-supporting-text font-sans text-xs text-[#A6A195] leading-relaxed">
-                The registration portal will open soon.
-              </p>
-            )}
-          </div>
-
-          {/* 5. Modal Action Buttons (12-16px top spacing) */}
-          <div className="modal-actions flex items-center gap-2.5 sm:gap-3 w-full mt-3.5 sm:mt-4">
-            {isLinkReady ? (
-              <button
-                type="button"
-                onClick={handleRegisterClick}
-                className="registration-button flex-1 h-[40px] sm:h-[42px] px-5 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-black font-sans text-xs font-bold tracking-widest uppercase hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.4)] cursor-pointer active:scale-95"
-              >
-                <span>REGISTER NOW</span>
-                <ArrowRight size={14} />
-              </button>
-            ) : (
-              <button
-                type="button"
-                disabled
-                className="registration-button flex-1 h-[40px] sm:h-[42px] px-4 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 text-[#F5D77F] font-sans text-xs font-bold tracking-widest uppercase cursor-not-allowed flex items-center justify-center select-none"
-              >
-                REGISTRATION OPENS SOON
-              </button>
-            )}
-
+        {/* 7. Action Button (shown only when registration link is live) */}
+        {isLinkReady && (
+          <div className="w-full mt-2 mb-3 px-2">
             <button
               type="button"
-              onClick={() => {
-                sound.playClick();
-                onClose();
-              }}
-              className="close-button shrink-0 h-[40px] sm:h-[42px] px-5 sm:px-6 rounded-full border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-sans text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer flex items-center justify-center active:scale-95"
+              onClick={handleRegisterClick}
+              className="w-full h-[42px] px-5 rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-[#F5D77F] text-black font-sans text-xs font-bold tracking-widest uppercase hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.4)] cursor-pointer active:scale-95"
             >
-              CLOSE
+              <span>REGISTER NOW</span>
+              <ArrowRight size={14} />
             </button>
           </div>
+        )}
 
-          {/* 6. Footer (10-12px top spacing, 8px bottom padding) */}
-          <div className="modal-footer w-full mt-3 sm:mt-3.5 pb-2 text-center">
-            <span className="text-[9.5px] sm:text-[10px] font-mono tracking-widest text-[#A6A195]/60 uppercase block text-center">
-              ST. THOMAS COLLEGE (AUTONOMOUS) · THRISSUR
-            </span>
-          </div>
+        {/* 8. Footer College Mark (Centered with healthy top and bottom clearance) */}
+        <div className="w-full mt-2 pt-2.5 text-center border-t border-white/10">
+          <span className="text-[10px] font-mono tracking-widest text-[#A6A195]/60 uppercase block text-center">
+            ST. THOMAS COLLEGE (AUTONOMOUS) · THRISSUR
+          </span>
         </div>
       </div>
     </div>

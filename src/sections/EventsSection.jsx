@@ -171,7 +171,7 @@ export default function EventsSection({ onSelectEvent }) {
                 <div
                   key={evt.id}
                   onClick={() => handleCardClick(idx, evt)}
-                  className={`absolute w-[270px] sm:w-[305px] md:w-[330px] lg:w-[345px] max-w-[355px] aspect-[3/4.15] max-h-[455px] sm:max-h-[485px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
+                  className={`absolute w-[72vw] sm:w-[305px] md:w-[330px] lg:w-[345px] max-w-[355px] min-w-[240px] aspect-[3/4.15] max-h-[455px] sm:max-h-[485px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] select-none ${
                     isCenter
                       ? isRed
                         ? 'border border-[#FF4D4D] shadow-[0_18px_45px_rgba(0,0,0,0.95),0_0_20px_rgba(255,77,77,0.25)]'
