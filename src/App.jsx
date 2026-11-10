@@ -6,12 +6,13 @@ import { siteConfig } from './data/config';
 // Lazy-load offscreen sections to keep initial loading instantaneous (<1.5s)
 const AboutSection = lazy(() => import('./sections/AboutSection'));
 const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
+const ExhibitionSection = lazy(() => import('./sections/ExhibitionSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
 // Lazy load modals so forms & notices are loaded on-demand only
 const DonateModal = lazy(() => import('./components/DonateModal'));
 
-const SECTIONS = ['hero', 'about', 'social-drive', 'contact'];
+const SECTIONS = ['hero', 'about', 'social-drive', 'exhibition', 'contact'];
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -147,10 +148,15 @@ export default function App() {
             {/* 03 SOCIAL DRIVE */}
             <SocialDriveSection
               onOpenDonate={handleOpenDonate}
+              onScrollNext={() => scrollToSection('exhibition')}
+            />
+
+            {/* 04 EXHIBITION */}
+            <ExhibitionSection
               onScrollNext={() => scrollToSection('contact')}
             />
 
-            {/* 04 CONTACT */}
+            {/* 05 CONTACT */}
             <ContactSection />
           </Suspense>
         ) : (

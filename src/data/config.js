@@ -12,7 +12,8 @@ export const siteConfig = {
     { id: "hero", label: "HOME", num: "01" },
     { id: "about", label: "ABOUT", num: "02" },
     { id: "social-drive", label: "SOCIAL DRIVE", num: "03" },
-    { id: "contact", label: "CONTACT", num: "04" }
+    { id: "exhibition", label: "EXHIBITION", num: "04" },
+    { id: "contact", label: "CONTACT", num: "05" }
   ],
 
   // Social Drive configuration
