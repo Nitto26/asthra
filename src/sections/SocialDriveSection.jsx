@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
-import { HeartHandshake } from 'lucide-react';
+import { HeartHandshake, Phone, ExternalLink } from 'lucide-react';
 
 const bgImages = [
   '/assets/social.webp',
@@ -131,6 +131,39 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
               <p className="text-[#F8F7F4] font-medium leading-relaxed">
                 We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals.
               </p>
+            </div>
+
+            {/* Donate Now Action Button */}
+            <div className="mt-5 sm:mt-6">
+              <a
+                href="https://ast26-reg.vercel.app/charity"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sound.playClick()}
+                className="btn-gold-solid group inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-sans font-bold tracking-[0.15em] text-[#0A0A0C] uppercase transition-all duration-300 shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_6px_32px_rgba(245,215,127,0.6)] hover:-translate-y-0.5 cursor-pointer select-none"
+              >
+                <HeartHandshake size={16} className="text-[#0A0A0C] group-hover:scale-110 transition-transform" />
+                <span>DONATE NOW</span>
+                <ExternalLink size={14} className="text-[#0A0A0C]/75 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+
+            {/* Social Drive Enquiry Contact */}
+            <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+              <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-wider text-[#A6A195] uppercase">
+                Social drive for more enquiries:
+              </span>
+              <span className="font-sans text-xs sm:text-sm font-semibold text-[#F8F7F4]">
+                Chriswin
+              </span>
+              <span className="text-[#D4AF37]">•</span>
+              <a
+                href="tel:+919037373309"
+                className="font-mono text-xs sm:text-sm text-[#F5D77F] hover:text-[#FFF4D0] transition-colors inline-flex items-center gap-1.5"
+              >
+                <Phone size={13} className="text-[#D4AF37]" />
+                <span>+91 90373 73309</span>
+              </a>
             </div>
           </div>
 

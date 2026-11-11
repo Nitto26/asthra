@@ -150,10 +150,68 @@ export default function ContactSection() {
             </div>
             <div className="flex flex-col">
               <span className="text-[9.5px] sm:text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
-                PHONE
+                GENERAL ENQUIRIES
               </span>
               <span className="font-mono text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors">
                 {siteConfig.contact.phoneDisplay}
+              </span>
+            </div>
+          </a>
+
+          {/* REGISTRATION ENQUIRIES Item */}
+          <a
+            href="tel:+917306564261"
+            className="group flex items-center gap-4 py-1.5 sm:py-2 text-decoration-none text-left"
+          >
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/60 bg-[#161410] flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-[#F5D77F] transition-transform">
+              <Phone size={17} className="text-[#F5D77F]" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[9.5px] sm:text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
+                REGISTRATION FOR MORE ENQUIRIES
+              </span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-sans text-xs sm:text-sm font-semibold text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors">
+                  Aparna A
+                </span>
+                <span className="text-white/30">•</span>
+                <span className="font-mono text-xs sm:text-sm text-[#F5D77F] group-hover:text-[#FFF4D0] transition-colors">
+                  +91 73065 64261
+                </span>
+              </div>
+            </div>
+          </a>
+
+          {/* INSTAGRAM Item */}
+          <a
+            href="https://www.instagram.com/asthrafest?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 py-1.5 sm:py-2 text-decoration-none text-left"
+          >
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-[#D4AF37]/60 bg-[#161410] flex items-center justify-center flex-shrink-0 group-hover:scale-105 group-hover:border-[#F5D77F] transition-transform">
+              <svg
+                className="w-4 h-4 sm:w-5 sm:h-5 text-[#F5D77F]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[9.5px] sm:text-[10px] font-sans font-semibold tracking-widest text-[#A6A195] uppercase">
+                INSTAGRAM
+              </span>
+              <span className="font-mono text-xs sm:text-sm text-[#F8F7F4] group-hover:text-[#F5D77F] transition-colors flex items-center gap-1.5">
+                @asthrafest
+                <ExternalLink size={12} className="text-white/40 group-hover:text-[#F5D77F]" />
               </span>
             </div>
           </a>

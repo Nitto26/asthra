@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Compass, Eye } from 'lucide-react';
+import { Sparkles, Compass, Eye, Phone } from 'lucide-react';
 
 export default function ExhibitionSection({ onScrollNext }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -167,6 +167,24 @@ export default function ExhibitionSection({ onScrollNext }) {
               <span>{label}</span>
             </div>
           ))}
+        </div>
+
+        {/* ── Enquiry Contact ── */}
+        <div className="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+          <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-wider text-[#A6A195] uppercase">
+            For more enquiries:
+          </span>
+          <span className="font-sans text-xs sm:text-sm font-semibold text-[#F8F7F4]">
+            Parvathy Soman
+          </span>
+          <span className="text-[#D4AF37]">•</span>
+          <a
+            href="tel:7025947262"
+            className="font-mono text-xs sm:text-sm text-[#F5D77F] hover:text-[#FFF4D0] transition-colors inline-flex items-center gap-1.5"
+          >
+            <Phone size={13} className="text-[#D4AF37]" />
+            <span>7025947262</span>
+          </a>
         </div>
 
       </div>

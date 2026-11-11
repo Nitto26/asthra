@@ -235,7 +235,7 @@ export const siteConfig = {
     phoneDisplay: "+91 73563 36812",
     address: "Department of Mathematics, St. Thomas College (Autonomous), Thrissur, Kerala — 680001",
     socials: [
-      { name: "Instagram", url: "https://instagram.com/asthra.stc", handle: "@asthra.stc" },
+      { name: "Instagram", url: "https://www.instagram.com/asthrafest?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==", handle: "@asthrafest" },
       { name: "WhatsApp", url: "https://chat.whatsapp.com/asthra26", handle: "ASTHRA Community" },
       { name: "LinkedIn", url: "https://linkedin.com/company/asthra-stc", handle: "ASTHRA STC" },
       { name: "YouTube", url: "https://youtube.com/@asthra-stc", handle: "ASTHRA Media" }
