@@ -145,10 +145,10 @@ export default function EventsSection({ onSelectEvent }) {
             style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
           >
             {events.map((evt, idx) => {
-              // Calculate relative offset handling circular wrap
-              let offset = idx - activeIndex;
+              // Calculate relative offset handling continuous circular wrap
+              let offset = (idx - activeIndex) % total;
               if (offset > total / 2) offset -= total;
-              if (offset < -total / 2) offset -= total;
+              if (offset < -total / 2) offset += total;
 
               const isCenter = offset === 0;
               const isLeft = offset === -1;
