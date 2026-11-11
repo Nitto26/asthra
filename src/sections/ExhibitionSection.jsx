@@ -135,7 +135,10 @@ export default function ExhibitionSection({ onScrollNext }) {
         </div>
 
         {/* ── Headline ── */}
-        <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#F8F7F4] leading-[1.12] sm:leading-[1.15] filter drop-shadow-[0_4px_22px_rgba(0,0,0,0.95)] mb-4 sm:mb-6 select-none text-left">
+        <h2
+          className="font-serif-display editorial-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-[#F8F7F4] filter drop-shadow-[0_4px_22px_rgba(0,0,0,0.95)] mb-5 sm:mb-7 select-none text-left"
+          style={{ lineHeight: 1.18 }}
+        >
           <span>MATHEMATICS </span>
           <span className="gold-text font-serif-display font-medium">
             BEYOND NUMBERS
@@ -143,17 +146,20 @@ export default function ExhibitionSection({ onScrollNext }) {
         </h2>
 
         {/* ── Gold Accent Line ── */}
-        <div className="w-20 sm:w-28 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mb-5 sm:mb-7" />
+        <div className="w-20 sm:w-28 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mb-6 sm:mb-8" />
 
         {/* ── Narrative Description ── */}
-        <div className="max-w-2xl sm:max-w-3xl text-left mb-6 sm:mb-8">
-          <p className="font-sans text-[13.5px] sm:text-base md:text-lg text-[#F8F7F4] font-normal leading-[1.8] sm:leading-[1.9] tracking-wide filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] text-left">
+        <div className="max-w-2xl sm:max-w-3xl text-left mb-7 sm:mb-9">
+          <p
+            className="font-sans editorial-body text-[14px] sm:text-base md:text-lg text-[#F8F7F4] font-normal tracking-wide filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] text-left"
+            style={{ lineHeight: '1.9' }}
+          >
             Discover the beauty of mathematics through creativity, curiosity and innovation. Our exhibition brings mathematical concepts to life through interactive models, fascinating puzzles and real-world applications, revealing how mathematics shapes the world around us.
           </p>
         </div>
 
         {/* ── Feature Highlights ── */}
-        <div className="flex flex-wrap items-center justify-start gap-2.5 sm:gap-3.5">
+        <div className="flex flex-wrap items-center justify-start gap-2.5 sm:gap-3.5 mb-7 sm:mb-9">
           {[
             { icon: Sparkles, label: 'Interactive Models' },
             { icon: Compass, label: 'Fascinating Puzzles' },
@@ -170,7 +176,7 @@ export default function ExhibitionSection({ onScrollNext }) {
         </div>
 
         {/* ── Enquiry Contact ── */}
-        <div className="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+        <div className="pt-4 sm:pt-5 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
           <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-wider text-[#A6A195] uppercase">
             For more enquiries:
           </span>

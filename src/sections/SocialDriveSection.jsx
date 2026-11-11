@@ -121,20 +121,26 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             </div>
 
             {/* Title */}
-            <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] leading-tight filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] mb-4 sm:mb-6">
+            <h2
+              className="font-serif-display editorial-title text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] mb-4 sm:mb-5"
+              style={{ lineHeight: 1.18 }}
+            >
               Social Impact <span className="gold-text font-serif-display font-medium">Initiative</span>
             </h2>
-            <span className="w-20 sm:w-24 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent -mt-2 mb-5 sm:mb-6" />
+            <div className="w-20 sm:w-24 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mb-5 sm:mb-7" />
 
             {/* Narrative Content */}
-            <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-2xl">
-              <p className="text-[#F8F7F4] font-medium leading-relaxed">
+            <div className="text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-2xl mb-6 sm:mb-8">
+              <p
+                className="text-[#F8F7F4] font-normal editorial-body"
+                style={{ lineHeight: '1.9' }}
+              >
                 We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals.
               </p>
             </div>
 
             {/* Donate Now Action Button */}
-            <div className="mt-5 sm:mt-6">
+            <div className="mb-6 sm:mb-8">
               <a
                 href="https://ast26-reg.vercel.app/charity"
                 target="_blank"
@@ -149,7 +155,7 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             </div>
 
             {/* Social Drive Enquiry Contact */}
-            <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+            <div className="pt-4 sm:pt-5 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
               <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-wider text-[#A6A195] uppercase">
                 Social drive for more enquiries:
               </span>

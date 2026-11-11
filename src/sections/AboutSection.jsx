@@ -71,12 +71,18 @@ export default function AboutSection() {
 
         {/* ── Body Text ── */}
         <div className="space-y-4 mb-10 sm:mb-12">
-          <p className="text-[14.5px] sm:text-[16px] md:text-[17px] text-[#F8F7F4] font-normal leading-[1.85] tracking-[0.01em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+          <p
+            className="text-[14.5px] sm:text-[16px] md:text-[17px] text-[#F8F7F4] font-normal tracking-[0.01em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] editorial-body"
+            style={{ lineHeight: '1.9' }}
+          >
             <strong className="text-[#F5D77F] font-semibold">ASTHRA 2k26</strong>, the fourth edition of the departmental fest, is organized by the{' '}
             <strong className="text-white font-medium">Department of Mathematics, St. Thomas College (Autonomous), Thrissur</strong>.{' '}
             Blending mathematical excellence with culture, creativity, and entertainment.
           </p>
-          <p className="text-[13px] sm:text-[14.5px] md:text-[15.5px] text-[#C8C4B8] font-light leading-[1.9] tracking-[0.01em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+          <p
+            className="text-[13px] sm:text-[14.5px] md:text-[15.5px] text-[#C8C4B8] font-light tracking-[0.01em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] editorial-body"
+            style={{ lineHeight: '1.9' }}
+          >
             Founded as an educational institution in 1889, St. Thomas College is the oldest Catholic college in Kerala. The Department of Mathematics, established in 1926, consistently maintains academic distinction with research and dedicated programmes that foster talent, imagination, and analytical rigor.
           </p>
         </div>
