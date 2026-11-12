@@ -13,7 +13,8 @@ export const siteConfig = {
     { id: "about", label: "ABOUT", num: "02" },
     { id: "events", label: "EVENTS", num: "03" },
     { id: "social-drive", label: "SOCIAL DRIVE", num: "04" },
-    { id: "contact", label: "CONTACT", num: "05" }
+    { id: "exhibition", label: "EXHIBITION", num: "05" },
+    { id: "contact", label: "CONTACT", num: "06" }
   ],
 
   // Social Drive configuration
@@ -148,8 +149,8 @@ export const siteConfig = {
       time: "11:00 AM",
       timePeriod: "MORNING",
       num: "5",
-      name: "CRYPTORIA",
-      nameDisplay: "Cryptoria (Cipher Challenge)",
+      name: "CRIPTORA",
+      nameDisplay: "Criptora (Cipher Challenge)",
       prizeDisplay: "4.5K",
       venueDisplay: "AC 121",
       timeDisplay: "11:00 AM",
@@ -158,7 +159,7 @@ export const siteConfig = {
       registrationLink: "##",
       isHighlighted: true,
       accentColor: "red",
-      image: "/assets/Cryptoria.webp",
+      image: "/assets/Criptora.jpg",
       venue: "AC 121",
       teamSize: "Solo or Duo",
       prizePool: "₹ 4,500",
@@ -209,7 +210,7 @@ export const siteConfig = {
     phoneDisplay: "+91 73563 36812",
     address: "Department of Mathematics, St. Thomas College (Autonomous), Thrissur, Kerala — 680001",
     socials: [
-      { name: "Instagram", url: "https://instagram.com/asthra.stc", handle: "@asthra.stc" },
+      { name: "Instagram", url: "https://www.instagram.com/asthrafest?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==", handle: "@asthrafest" },
       { name: "WhatsApp", url: "https://chat.whatsapp.com/asthra26", handle: "ASTHRA Community" },
       { name: "LinkedIn", url: "https://linkedin.com/company/asthra-stc", handle: "ASTHRA STC" },
       { name: "YouTube", url: "https://youtube.com/@asthra-stc", handle: "ASTHRA Media" }

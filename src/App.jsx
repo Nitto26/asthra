@@ -7,13 +7,14 @@ import { siteConfig } from './data/config';
 const AboutSection = lazy(() => import('./sections/AboutSection'));
 const EventsSection = lazy(() => import('./sections/EventsSection'));
 const SocialDriveSection = lazy(() => import('./sections/SocialDriveSection'));
+const ExhibitionSection = lazy(() => import('./sections/ExhibitionSection'));
 const ContactSection = lazy(() => import('./sections/ContactSection'));
 
 // Lazy load modals so forms & notices are loaded on-demand only
 const RegistrationNoticeModal = lazy(() => import('./components/RegistrationNoticeModal'));
 const DonateModal = lazy(() => import('./components/DonateModal'));
 
-const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'contact'];
+const SECTIONS = ['hero', 'about', 'events', 'social-drive', 'exhibition', 'contact'];
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -139,11 +140,11 @@ export default function App() {
         name: "ASTHRA ’26 FESTIVAL",
         nameDisplay: "ASTHRA ’26 EVENTS",
         category: "ALL EVENTS & WORKSHOPS",
-        prizeDisplay: "50K+",
-        prizePool: "₹ 50K+ Pool",
+        prizeDisplay: "31.5K",
+        prizePool: "₹ 31.5K Pool",
         venue: "St. Thomas College Campus",
         venueDisplay: "College Campus",
-        time: "Nov 27-28, 2026",
+        time: "Nov 27, 2026",
         timeDisplay: "Full Festival",
         image: "/assets/about-bg.webp",
       });
@@ -182,10 +183,15 @@ export default function App() {
             {/* 04 SOCIAL DRIVE */}
             <SocialDriveSection
               onOpenDonate={handleOpenDonate}
+              onScrollNext={() => scrollToSection('exhibition')}
+            />
+
+            {/* 05 EXHIBITION */}
+            <ExhibitionSection
               onScrollNext={() => scrollToSection('contact')}
             />
 
-            {/* 05 CONTACT */}
+            {/* 06 CONTACT */}
             <ContactSection />
           </Suspense>
         ) : (

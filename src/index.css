@@ -58,9 +58,29 @@ body {
   min-height: 100svh;
   overflow-x: hidden;
   position: relative;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial Line Spacing & Typography Utilities */
+.editorial-title {
+  line-height: 1.18 !important;
+}
+@media (min-width: 640px) {
+  .editorial-title {
+    line-height: 1.22 !important;
+  }
+}
+
+.editorial-body {
+  line-height: 1.85 !important;
+  letter-spacing: 0.015em;
+}
+@media (min-width: 640px) {
+  .editorial-body {
+    line-height: 1.95 !important;
+  }
 }
 
 /* Custom Scrollbar */

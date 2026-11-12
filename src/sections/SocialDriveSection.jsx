@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from '../data/config';
 import { sound } from '../utils/sound';
-import { HeartHandshake } from 'lucide-react';
+import { HeartHandshake, Phone, ExternalLink } from 'lucide-react';
 
 const bgImages = [
   '/assets/social.webp',
@@ -112,7 +112,7 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             {/* Section Tag */}
             <div className="flex flex-col items-start mb-4 sm:mb-5">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37]">04</span>
+                <span className="font-mono text-xs sm:text-sm font-semibold text-[#D4AF37]">03</span>
                 <span className="w-10 sm:w-14 h-[1.5px] bg-[#D4AF37]/80" />
               </div>
               <span className="text-[10.5px] sm:text-xs font-sans font-semibold tracking-[0.35em] text-[#E6E3DB] uppercase mt-1">
@@ -121,16 +121,55 @@ export default function SocialDriveSection({ onOpenDonate, onScrollNext }) {
             </div>
 
             {/* Title */}
-            <h2 className="font-serif-display text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] leading-tight filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] mb-4 sm:mb-6">
+            <h2
+              className="font-serif-display editorial-title text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-[#F8F7F4] filter drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] mb-4 sm:mb-5"
+              style={{ lineHeight: 1.18 }}
+            >
               Social Impact <span className="gold-text font-serif-display font-medium">Initiative</span>
             </h2>
-            <span className="w-20 sm:w-24 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent -mt-2 mb-5 sm:mb-6" />
+            <div className="w-20 sm:w-24 h-[2px] bg-gradient-to-r from-[#F5D77F] via-[#D4AF37] to-transparent mb-5 sm:mb-7" />
 
             {/* Narrative Content */}
-            <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] leading-relaxed tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-2xl">
-              <p className="text-[#F8F7F4] font-medium leading-relaxed">
+            <div className="text-xs sm:text-sm md:text-base font-sans text-[#E6E3DB] tracking-wide filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] max-w-2xl mb-6 sm:mb-8">
+              <p
+                className="text-[#F8F7F4] font-normal editorial-body"
+                style={{ lineHeight: '1.9' }}
+              >
                 We believe in the power of mathematics to transform lives. Our social drive initiative aims to create a positive impact in the community by supporting differently-abled individuals.
               </p>
+            </div>
+
+            {/* Donate Now Action Button */}
+            <div className="mb-6 sm:mb-8">
+              <a
+                href="https://ast26-reg.vercel.app/charity"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sound.playClick()}
+                className="btn-gold-solid group inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-sans font-bold tracking-[0.15em] text-[#0A0A0C] uppercase transition-all duration-300 shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_6px_32px_rgba(245,215,127,0.6)] hover:-translate-y-0.5 cursor-pointer select-none"
+              >
+                <HeartHandshake size={16} className="text-[#0A0A0C] group-hover:scale-110 transition-transform" />
+                <span>DONATE NOW</span>
+                <ExternalLink size={14} className="text-[#0A0A0C]/75 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+
+            {/* Social Drive Enquiry Contact */}
+            <div className="pt-4 sm:pt-5 border-t border-[#D4AF37]/25 flex flex-wrap items-center gap-2 sm:gap-3 text-left">
+              <span className="text-[10px] sm:text-xs font-sans font-semibold tracking-wider text-[#A6A195] uppercase">
+                Social drive for more enquiries:
+              </span>
+              <span className="font-sans text-xs sm:text-sm font-semibold text-[#F8F7F4]">
+                Chriswin
+              </span>
+              <span className="text-[#D4AF37]">•</span>
+              <a
+                href="tel:+919037373309"
+                className="font-mono text-xs sm:text-sm text-[#F5D77F] hover:text-[#FFF4D0] transition-colors inline-flex items-center gap-1.5"
+              >
+                <Phone size={13} className="text-[#D4AF37]" />
+                <span>+91 90373 73309</span>
+              </a>
             </div>
           </div>
 
