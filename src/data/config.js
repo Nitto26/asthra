@@ -150,7 +150,7 @@ export const siteConfig = {
       timePeriod: "MORNING",
       num: "5",
       name: "CRYPTORA",
-      nameDisplay: "Cryptora (Cipher Challenge)",
+      nameDisplay: "Cryptora",
       prizeDisplay: "4.5K",
       venueDisplay: "AC 121",
       timeDisplay: "11:00 AM",
