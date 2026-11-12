@@ -33,8 +33,8 @@ export const siteConfig = {
     ]
   },
 
-  // Festival Registration URL (Update "##" with your live Google Form or registration portal URL when ready)
-  registrationLink: "##",
+  // Festival Registration URL
+  registrationLink: "https://ast26-reg.vercel.app/",
 
   // Events Timeline Data (Exactly 6 Fest Events · ₹ 31.5K Total Prize Pool)
   events: [
@@ -50,7 +50,7 @@ export const siteConfig = {
       timeDisplay: "9:30 AM",
       category: "TREASURE HUNT · CAMPUS QUEST",
       tagline: "Mathematics hides everywhere. Follow the clues.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/find-x",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/Find X.webp",
@@ -77,7 +77,7 @@ export const siteConfig = {
       timeDisplay: "9:30 AM",
       category: "QUIZ COMPETITION · THINK & SOLVE",
       tagline: "Questions beyond the obvious.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/quiz",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/Quiz.webp",
@@ -104,7 +104,7 @@ export const siteConfig = {
       timeDisplay: "10:00 AM",
       category: "SPEAKING COMPETITION · ORATORY",
       tagline: "Articulate the power of ideas.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/speakathon",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/Speakathon.webp",
@@ -130,7 +130,7 @@ export const siteConfig = {
       timeDisplay: "11:00 AM",
       category: "SPRINT CODING COMPETITION · SPEED",
       tagline: "Speed, syntax, and algorithmic mastery.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/sprint-coding",
       isHighlighted: false,
       accentColor: "gold",
       image: "/assets/Python.webp",
@@ -156,7 +156,7 @@ export const siteConfig = {
       timeDisplay: "11:00 AM",
       category: "CRYPTOGRAPHY · CIPHER & LOGIC",
       tagline: "Break the cipher. Unravel the mystery.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/cryptora",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/Criptora.jpg",
@@ -182,7 +182,7 @@ export const siteConfig = {
       timeDisplay: "12:00 PM",
       category: "TOURNAMENT · MULTIPLAYER COMBAT",
       tagline: "Lock, load, and conquer the battlefield.",
-      registrationLink: "##",
+      registrationLink: "https://ast26-reg.vercel.app/events/mini-militia",
       isHighlighted: true,
       accentColor: "red",
       image: "/assets/Mini Militia.webp",
