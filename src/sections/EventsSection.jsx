@@ -201,6 +201,7 @@ export default function EventsSection({ onSelectEvent }) {
               return (
                 <div
                   key={evt.id}
+                  title="Registration not started"
                   onClick={() => handleCardClick(idx, evt)}
                   className={`absolute w-[72vw] sm:w-[305px] md:w-[330px] lg:w-[345px] max-w-[355px] min-w-[240px] aspect-[3/4.15] max-h-[455px] sm:max-h-[485px] rounded-[22px] sm:rounded-[26px] md:rounded-[28px] overflow-hidden cursor-pointer select-none border ${
                     isCenter

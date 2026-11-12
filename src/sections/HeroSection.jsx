@@ -291,6 +291,7 @@ export default function HeroSection({ onExplore, onRegister }) {
       }`}>
         <button
           type="button"
+          title="Registration not started"
           onClick={() => {
             sound.playClick();
             if (onRegister) onRegister();

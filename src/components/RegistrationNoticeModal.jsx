@@ -117,9 +117,13 @@ export default function RegistrationNoticeModal({ event, onClose }) {
         {/* 6. Registration Notice: Centered with comfortable line and word spacing */}
         <div className="text-center flex flex-col items-center px-2 mb-3">
           <h3 className="font-serif-display text-base sm:text-lg font-bold tracking-wide text-white uppercase leading-snug mb-1.5">
-            {isLinkReady ? 'Online Registration is Live' : 'Registration is not started'}
+            {isLinkReady ? 'Online Registration is Live' : 'Registration not started'}
           </h3>
-
+          {!isLinkReady && (
+            <p className="font-sans text-xs text-[#DCD8CF]/80 text-center mt-1">
+              Online registrations will open soon. Please check back shortly.
+            </p>
+          )}
         </div>
 
         {/* 7. Action Button (shown only when registration link is live) */}
