@@ -137,7 +137,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
             {/* REGISTER FOR EVENTS CTA Button on Navbar (Matches Hero Section on Desktop) */}
             <button
               type="button"
-              title="Registration not started"
+              title="Register for Events"
               onClick={() => {
                 sound.playClick();
                 if (onOpenRegister) onOpenRegister();
@@ -238,7 +238,7 @@ export default function Navbar({ activeSection, onNavigate, onOpenRegister, link
         <div className="max-w-xs mx-auto w-full px-4 mb-4 shrink-0 text-center">
           <button
             type="button"
-            title="Registration not started"
+            title="Register for Events"
             onClick={() => {
               sound.playClick();
               setMobileMenuOpen(false);
