@@ -36,7 +36,7 @@ export const siteConfig = {
   // Festival Registration URL
   registrationLink: "https://ast26-reg.vercel.app/",
 
-  // Events Timeline Data (Exactly 6 Fest Events · ₹ 31.5K Total Prize Pool)
+  // Events Timeline Data (Exactly 6 Fest Events · ₹ 32K Total Prize Pool)
   events: [
     {
       id: "01",
@@ -94,14 +94,14 @@ export const siteConfig = {
     },
     {
       id: "03",
-      time: "10:00 AM",
+      time: "10:30 AM",
       timePeriod: "MORNING",
       num: "3",
       name: "SPEAKATHON",
       nameDisplay: "Speakathon competition",
       prizeDisplay: "4.5K",
       venueDisplay: "Nalandha hall",
-      timeDisplay: "10:00 AM",
+      timeDisplay: "10:30 AM",
       category: "SPEAKING COMPETITION · ORATORY",
       tagline: "Articulate the power of ideas.",
       registrationLink: "https://ast26-reg.vercel.app/",
@@ -146,14 +146,14 @@ export const siteConfig = {
     },
     {
       id: "05",
-      time: "11:00 AM",
-      timePeriod: "MORNING",
+      time: "12:45 PM",
+      timePeriod: "AFTERNOON",
       num: "5",
       name: "CRYPTORA",
       nameDisplay: "Cryptora",
       prizeDisplay: "4.5K",
       venueDisplay: "AC 121",
-      timeDisplay: "11:00 AM",
+      timeDisplay: "12:45 PM",
       category: "CRYPTOGRAPHY · CIPHER & LOGIC",
       tagline: "Break the cipher. Unravel the mystery.",
       registrationLink: "https://ast26-reg.vercel.app/",
@@ -172,14 +172,14 @@ export const siteConfig = {
     },
     {
       id: "06",
-      time: "12:00 PM",
+      time: "12:30 PM",
       timePeriod: "AFTERNOON",
       num: "6",
       name: "MINI MILITIA",
       nameDisplay: "Mini Militia tournament",
-      prizeDisplay: "3K",
+      prizeDisplay: "3.5K",
       venueDisplay: "AC 220",
-      timeDisplay: "12:00 PM",
+      timeDisplay: "12:30 PM",
       category: "TOURNAMENT · MULTIPLAYER COMBAT",
       tagline: "Lock, load, and conquer the battlefield.",
       registrationLink: "https://ast26-reg.vercel.app/",
@@ -188,7 +188,7 @@ export const siteConfig = {
       image: "/assets/Mini Militia.webp",
       venue: "AC 220",
       teamSize: "Squads & Solo",
-      prizePool: "₹ 3,000",
+      prizePool: "₹ 3,500",
       coordinators: "Gaming Coordinators",
       fullDescription: "High-octane mobile multiplayer combat tournament. Gear up for intense squad battlefields, strategic weapon coordination, and rapid-fire elimination brackets.",
       rounds: [
